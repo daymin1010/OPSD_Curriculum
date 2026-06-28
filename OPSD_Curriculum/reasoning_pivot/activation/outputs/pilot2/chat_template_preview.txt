@@ -1,0 +1,10 @@
+=== chat_template_preview (problem_id=7f0ca825e22c2cd4, level=3) ===
+<|im_start|>user
+The positive integers are grouped as follows:
+
+\( A_1 = \{1\}, A_2 = \{2, 3, 4\}, A_3 = \{5, 6, 7, 8, 9\} \), and so on.
+
+In which group does 2009 belong?<|im_end|>
+<|im_start|>assistant
+
+=== END ===

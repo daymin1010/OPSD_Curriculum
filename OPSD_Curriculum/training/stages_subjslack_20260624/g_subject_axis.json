@@ -1,0 +1,25 @@
+{
+  "alpha": 2.0,
+  "g_subject": {
+    "Algebra": -0.19680470638904674,
+    "Counting & Probability": 0.5,
+    "Geometry": -0.1234784336973026,
+    "Intermediate Algebra": -0.44454690987468176,
+    "Number Theory": 0.32682974455429914,
+    "Prealgebra": 0.20844187165942663,
+    "Precalculus": -0.5
+  },
+  "cluster_of": {
+    "Algebra": "C_alg",
+    "Intermediate Algebra": "C_alg",
+    "Precalculus": "C_alg",
+    "Geometry": "C_geo",
+    "Counting & Probability": "C_disc",
+    "Number Theory": "C_disc",
+    "Prealgebra": "C_disc"
+  },
+  "leading_axis_pos_var_frac": 0.35352129032515256,
+  "source_matrix": "stages_tiered_20260622/stagebuild_artifacts.npz :: residual_M_keep",
+  "activation": "Qwen3-8B THINKING, NAIT-thinking span, faithful(DAF) discarded, pooled pilot1+pilot2 N=3025",
+  "note": "g<0 => subject placed earlier (C_alg); g>0 => later (C_disc); Geometry ~ neutral"
+}

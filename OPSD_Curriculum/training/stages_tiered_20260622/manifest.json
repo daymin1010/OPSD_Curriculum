@@ -1,0 +1,2670 @@
+{
+  "params": {
+    "include_other": false,
+    "n_stages": 5,
+    "construction": "tiered_difficulty_backbone_residual_within_tier",
+    "n_tiers_default": 3,
+    "tier_candidates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "selected_n_tiers": 2,
+    "selected_rho_cond2_cond3": 0.6926605048858947,
+    "selected_stage_mean_levels": [
+      2.903414450103754,
+      2.7526041666666665,
+      3.9090119812467443,
+      5.168043148491488,
+      5.308839190628328
+    ],
+    "selected_stage_mean_level_diffs": [
+      -0.15081028343708747,
+      1.1564078145800778,
+      1.259031167244744,
+      0.14079604213683972
+    ],
+    "tier_gate_target_rho": "+0.4..+0.7",
+    "tier_gate_record": {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L3;t1=high",
+      "rho": 0.6926605048858947,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.903414450103754,
+        2.7526041666666665,
+        3.9090119812467443,
+        5.168043148491488,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.15081028343708747,
+        1.1564078145800778,
+        1.259031167244744,
+        0.14079604213683972
+      ],
+      "n_dips": 1,
+      "min_diff": -0.15081028343708747,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": true,
+      "gate_pass": true,
+      "penalty": 0.15266050488589467
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "W_SUBJ": [
+      9,
+      10,
+      11,
+      12,
+      14
+    ],
+    "MIN_UNIT_N": 30,
+    "clusters": {
+      "C_alg": [
+        "Algebra",
+        "Intermediate Algebra",
+        "Precalculus"
+      ],
+      "C_geo": [
+        "Geometry"
+      ],
+      "C_disc": [
+        "Counting & Probability",
+        "Number Theory",
+        "Prealgebra"
+      ]
+    },
+    "relax_events": 0,
+    "elapsed_start_date": "2026-06-22"
+  },
+  "training_info": {
+    "opsd_columns": [
+      "source",
+      "problem",
+      "solution",
+      "messages",
+      "system",
+      "conversations",
+      "generated_token_count",
+      "correct",
+      "Question",
+      "COT_Reason",
+      "Answer"
+    ],
+    "join_info": {
+      "n_opsd": 29434,
+      "n_labels": 29434,
+      "key_used": "sha1(problem)[:16] == labels.problem_id",
+      "match_rate": 1.0,
+      "candidates": {
+        "sha1_problem_id": {
+          "matched": 29434,
+          "rate": 1.0
+        }
+      }
+    },
+    "n_total_opsd": 29434,
+    "n_matched": 29434,
+    "n_unmatched": 0,
+    "n_universe": 28771,
+    "include_other": false
+  },
+  "centroid_info": {
+    "ninfo": {
+      "n_loaded": 3025,
+      "n_nonfinite": 0,
+      "n_final": 3025
+    },
+    "analysis_N_subset": 2628,
+    "units_analysis_all": [
+      "Algebra|L1",
+      "Algebra|L2",
+      "Algebra|L3",
+      "Algebra|L4",
+      "Algebra|L5",
+      "Algebra|L6",
+      "Algebra|L7",
+      "Counting & Probability|L1",
+      "Counting & Probability|L2",
+      "Counting & Probability|L3",
+      "Counting & Probability|L4",
+      "Counting & Probability|L5",
+      "Counting & Probability|L6",
+      "Counting & Probability|L7",
+      "Counting & Probability|L8",
+      "Geometry|L1",
+      "Geometry|L2",
+      "Geometry|L3",
+      "Geometry|L4",
+      "Geometry|L5",
+      "Geometry|L6",
+      "Geometry|L7",
+      "Geometry|L8",
+      "Intermediate Algebra|L1",
+      "Intermediate Algebra|L2",
+      "Intermediate Algebra|L3",
+      "Intermediate Algebra|L4",
+      "Intermediate Algebra|L5",
+      "Intermediate Algebra|L6",
+      "Intermediate Algebra|L7",
+      "Intermediate Algebra|L8",
+      "Number Theory|L1",
+      "Number Theory|L2",
+      "Number Theory|L3",
+      "Number Theory|L4",
+      "Number Theory|L5",
+      "Number Theory|L6",
+      "Number Theory|L7",
+      "Number Theory|L8",
+      "Prealgebra|L1",
+      "Prealgebra|L2",
+      "Prealgebra|L3",
+      "Prealgebra|L4",
+      "Precalculus|L1",
+      "Precalculus|L2",
+      "Precalculus|L3",
+      "Precalculus|L4",
+      "Precalculus|L5",
+      "Precalculus|L6",
+      "Precalculus|L7"
+    ],
+    "units_keep": [
+      "Algebra|L1",
+      "Algebra|L2",
+      "Algebra|L3",
+      "Algebra|L4",
+      "Algebra|L5",
+      "Algebra|L6",
+      "Algebra|L7",
+      "Counting & Probability|L1",
+      "Counting & Probability|L2",
+      "Counting & Probability|L3",
+      "Counting & Probability|L4",
+      "Counting & Probability|L5",
+      "Counting & Probability|L6",
+      "Counting & Probability|L7",
+      "Geometry|L1",
+      "Geometry|L2",
+      "Geometry|L3",
+      "Geometry|L4",
+      "Geometry|L5",
+      "Geometry|L6",
+      "Geometry|L7",
+      "Intermediate Algebra|L2",
+      "Intermediate Algebra|L3",
+      "Intermediate Algebra|L4",
+      "Intermediate Algebra|L5",
+      "Intermediate Algebra|L6",
+      "Intermediate Algebra|L7",
+      "Number Theory|L1",
+      "Number Theory|L2",
+      "Number Theory|L3",
+      "Number Theory|L4",
+      "Number Theory|L5",
+      "Number Theory|L6",
+      "Number Theory|L7",
+      "Prealgebra|L1",
+      "Prealgebra|L2",
+      "Prealgebra|L3",
+      "Precalculus|L2",
+      "Precalculus|L3",
+      "Precalculus|L4",
+      "Precalculus|L5",
+      "Precalculus|L6"
+    ],
+    "n_per_unit_keep": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      37,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ],
+    "pilot_ari_k4_resid": 0.4120009178522258,
+    "units_common_p1p2": [
+      "Algebra|L1",
+      "Algebra|L2",
+      "Algebra|L3",
+      "Algebra|L4",
+      "Algebra|L5",
+      "Algebra|L6",
+      "Algebra|L7",
+      "Counting & Probability|L1",
+      "Counting & Probability|L2",
+      "Counting & Probability|L3",
+      "Counting & Probability|L4",
+      "Counting & Probability|L5",
+      "Counting & Probability|L6",
+      "Counting & Probability|L7",
+      "Geometry|L2",
+      "Geometry|L3",
+      "Geometry|L4",
+      "Geometry|L5",
+      "Geometry|L6",
+      "Geometry|L7",
+      "Intermediate Algebra|L2",
+      "Intermediate Algebra|L3",
+      "Intermediate Algebra|L4",
+      "Intermediate Algebra|L5",
+      "Intermediate Algebra|L6",
+      "Intermediate Algebra|L7",
+      "Number Theory|L1",
+      "Number Theory|L2",
+      "Number Theory|L3",
+      "Number Theory|L4",
+      "Number Theory|L5",
+      "Number Theory|L6",
+      "Number Theory|L7",
+      "Prealgebra|L1",
+      "Prealgebra|L2",
+      "Prealgebra|L3",
+      "Precalculus|L2",
+      "Precalculus|L3",
+      "Precalculus|L4",
+      "Precalculus|L5",
+      "Precalculus|L6"
+    ],
+    "ward_labels_resid": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "subject_clusters": {
+      "C_alg": [
+        "Algebra",
+        "Intermediate Algebra",
+        "Precalculus"
+      ],
+      "C_geo": [
+        "Geometry"
+      ],
+      "C_disc": [
+        "Counting & Probability",
+        "Number Theory",
+        "Prealgebra"
+      ]
+    }
+  },
+  "unit_counts_full": {
+    "Algebra|L1": 165,
+    "Algebra|L2": 1190,
+    "Algebra|L3": 1805,
+    "Algebra|L4": 1724,
+    "Algebra|L5": 1365,
+    "Algebra|L6": 495,
+    "Algebra|L7": 79,
+    "Counting & Probability|L1": 106,
+    "Counting & Probability|L2": 561,
+    "Counting & Probability|L3": 961,
+    "Counting & Probability|L4": 713,
+    "Counting & Probability|L5": 720,
+    "Counting & Probability|L6": 480,
+    "Counting & Probability|L7": 308,
+    "Counting & Probability|L8": 10,
+    "Geometry|L1": 37,
+    "Geometry|L2": 356,
+    "Geometry|L3": 797,
+    "Geometry|L4": 1317,
+    "Geometry|L5": 1389,
+    "Geometry|L6": 870,
+    "Geometry|L7": 491,
+    "Geometry|L8": 9,
+    "Intermediate Algebra|L1": 16,
+    "Intermediate Algebra|L2": 85,
+    "Intermediate Algebra|L3": 231,
+    "Intermediate Algebra|L4": 464,
+    "Intermediate Algebra|L5": 725,
+    "Intermediate Algebra|L6": 517,
+    "Intermediate Algebra|L7": 240,
+    "Intermediate Algebra|L8": 11,
+    "Number Theory|L1": 89,
+    "Number Theory|L2": 445,
+    "Number Theory|L3": 909,
+    "Number Theory|L4": 1101,
+    "Number Theory|L5": 1271,
+    "Number Theory|L6": 1033,
+    "Number Theory|L7": 565,
+    "Number Theory|L8": 23,
+    "Prealgebra|L1": 888,
+    "Prealgebra|L2": 1460,
+    "Prealgebra|L3": 538,
+    "Prealgebra|L4": 17,
+    "Precalculus|L1": 18,
+    "Precalculus|L2": 133,
+    "Precalculus|L3": 549,
+    "Precalculus|L4": 755,
+    "Precalculus|L5": 518,
+    "Precalculus|L6": 195,
+    "Precalculus|L7": 27
+  },
+  "unit_order_cond3": [
+    "Geometry|L3",
+    "Geometry|L2",
+    "Geometry|L1",
+    "Algebra|L2",
+    "Algebra|L1",
+    "Intermediate Algebra|L1",
+    "Precalculus|L1",
+    "Intermediate Algebra|L2",
+    "Intermediate Algebra|L3",
+    "Precalculus|L3",
+    "Precalculus|L2",
+    "Algebra|L4",
+    "Algebra|L3",
+    "Prealgebra|L2",
+    "Prealgebra|L3",
+    "Counting & Probability|L4",
+    "Counting & Probability|L3",
+    "Counting & Probability|L2",
+    "Counting & Probability|L1",
+    "Number Theory|L2",
+    "Number Theory|L3",
+    "Number Theory|L1",
+    "Prealgebra|L1",
+    "Intermediate Algebra|L8",
+    "Algebra|L7",
+    "Precalculus|L7",
+    "Algebra|L5",
+    "Intermediate Algebra|L7",
+    "Intermediate Algebra|L5",
+    "Intermediate Algebra|L6",
+    "Intermediate Algebra|L4",
+    "Precalculus|L6",
+    "Precalculus|L5",
+    "Precalculus|L4",
+    "Algebra|L6",
+    "Number Theory|L7",
+    "Number Theory|L6",
+    "Number Theory|L4",
+    "Number Theory|L5",
+    "Prealgebra|L4",
+    "Counting & Probability|L5",
+    "Counting & Probability|L6",
+    "Counting & Probability|L7",
+    "Counting & Probability|L8",
+    "Number Theory|L8",
+    "Geometry|L7",
+    "Geometry|L8",
+    "Geometry|L5",
+    "Geometry|L6",
+    "Geometry|L4"
+  ],
+  "unit_to_stage_cond3": {
+    "Algebra|L1": 0,
+    "Algebra|L2": 0,
+    "Algebra|L3": 1,
+    "Algebra|L4": 0,
+    "Algebra|L5": 2,
+    "Algebra|L6": 3,
+    "Algebra|L7": 2,
+    "Counting & Probability|L1": 1,
+    "Counting & Probability|L2": 1,
+    "Counting & Probability|L3": 1,
+    "Counting & Probability|L4": 1,
+    "Counting & Probability|L5": 4,
+    "Counting & Probability|L6": 4,
+    "Counting & Probability|L7": 4,
+    "Counting & Probability|L8": 4,
+    "Geometry|L1": 0,
+    "Geometry|L2": 0,
+    "Geometry|L3": 0,
+    "Geometry|L4": 4,
+    "Geometry|L5": 4,
+    "Geometry|L6": 4,
+    "Geometry|L7": 4,
+    "Geometry|L8": 4,
+    "Intermediate Algebra|L1": 0,
+    "Intermediate Algebra|L2": 0,
+    "Intermediate Algebra|L3": 0,
+    "Intermediate Algebra|L4": 2,
+    "Intermediate Algebra|L5": 2,
+    "Intermediate Algebra|L6": 2,
+    "Intermediate Algebra|L7": 2,
+    "Intermediate Algebra|L8": 2,
+    "Number Theory|L1": 2,
+    "Number Theory|L2": 2,
+    "Number Theory|L3": 2,
+    "Number Theory|L4": 3,
+    "Number Theory|L5": 3,
+    "Number Theory|L6": 3,
+    "Number Theory|L7": 3,
+    "Number Theory|L8": 4,
+    "Prealgebra|L1": 2,
+    "Prealgebra|L2": 1,
+    "Prealgebra|L3": 1,
+    "Prealgebra|L4": 4,
+    "Precalculus|L1": 0,
+    "Precalculus|L2": 0,
+    "Precalculus|L3": 0,
+    "Precalculus|L4": 3,
+    "Precalculus|L5": 3,
+    "Precalculus|L6": 3,
+    "Precalculus|L7": 2
+  },
+  "unit_to_tier_cond3": {
+    "Algebra|L1": 0,
+    "Algebra|L2": 0,
+    "Algebra|L3": 0,
+    "Algebra|L4": 0,
+    "Algebra|L5": 1,
+    "Algebra|L6": 1,
+    "Algebra|L7": 1,
+    "Counting & Probability|L1": 0,
+    "Counting & Probability|L2": 0,
+    "Counting & Probability|L3": 0,
+    "Counting & Probability|L4": 0,
+    "Counting & Probability|L5": 1,
+    "Counting & Probability|L6": 1,
+    "Counting & Probability|L7": 1,
+    "Counting & Probability|L8": 1,
+    "Geometry|L1": 0,
+    "Geometry|L2": 0,
+    "Geometry|L3": 0,
+    "Geometry|L4": 1,
+    "Geometry|L5": 1,
+    "Geometry|L6": 1,
+    "Geometry|L7": 1,
+    "Geometry|L8": 1,
+    "Intermediate Algebra|L1": 0,
+    "Intermediate Algebra|L2": 0,
+    "Intermediate Algebra|L3": 0,
+    "Intermediate Algebra|L4": 1,
+    "Intermediate Algebra|L5": 1,
+    "Intermediate Algebra|L6": 1,
+    "Intermediate Algebra|L7": 1,
+    "Intermediate Algebra|L8": 1,
+    "Number Theory|L1": 0,
+    "Number Theory|L2": 0,
+    "Number Theory|L3": 0,
+    "Number Theory|L4": 1,
+    "Number Theory|L5": 1,
+    "Number Theory|L6": 1,
+    "Number Theory|L7": 1,
+    "Number Theory|L8": 1,
+    "Prealgebra|L1": 0,
+    "Prealgebra|L2": 0,
+    "Prealgebra|L3": 0,
+    "Prealgebra|L4": 1,
+    "Precalculus|L1": 0,
+    "Precalculus|L2": 0,
+    "Precalculus|L3": 0,
+    "Precalculus|L4": 1,
+    "Precalculus|L5": 1,
+    "Precalculus|L6": 1,
+    "Precalculus|L7": 1
+  },
+  "tier_info_cond3": [
+    {
+      "tier": 0,
+      "n_units": 23,
+      "n_problems": 13776,
+      "min_level": 1,
+      "max_level": 4,
+      "start_mode": "default",
+      "first_unit": "Geometry|L3",
+      "last_unit": "Prealgebra|L1",
+      "units": [
+        "Geometry|L3",
+        "Geometry|L2",
+        "Geometry|L1",
+        "Algebra|L2",
+        "Algebra|L1",
+        "Intermediate Algebra|L1",
+        "Precalculus|L1",
+        "Intermediate Algebra|L2",
+        "Intermediate Algebra|L3",
+        "Precalculus|L3",
+        "Precalculus|L2",
+        "Algebra|L4",
+        "Algebra|L3",
+        "Prealgebra|L2",
+        "Prealgebra|L3",
+        "Counting & Probability|L4",
+        "Counting & Probability|L3",
+        "Counting & Probability|L2",
+        "Counting & Probability|L1",
+        "Number Theory|L2",
+        "Number Theory|L3",
+        "Number Theory|L1",
+        "Prealgebra|L1"
+      ]
+    },
+    {
+      "tier": 1,
+      "n_units": 27,
+      "n_problems": 14995,
+      "min_level": 4,
+      "max_level": 8,
+      "start_mode": "high",
+      "first_unit": "Intermediate Algebra|L8",
+      "last_unit": "Geometry|L4",
+      "units": [
+        "Intermediate Algebra|L8",
+        "Algebra|L7",
+        "Precalculus|L7",
+        "Algebra|L5",
+        "Intermediate Algebra|L7",
+        "Intermediate Algebra|L5",
+        "Intermediate Algebra|L6",
+        "Intermediate Algebra|L4",
+        "Precalculus|L6",
+        "Precalculus|L5",
+        "Precalculus|L4",
+        "Algebra|L6",
+        "Number Theory|L7",
+        "Number Theory|L6",
+        "Number Theory|L4",
+        "Number Theory|L5",
+        "Prealgebra|L4",
+        "Counting & Probability|L5",
+        "Counting & Probability|L6",
+        "Counting & Probability|L7",
+        "Counting & Probability|L8",
+        "Number Theory|L8",
+        "Geometry|L7",
+        "Geometry|L8",
+        "Geometry|L5",
+        "Geometry|L6",
+        "Geometry|L4"
+      ]
+    }
+  ],
+  "tier_gate_records": [
+    {
+      "n_tiers": 1,
+      "variant": "default",
+      "rho": 0.027624971394373983,
+      "p": 2.779943376405154e-06,
+      "stage_mean_levels": [
+        3.4561515199745343,
+        4.701234076433121,
+        4.484165850473392,
+        3.3975694444444446,
+        4.057523561910952
+      ],
+      "stage_mean_level_diffs": [
+        1.2450825564585863,
+        -0.21706822595972852,
+        -1.0865964060289475,
+        0.6599541174665076
+      ],
+      "n_dips": 2,
+      "min_diff": -1.0865964060289475,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 97.92576591755662
+    },
+    {
+      "n_tiers": 2,
+      "variant": "default",
+      "rho": 0.7442778951221342,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.050832755031228,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.5228097224016697,
+        1.2414775488221075,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 2.085895007031359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L1;t1=nearest",
+      "rho": 0.7442778951221342,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.050832755031228,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.5228097224016697,
+        1.2414775488221075,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 2.085895007031359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L1;t1=low",
+      "rho": 0.7442778951221342,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.050832755031228,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.5228097224016697,
+        1.2414775488221075,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 2.085895007031359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L1;t1=high",
+      "rho": 0.7325433951182004,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.287675606641124,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.7596525740115654,
+        0.8445818595061585,
+        0.27295237466313704
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 1.9568155069880884
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L1;t1=nearest",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L1;t1=low",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L1;t1=high",
+      "rho": 0.7314719881018947,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        4.04891055919549,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        1.0627712758959635,
+        1.5517406570466088,
+        -0.5489742826349806
+      ],
+      "n_dips": 1,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 30.403620132618904
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L1;t1=nearest",
+      "rho": 0.6979252490890131,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9518664047151275,
+        2.654839276304233,
+        3.858971979959176,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.2970271284108943,
+        1.2041327036549427,
+        1.44403794100938,
+        0.005829269659772152
+      ],
+      "n_dips": 1,
+      "min_diff": -0.2970271284108943,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 4.860638090178442
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L1;t1=low",
+      "rho": 0.6979252490890131,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9518664047151275,
+        2.654839276304233,
+        3.858971979959176,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.2970271284108943,
+        1.2041327036549427,
+        1.44403794100938,
+        0.005829269659772152
+      ],
+      "n_dips": 1,
+      "min_diff": -0.2970271284108943,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 4.860638090178442
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L1;t1=high",
+      "rho": 0.6959762870267586,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9518664047151275,
+        2.654839276304233,
+        4.010919859337405,
+        5.168043148491488,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.2970271284108943,
+        1.356080583033172,
+        1.1571232891540832,
+        0.14079604213683972
+      ],
+      "n_dips": 1,
+      "min_diff": -0.2970271284108943,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 4.858689128116188
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L1;t1=nearest",
+      "rho": 0.7442778951221342,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.050832755031228,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.5228097224016697,
+        1.2414775488221075,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 2.085895007031359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L1;t1=low",
+      "rho": 0.7442778951221342,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.050832755031228,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.5228097224016697,
+        1.2414775488221075,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 2.085895007031359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L1;t1=high",
+      "rho": 0.7325433951182004,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.287675606641124,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.7596525740115654,
+        0.8445818595061585,
+        0.27295237466313704
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 1.9568155069880884
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L1;t1=nearest",
+      "rho": 0.7536365678705648,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.3052916662782135,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.7500022465762128
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L1;t1=low",
+      "rho": 0.7536365678705648,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.3052916662782135,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.7500022465762128
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L1;t1=high",
+      "rho": 0.7418137021188878,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.269926960939981,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.542276233289253,
+        0.8623305052073018,
+        0.27295237466313704
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.6199507233077657
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L1;t1=nearest",
+      "rho": 0.7680569266170395,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.340444287729196,
+        3.004420265215913,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.6639759774867167,
+        1.0285221287130284,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.11289953695708377,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.908626192787435
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L1;t1=low",
+      "rho": 0.7680569266170395,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.340444287729196,
+        3.004420265215913,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.6639759774867167,
+        1.0285221287130284,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.11289953695708377,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.908626192787435
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L1;t1=high",
+      "rho": 0.7562362143822897,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.340444287729196,
+        3.004420265215913,
+        4.269926960939981,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.6639759774867167,
+        1.265506695724068,
+        0.8623305052073018,
+        0.27295237466313704
+      ],
+      "n_dips": 0,
+      "min_diff": 0.27295237466313704,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.7785983582051873
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L1;t1=nearest",
+      "rho": 0.7442778951221342,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.050832755031228,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.5228097224016697,
+        1.2414775488221075,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 2.085895007031359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L1;t1=low",
+      "rho": 0.7442778951221342,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.050832755031228,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.5228097224016697,
+        1.2414775488221075,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 2.085895007031359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L1;t1=high",
+      "rho": 0.7325433951182004,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.7924114142364376,
+        2.5280230326295587,
+        4.287675606641124,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.26438838160687883,
+        1.7596525740115654,
+        0.8445818595061585,
+        0.27295237466313704
+      ],
+      "n_dips": 1,
+      "min_diff": -0.26438838160687883,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 1.9568155069880884
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L2;t1=nearest",
+      "rho": 0.7705835647885511,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3370403587443946,
+        2.88481228668942,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        0.5477719279450253,
+        1.3712872189715588,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 1,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 30.833847476172124
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L2;t1=low",
+      "rho": 0.7705835647885511,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3370403587443946,
+        2.88481228668942,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        0.5477719279450253,
+        1.3712872189715588,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 1,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 30.833847476172124
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L2;t1=high",
+      "rho": 0.7705835647885511,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3370403587443946,
+        2.88481228668942,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        0.5477719279450253,
+        1.3712872189715588,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 1,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 30.833847476172124
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L2;t1=nearest",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L2;t1=low",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L2;t1=high",
+      "rho": 0.7314719881018947,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        4.04891055919549,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        1.0627712758959635,
+        1.5517406570466088,
+        -0.5489742826349806
+      ],
+      "n_dips": 1,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 30.403620132618904
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L2;t1=nearest",
+      "rho": 0.6979252490890131,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9518664047151275,
+        2.654839276304233,
+        3.858971979959176,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.2970271284108943,
+        1.2041327036549427,
+        1.44403794100938,
+        0.005829269659772152
+      ],
+      "n_dips": 1,
+      "min_diff": -0.2970271284108943,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 4.860638090178442
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L2;t1=low",
+      "rho": 0.6979252490890131,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9518664047151275,
+        2.654839276304233,
+        3.858971979959176,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.2970271284108943,
+        1.2041327036549427,
+        1.44403794100938,
+        0.005829269659772152
+      ],
+      "n_dips": 1,
+      "min_diff": -0.2970271284108943,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 4.860638090178442
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L2;t1=high",
+      "rho": 0.6959762870267586,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9518664047151275,
+        2.654839276304233,
+        4.010919859337405,
+        5.168043148491488,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.2970271284108943,
+        1.356080583033172,
+        1.1571232891540832,
+        0.14079604213683972
+      ],
+      "n_dips": 1,
+      "min_diff": -0.2970271284108943,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 4.858689128116188
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L2;t1=nearest",
+      "rho": 0.724820850535805,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.5845410628019323,
+        3.033646709549728,
+        3.766231505657093,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.44910564674779563,
+        0.732584796107365,
+        1.536778415311463,
+        0.005829269659772152
+      ],
+      "n_dips": 0,
+      "min_diff": 0.005829269659772152,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.4330293558938557
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L2;t1=low",
+      "rho": 0.724820850535805,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.5845410628019323,
+        3.033646709549728,
+        3.766231505657093,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.44910564674779563,
+        0.732584796107365,
+        1.536778415311463,
+        0.005829269659772152
+      ],
+      "n_dips": 0,
+      "min_diff": 0.005829269659772152,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.4330293558938557
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L2;t1=high",
+      "rho": 0.7227959386977039,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.5845410628019323,
+        3.033646709549728,
+        3.9090119812467443,
+        5.168043148491488,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.44910564674779563,
+        0.8753652716970164,
+        1.259031167244744,
+        0.14079604213683972
+      ],
+      "n_dips": 0,
+      "min_diff": 0.14079604213683972,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.41075532567474293
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L2;t1=nearest",
+      "rho": 0.7536365678705648,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.3052916662782135,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.7500022465762128
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L2;t1=low",
+      "rho": 0.7536365678705648,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.3052916662782135,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.7500022465762128
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L2;t1=high",
+      "rho": 0.7418137021188878,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.269926960939981,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.542276233289253,
+        0.8623305052073018,
+        0.27295237466313704
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.6199507233077657
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L2;t1=nearest",
+      "rho": 0.7202062870507062,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        3.008818952100986,
+        3.7932444444444444,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.3794519510632828,
+        0.7844254923434586,
+        1.5097654765241115,
+        0.005829269659772152
+      ],
+      "n_dips": 0,
+      "min_diff": 0.005829269659772152,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.3822691575577688
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L2;t1=low",
+      "rho": 0.7202062870507062,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        3.008818952100986,
+        3.7932444444444444,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.3794519510632828,
+        0.7844254923434586,
+        1.5097654765241115,
+        0.005829269659772152
+      ],
+      "n_dips": 0,
+      "min_diff": 0.005829269659772152,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.3822691575577688
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L2;t1=high",
+      "rho": 0.7182056420455432,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        3.008818952100986,
+        3.9389962759354495,
+        5.168043148491488,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.3794519510632828,
+        0.9301773238344637,
+        1.2290468725560388,
+        0.14079604213683972
+      ],
+      "n_dips": 0,
+      "min_diff": 0.14079604213683972,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.36026206250097514
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L2;t1=nearest",
+      "rho": 0.7113661220639019,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        3.752394219049277,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.097554942745044,
+        1.5399160848040587,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.41502804223226
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L2;t1=low",
+      "rho": 0.7113661220639019,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        3.752394219049277,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.097554942745044,
+        1.5399160848040587,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.41502804223226
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L2;t1=high",
+      "rho": 0.6990984062880208,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        4.013935607880827,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.3590963315765934,
+        1.118321858266456,
+        0.27295237466313704
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.289099105817359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L3;t1=nearest",
+      "rho": 0.7118801371431897,
+      "p": 0.0,
+      "stage_mean_levels": [
+        3.008818952100986,
+        2.2176220806794054,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        -0.7911968714215805,
+        2.0384774249815734,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 2,
+      "min_diff": -0.7911968714215805,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 64.41036865073313
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L3;t1=low",
+      "rho": 0.7118801371431897,
+      "p": 0.0,
+      "stage_mean_levels": [
+        3.008818952100986,
+        2.2176220806794054,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        -0.7911968714215805,
+        2.0384774249815734,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 2,
+      "min_diff": -0.7911968714215805,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 64.41036865073313
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L3;t1=high",
+      "rho": 0.7118801371431897,
+      "p": 0.0,
+      "stage_mean_levels": [
+        3.008818952100986,
+        2.2176220806794054,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        -0.7911968714215805,
+        2.0384774249815734,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 2,
+      "min_diff": -0.7911968714215805,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 64.41036865073313
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L3;t1=nearest",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L3;t1=low",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L3;t1=high",
+      "rho": 0.7314719881018947,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        4.04891055919549,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        1.0627712758959635,
+        1.5517406570466088,
+        -0.5489742826349806
+      ],
+      "n_dips": 1,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 30.403620132618904
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L3;t1=nearest",
+      "rho": 0.6946854498034515,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.903414450103754,
+        2.7526041666666665,
+        3.766231505657093,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.15081028343708747,
+        1.0136273389904265,
+        1.536778415311463,
+        0.005829269659772152
+      ],
+      "n_dips": 1,
+      "min_diff": -0.15081028343708747,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": true,
+      "gate_pass": true,
+      "penalty": 0.15468544980345145
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L3;t1=low",
+      "rho": 0.6946854498034515,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.903414450103754,
+        2.7526041666666665,
+        3.766231505657093,
+        5.303009920968556,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.15081028343708747,
+        1.0136273389904265,
+        1.536778415311463,
+        0.005829269659772152
+      ],
+      "n_dips": 1,
+      "min_diff": -0.15081028343708747,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": true,
+      "gate_pass": true,
+      "penalty": 0.15468544980345145
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Geometry|L3;t1=high",
+      "rho": 0.6926605048858947,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.903414450103754,
+        2.7526041666666665,
+        3.9090119812467443,
+        5.168043148491488,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.15081028343708747,
+        1.1564078145800778,
+        1.259031167244744,
+        0.14079604213683972
+      ],
+      "n_dips": 1,
+      "min_diff": -0.15081028343708747,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": true,
+      "gate_pass": true,
+      "penalty": 0.15266050488589467
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L3;t1=nearest",
+      "rho": 0.7113661220639019,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        3.752394219049277,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.097554942745044,
+        1.5399160848040587,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.41502804223226
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L3;t1=low",
+      "rho": 0.7113661220639019,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        3.752394219049277,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.097554942745044,
+        1.5399160848040587,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.41502804223226
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Intermediate Algebra|L3;t1=high",
+      "rho": 0.6990984062880208,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        4.013935607880827,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.3590963315765934,
+        1.118321858266456,
+        0.27295237466313704
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.289099105817359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L3;t1=nearest",
+      "rho": 0.7536365678705648,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.3052916662782135,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.7500022465762128
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L3;t1=low",
+      "rho": 0.7536365678705648,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.032942393928941,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.3052916662782135,
+        1.2593679099243946,
+        0.11289953695708377
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.7500022465762128
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Number Theory|L3;t1=high",
+      "rho": 0.7418137021188878,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.629367001037703,
+        2.727650727650728,
+        4.269926960939981,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        0.09828372661302476,
+        1.542276233289253,
+        0.8623305052073018,
+        0.27295237466313704
+      ],
+      "n_dips": 0,
+      "min_diff": 0.09828372661302476,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.6199507233077657
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L3;t1=nearest",
+      "rho": 0.7346412443537927,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.764302416212003,
+        2.421902017291066,
+        4.228556015105197,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.34240039892093677,
+        1.8066539978141312,
+        1.0808798478901016,
+        -0.0005966723669708074
+      ],
+      "n_dips": 1,
+      "min_diff": -0.34240039892093677,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 9.781093579985397
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L3;t1=low",
+      "rho": 0.7346412443537927,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.764302416212003,
+        2.421902017291066,
+        4.228556015105197,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        -0.34240039892093677,
+        1.8066539978141312,
+        1.0808798478901016,
+        -0.0005966723669708074
+      ],
+      "n_dips": 1,
+      "min_diff": -0.34240039892093677,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 9.781093579985397
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Prealgebra|L3;t1=high",
+      "rho": 0.7274456612728817,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.764302416212003,
+        2.421902017291066,
+        4.318928688793953,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        -0.34240039892093677,
+        1.897026671502887,
+        1.2817225274481459,
+        -0.5489742826349806
+      ],
+      "n_dips": 2,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 40.35933053749976
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L3;t1=nearest",
+      "rho": 0.7113661220639019,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        3.752394219049277,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.097554942745044,
+        1.5399160848040587,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.41502804223226
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L3;t1=low",
+      "rho": 0.7113661220639019,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        3.752394219049277,
+        5.292310303853336,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.097554942745044,
+        1.5399160848040587,
+        0.11289953695708377
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.41502804223226
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Precalculus|L3;t1=high",
+      "rho": 0.6990984062880208,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.9861392832995266,
+        2.654839276304233,
+        4.013935607880827,
+        5.132257466147283,
+        5.40520984081042
+      ],
+      "stage_mean_level_diffs": [
+        -0.3313000069952934,
+        1.3590963315765934,
+        1.118321858266456,
+        0.27295237466313704
+      ],
+      "n_dips": 1,
+      "min_diff": -0.3313000069952934,
+      "rho_gate_ok": true,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 8.289099105817359
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L4;t1=nearest",
+      "rho": 0.7118801371431897,
+      "p": 0.0,
+      "stage_mean_levels": [
+        3.008818952100986,
+        2.2176220806794054,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        -0.7911968714215805,
+        2.0384774249815734,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 2,
+      "min_diff": -0.7911968714215805,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 64.41036865073313
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L4;t1=low",
+      "rho": 0.7118801371431897,
+      "p": 0.0,
+      "stage_mean_levels": [
+        3.008818952100986,
+        2.2176220806794054,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        -0.7911968714215805,
+        2.0384774249815734,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 2,
+      "min_diff": -0.7911968714215805,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 64.41036865073313
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Algebra|L4;t1=high",
+      "rho": 0.7118801371431897,
+      "p": 0.0,
+      "stage_mean_levels": [
+        3.008818952100986,
+        2.2176220806794054,
+        4.256099505660979,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        -0.7911968714215805,
+        2.0384774249815734,
+        1.3445517105811202,
+        -0.5489742826349806
+      ],
+      "n_dips": 2,
+      "min_diff": -0.7911968714215805,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 64.41036865073313
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L4;t1=nearest",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L4;t1=low",
+      "rho": 0.7399886562816655,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        3.9421994037760846,
+        5.309435862995299,
+        5.308839190628328
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        0.956060120476558,
+        1.3672364592192143,
+        -0.0005966723669708074
+      ],
+      "n_dips": 0,
+      "min_diff": -0.0005966723669708074,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 0.5998752190983214
+    },
+    {
+      "n_tiers": 2,
+      "variant": "t0=Counting & Probability|L4;t1=high",
+      "rho": 0.7314719881018947,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.3694279701549648,
+        2.9861392832995266,
+        4.04891055919549,
+        5.600651216242099,
+        5.051676933607118
+      ],
+      "stage_mean_level_diffs": [
+        0.6167113131445618,
+        1.0627712758959635,
+        1.5517406570466088,
+        -0.5489742826349806
+      ],
+      "n_dips": 1,
+      "min_diff": -0.5489742826349806,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": false,
+      "gate_pass": false,
+      "penalty": 30.403620132618904
+    },
+    {
+      "n_tiers": 3,
+      "variant": "default",
+      "rho": 0.8790774079959455,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.1643859345227785,
+        2.8310035842293906,
+        4.163875205254516,
+        5.00036075036075,
+        5.880878284923928
+      ],
+      "stage_mean_level_diffs": [
+        0.6666176497066121,
+        1.332871621025125,
+        0.8364855451062345,
+        0.8805175345631779
+      ],
+      "n_dips": 0,
+      "min_diff": 0.6666176497066121,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 2.1198514879554007
+    },
+    {
+      "n_tiers": 4,
+      "variant": "default",
+      "rho": 0.9016121392400723,
+      "p": 0.0,
+      "stage_mean_levels": [
+        2.129556116925298,
+        2.94337285436206,
+        3.7995817357964445,
+        5.08537992417999,
+        5.940931924476009
+      ],
+      "stage_mean_level_diffs": [
+        0.813816737436762,
+        0.8562088814343847,
+        1.2857981883835454,
+        0.8555520002960186
+      ],
+      "n_dips": 0,
+      "min_diff": 0.813816737436762,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 2.3777335316407955
+    },
+    {
+      "n_tiers": 5,
+      "variant": "default",
+      "rho": 0.9941788416320425,
+      "p": 0.0,
+      "stage_mean_levels": [
+        1.7622995134258426,
+        3.0,
+        4.0,
+        4.996901767814835,
+        6.2210866973258385
+      ],
+      "stage_mean_level_diffs": [
+        1.2377004865741574,
+        1.0,
+        0.9969017678148351,
+        1.2241849295110034
+      ],
+      "n_dips": 0,
+      "min_diff": 0.9969017678148351,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 3.4059672579524682
+    },
+    {
+      "n_tiers": 6,
+      "variant": "default",
+      "rho": 0.9371224579124219,
+      "p": 0.0,
+      "stage_mean_levels": [
+        1.7564623338257017,
+        3.2566129032258067,
+        3.8632173095014113,
+        4.873227105585712,
+        6.088921520639582
+      ],
+      "stage_mean_level_diffs": [
+        1.500150569400105,
+        0.6066044062756046,
+        1.0100097960843004,
+        1.2156944150538704
+      ],
+      "n_dips": 0,
+      "min_diff": 0.6066044062756046,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 2.788347037036641
+    },
+    {
+      "n_tiers": 7,
+      "variant": "default",
+      "rho": 0.9392690188974449,
+      "p": 0.0,
+      "stage_mean_levels": [
+        1.7564623338257017,
+        3.262108731466227,
+        3.8549669994922997,
+        4.950447874976176,
+        6.088921520639582
+      ],
+      "stage_mean_level_diffs": [
+        1.5056463976405254,
+        0.5928582680260726,
+        1.0954808754838767,
+        1.1384736456634057
+      ],
+      "n_dips": 0,
+      "min_diff": 0.5928582680260726,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 2.8219592078718936
+    },
+    {
+      "n_tiers": 8,
+      "variant": "default",
+      "rho": 0.9568032940601381,
+      "p": 0.0,
+      "stage_mean_levels": [
+        1.7346610339971837,
+        3.0206674831598286,
+        3.9071065989847718,
+        5.152212705210564,
+        6.09471671880431
+      ],
+      "stage_mean_level_diffs": [
+        1.2860064491626448,
+        0.8864391158249432,
+        1.2451061062257924,
+        0.9425040135937461
+      ],
+      "n_dips": 0,
+      "min_diff": 0.8864391158249432,
+      "rho_gate_ok": false,
+      "mean_level_gate_ok": true,
+      "gate_pass": false,
+      "penalty": 3.024836234661519
+    }
+  ],
+  "dropped_or_missing_unit_assignments": [
+    {
+      "unit": "Intermediate Algebra|L1",
+      "assigned_centroid_unit": "Algebra|L1",
+      "method": "same_cluster_level_nearest",
+      "subject": "Intermediate Algebra",
+      "level": 1,
+      "assigned_subject": "Algebra",
+      "assigned_level": 1
+    },
+    {
+      "unit": "Precalculus|L1",
+      "assigned_centroid_unit": "Algebra|L1",
+      "method": "same_cluster_level_nearest",
+      "subject": "Precalculus",
+      "level": 1,
+      "assigned_subject": "Algebra",
+      "assigned_level": 1
+    },
+    {
+      "unit": "Prealgebra|L4",
+      "assigned_centroid_unit": "Counting & Probability|L4",
+      "method": "same_cluster_level_nearest",
+      "subject": "Prealgebra",
+      "level": 4,
+      "assigned_subject": "Counting & Probability",
+      "assigned_level": 4
+    },
+    {
+      "unit": "Precalculus|L7",
+      "assigned_centroid_unit": "Algebra|L7",
+      "method": "same_cluster_level_nearest",
+      "subject": "Precalculus",
+      "level": 7,
+      "assigned_subject": "Algebra",
+      "assigned_level": 7
+    },
+    {
+      "unit": "Counting & Probability|L8",
+      "assigned_centroid_unit": "Counting & Probability|L7",
+      "method": "same_cluster_nearest",
+      "subject": "Counting & Probability",
+      "level": 8,
+      "assigned_subject": "Counting & Probability",
+      "assigned_level": 7
+    },
+    {
+      "unit": "Geometry|L8",
+      "assigned_centroid_unit": "Geometry|L7",
+      "method": "same_cluster_nearest",
+      "subject": "Geometry",
+      "level": 8,
+      "assigned_subject": "Geometry",
+      "assigned_level": 7
+    },
+    {
+      "unit": "Intermediate Algebra|L8",
+      "assigned_centroid_unit": "Algebra|L7",
+      "method": "same_cluster_nearest",
+      "subject": "Intermediate Algebra",
+      "level": 8,
+      "assigned_subject": "Algebra",
+      "assigned_level": 7
+    },
+    {
+      "unit": "Number Theory|L8",
+      "assigned_centroid_unit": "Counting & Probability|L7",
+      "method": "same_cluster_nearest",
+      "subject": "Number Theory",
+      "level": 8,
+      "assigned_subject": "Counting & Probability",
+      "assigned_level": 7
+    }
+  ],
+  "condition_files": [
+    "stages_cond1_random_seed0.json",
+    "stages_cond1_random_seed1.json",
+    "stages_cond1_random_seed2.json",
+    "stages_cond2_diff.json",
+    "stages_cond3_ours_C2.json",
+    "stages_cond4_shuffle_seed0.json",
+    "stages_cond4_shuffle_seed1.json",
+    "stages_cond4_shuffle_seed2.json",
+    "stages_cond5_diffmatched_seed0.json",
+    "stages_cond5_diffmatched_seed1.json",
+    "stages_cond5_diffmatched_seed2.json"
+  ]
+}

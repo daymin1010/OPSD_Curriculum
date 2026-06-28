@@ -1,0 +1,10 @@
+=== chat_template_preview (problem_id=ff38c3f646aacb11, level=8) ===
+<|im_start|>user
+Prove that the equation 
+$$
+(x+1)^{p}-x^{q}=1 \quad(x, p, q \geqslant 2)
+$$
+has only one set of positive integer solutions \( x=2, p=2, q=3 \).<|im_end|>
+<|im_start|>assistant
+
+=== END ===

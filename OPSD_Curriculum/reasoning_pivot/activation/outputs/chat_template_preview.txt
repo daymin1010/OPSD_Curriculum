@@ -1,0 +1,9 @@
+=== chat_template_preview (problem_id=2b21e67b278c0ac6, level=1) ===
+--- enable_thinking=True, add_generation_prompt=True ---
+
+<|im_start|>user
+The radius  $r$  of a circle is increasing at a rate of  $2$  meters per minute. Find the rate of change, in  $\text{meters}^2/\text{minute}$ , of the area when  $r$  is  $6$  meters.<|im_end|>
+<|im_start|>assistant
+
+
+=== END ===

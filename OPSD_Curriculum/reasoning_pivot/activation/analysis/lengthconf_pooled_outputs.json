@@ -1,0 +1,106 @@
+{
+  "N": 3025,
+  "pilot1": 1608,
+  "pilot2": 1417,
+  "rho_level_genlen": 0.7088162487836113,
+  "views": {
+    "subject": {
+      "layeravg": {
+        "mantel_meandist": {
+          "r": 0.02683775550384309,
+          "p": 0.8186
+        },
+        "mantel_wass": {
+          "r": 0.05751108856223117,
+          "p": 0.6241
+        },
+        "mantel_pass": true,
+        "residual_r": {
+          "linear": 0.9577360615826365,
+          "+log_len": 0.9575749311262832,
+          "+quadratic": 0.9622096860000782,
+          "gen_len+level": 0.9635045993716457
+        },
+        "residual_min": 0.9575749311262832,
+        "resid_ok": true,
+        "verdict": "PASS(content-driven)"
+      },
+      "mid_L11-15": {
+        "mantel_meandist": {
+          "r": 0.009359548607771807,
+          "p": 0.9433
+        },
+        "mantel_wass": {
+          "r": 0.03567900700330124,
+          "p": 0.7947
+        },
+        "mantel_pass": true,
+        "residual_r": {
+          "linear": 0.9778924662191474,
+          "+log_len": 0.9778272894105314,
+          "+quadratic": 0.9798900244441648,
+          "gen_len+level": 0.9743208708026606
+        },
+        "residual_min": 0.9743208708026606,
+        "resid_ok": true,
+        "verdict": "PASS(content-driven)"
+      }
+    },
+    "level": {
+      "layeravg": {
+        "mantel_meandist": {
+          "r": 0.8576514667590497,
+          "p": 0.0001
+        },
+        "mantel_wass": {
+          "r": 0.8575470173238369,
+          "p": 0.0001
+        },
+        "mantel_pass": false,
+        "residual_r": {
+          "linear": 0.623955375674913,
+          "+log_len": 0.7973608474803023,
+          "+quadratic": 0.8155124493436138
+        },
+        "residual_min": 0.623955375674913,
+        "resid_ok": false,
+        "verdict": "FAIL"
+      },
+      "mid_L11-15": {
+        "mantel_meandist": {
+          "r": 0.8499588399615405,
+          "p": 0.0001
+        },
+        "mantel_wass": {
+          "r": 0.8498432722307712,
+          "p": 0.0001
+        },
+        "mantel_pass": false,
+        "residual_r": {
+          "linear": 0.6684863531418305,
+          "+log_len": 0.782252443849491,
+          "+quadratic": 0.789094113132028
+        },
+        "residual_min": 0.6684863531418305,
+        "resid_ok": false,
+        "verdict": "FAIL"
+      }
+    }
+  },
+  "balanced": {
+    "subject": {
+      "gap_full": 0.3528192472378058,
+      "gap_balanced": 0.20064297982025892,
+      "p_balanced": 0.004975124378109453,
+      "N_balanced": 1200,
+      "retain_frac": 0.5686849042139199
+    },
+    "level": {
+      "gap_full": 0.4344593392951148,
+      "gap_balanced": 0.3834782241278195,
+      "p_balanced": 0.004975124378109453,
+      "N_balanced": 142,
+      "retain_frac": 0.8826561876883364
+    }
+  }
+}

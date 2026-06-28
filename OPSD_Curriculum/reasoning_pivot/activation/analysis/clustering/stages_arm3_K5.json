@@ -1,0 +1,349 @@
+{
+  "spec": "arm3_difficulty_x_subject_snake",
+  "K_subject_clusters": 5,
+  "K_is_feasibility_ceiling_not_final": true,
+  "difficulty_axis": {
+    "D1": [
+      1,
+      2
+    ],
+    "D2": [
+      3,
+      4
+    ],
+    "D3": [
+      5,
+      6
+    ],
+    "D4": [
+      7,
+      8
+    ]
+  },
+  "sigma_cluster_order": [
+    2,
+    1,
+    5,
+    3,
+    4
+  ],
+  "subject_clusters": {
+    "C1": [
+      "Intermediate Algebra",
+      "Precalculus"
+    ],
+    "C2": [
+      "Other"
+    ],
+    "C3": [
+      "Counting & Probability",
+      "Number Theory"
+    ],
+    "C4": [
+      "Algebra",
+      "Prealgebra"
+    ],
+    "C5": [
+      "Geometry"
+    ]
+  },
+  "inter_cluster_S": [
+    [
+      1.0,
+      0.21359580755233765,
+      -0.7744840979576111,
+      -0.26070037484169006,
+      -0.0925976112484932
+    ],
+    [
+      0.21359580755233765,
+      1.0,
+      -0.41685497760772705,
+      -0.4864869713783264,
+      -0.3310963809490204
+    ],
+    [
+      -0.7744840979576111,
+      -0.41685497760772705,
+      1.0,
+      0.017442947253584862,
+      -0.06365368515253067
+    ],
+    [
+      -0.26070037484169006,
+      -0.4864869713783264,
+      0.017442947253584862,
+      1.0,
+      -0.09528687596321106
+    ],
+    [
+      -0.0925976112484932,
+      -0.3310963809490204,
+      -0.06365368515253067,
+      -0.09528687596321106,
+      1.0
+    ]
+  ],
+  "feasibility_29K": {
+    "min_cell": 79,
+    "n_empty": 0,
+    "n_lt_300": 7,
+    "n_lt_150": 3,
+    "n_cells": 20
+  },
+  "arm5_K_random_parts": 5,
+  "stages": [
+    {
+      "stage_index": 0,
+      "level_set": [
+        1,
+        2
+      ],
+      "subject_set": [
+        "Other"
+      ],
+      "difficulty_cluster": "D1",
+      "subject_cluster": "C2"
+    },
+    {
+      "stage_index": 1,
+      "level_set": [
+        1,
+        2
+      ],
+      "subject_set": [
+        "Intermediate Algebra",
+        "Precalculus"
+      ],
+      "difficulty_cluster": "D1",
+      "subject_cluster": "C1"
+    },
+    {
+      "stage_index": 2,
+      "level_set": [
+        1,
+        2
+      ],
+      "subject_set": [
+        "Geometry"
+      ],
+      "difficulty_cluster": "D1",
+      "subject_cluster": "C5"
+    },
+    {
+      "stage_index": 3,
+      "level_set": [
+        1,
+        2
+      ],
+      "subject_set": [
+        "Counting & Probability",
+        "Number Theory"
+      ],
+      "difficulty_cluster": "D1",
+      "subject_cluster": "C3"
+    },
+    {
+      "stage_index": 4,
+      "level_set": [
+        1,
+        2
+      ],
+      "subject_set": [
+        "Algebra",
+        "Prealgebra"
+      ],
+      "difficulty_cluster": "D1",
+      "subject_cluster": "C4"
+    },
+    {
+      "stage_index": 5,
+      "level_set": [
+        3,
+        4
+      ],
+      "subject_set": [
+        "Algebra",
+        "Prealgebra"
+      ],
+      "difficulty_cluster": "D2",
+      "subject_cluster": "C4"
+    },
+    {
+      "stage_index": 6,
+      "level_set": [
+        3,
+        4
+      ],
+      "subject_set": [
+        "Counting & Probability",
+        "Number Theory"
+      ],
+      "difficulty_cluster": "D2",
+      "subject_cluster": "C3"
+    },
+    {
+      "stage_index": 7,
+      "level_set": [
+        3,
+        4
+      ],
+      "subject_set": [
+        "Geometry"
+      ],
+      "difficulty_cluster": "D2",
+      "subject_cluster": "C5"
+    },
+    {
+      "stage_index": 8,
+      "level_set": [
+        3,
+        4
+      ],
+      "subject_set": [
+        "Intermediate Algebra",
+        "Precalculus"
+      ],
+      "difficulty_cluster": "D2",
+      "subject_cluster": "C1"
+    },
+    {
+      "stage_index": 9,
+      "level_set": [
+        3,
+        4
+      ],
+      "subject_set": [
+        "Other"
+      ],
+      "difficulty_cluster": "D2",
+      "subject_cluster": "C2"
+    },
+    {
+      "stage_index": 10,
+      "level_set": [
+        5,
+        6
+      ],
+      "subject_set": [
+        "Other"
+      ],
+      "difficulty_cluster": "D3",
+      "subject_cluster": "C2"
+    },
+    {
+      "stage_index": 11,
+      "level_set": [
+        5,
+        6
+      ],
+      "subject_set": [
+        "Intermediate Algebra",
+        "Precalculus"
+      ],
+      "difficulty_cluster": "D3",
+      "subject_cluster": "C1"
+    },
+    {
+      "stage_index": 12,
+      "level_set": [
+        5,
+        6
+      ],
+      "subject_set": [
+        "Geometry"
+      ],
+      "difficulty_cluster": "D3",
+      "subject_cluster": "C5"
+    },
+    {
+      "stage_index": 13,
+      "level_set": [
+        5,
+        6
+      ],
+      "subject_set": [
+        "Counting & Probability",
+        "Number Theory"
+      ],
+      "difficulty_cluster": "D3",
+      "subject_cluster": "C3"
+    },
+    {
+      "stage_index": 14,
+      "level_set": [
+        5,
+        6
+      ],
+      "subject_set": [
+        "Algebra",
+        "Prealgebra"
+      ],
+      "difficulty_cluster": "D3",
+      "subject_cluster": "C4"
+    },
+    {
+      "stage_index": 15,
+      "level_set": [
+        7,
+        8
+      ],
+      "subject_set": [
+        "Algebra",
+        "Prealgebra"
+      ],
+      "difficulty_cluster": "D4",
+      "subject_cluster": "C4"
+    },
+    {
+      "stage_index": 16,
+      "level_set": [
+        7,
+        8
+      ],
+      "subject_set": [
+        "Counting & Probability",
+        "Number Theory"
+      ],
+      "difficulty_cluster": "D4",
+      "subject_cluster": "C3"
+    },
+    {
+      "stage_index": 17,
+      "level_set": [
+        7,
+        8
+      ],
+      "subject_set": [
+        "Geometry"
+      ],
+      "difficulty_cluster": "D4",
+      "subject_cluster": "C5"
+    },
+    {
+      "stage_index": 18,
+      "level_set": [
+        7,
+        8
+      ],
+      "subject_set": [
+        "Intermediate Algebra",
+        "Precalculus"
+      ],
+      "difficulty_cluster": "D4",
+      "subject_cluster": "C1"
+    },
+    {
+      "stage_index": 19,
+      "level_set": [
+        7,
+        8
+      ],
+      "subject_set": [
+        "Other"
+      ],
+      "difficulty_cluster": "D4",
+      "subject_cluster": "C2"
+    }
+  ]
+}

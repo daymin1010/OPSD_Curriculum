@@ -1,0 +1,50 @@
+{
+  "mid_L11-15": {
+    "mantel_meandist": {
+      "r": 0.009359546402419306,
+      "p": 0.9433
+    },
+    "mantel_wass": {
+      "r": 0.035679001017044,
+      "p": 0.7947
+    },
+    "mantel_meandist_noOther": {
+      "r": -0.08310709141500494,
+      "p": 0.5231
+    },
+    "methodA_withinbin_r": 0.8514594065071928,
+    "withinbin_cross_mean": 0.6044987869496052,
+    "methodB_bincentroid_r": 0.979563456341446,
+    "methodC_proj_r": {
+      "linear": 0.977892466123462,
+      "+log_len": 0.9778272836060627,
+      "+quadratic": 0.9798900202428591
+    },
+    "genlen+level_resid_r": 0.9743208660166738,
+    "verdict": "PASS"
+  },
+  "layeravg": {
+    "mantel_meandist": {
+      "r": 0.02683777221317739,
+      "p": 0.8186
+    },
+    "mantel_wass": {
+      "r": 0.05751110496186678,
+      "p": 0.6241
+    },
+    "mantel_meandist_noOther": {
+      "r": -0.06350554012359018,
+      "p": 0.5844
+    },
+    "methodA_withinbin_r": 0.7703504003572699,
+    "withinbin_cross_mean": 0.5667788348335374,
+    "methodB_bincentroid_r": 0.9624298282823183,
+    "methodC_proj_r": {
+      "linear": 0.9577360607324041,
+      "+log_len": 0.9575749244058587,
+      "+quadratic": 0.9622096764576392
+    },
+    "genlen+level_resid_r": 0.9635045990351087,
+    "verdict": "PASS(content-driven; within-bin \uc800\ud45c\ubcf8 inconclusive)"
+  }
+}

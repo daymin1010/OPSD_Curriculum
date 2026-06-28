@@ -1,0 +1,21 @@
+# OPSD training stack — pip layer (conda provides only python=3.10 + pip).
+# Mirror of the `pip:` block in environment.yml; kept as a standalone file so the
+# setup script can `conda create --override-channels -c conda-forge python pip`
+# (bypassing the dead Nexus channels in /etc/conda/condarc) and then pip-install.
+torch==2.8.0
+accelerate==1.11.0
+transformers==4.57.1
+trl==0.26.0
+datasets==3.6.0
+deepspeed==0.18.2
+peft==0.17.1
+bitsandbytes==0.48.2
+wandb==0.22.3
+vllm==0.11.0
+xformers==0.0.32.post1
+triton==3.4.0
+einops==0.8.1
+safetensors==0.5.3
+sentencepiece==0.1.99
+tiktoken==0.9.0
+math-verify==0.8.0

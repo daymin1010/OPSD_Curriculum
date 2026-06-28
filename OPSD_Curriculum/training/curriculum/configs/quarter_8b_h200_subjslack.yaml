@@ -1,0 +1,46 @@
+# ============================================================
+# quarter subjslack config — Qwen3-8B on H200 (x2, ws=2).
+# curriculum = level_backbone_residual_subject_slack (alpha=2.0).
+# save_steps=10, save_total_limit=30.
+# ============================================================
+model_name_or_path: Qwen/Qwen3-8B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 64
+lora_alpha: 128
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+learning_rate: 5.0e-6
+max_grad_norm: 0.1
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+num_train_epochs: 1
+max_completion_length: 1024
+max_length: 20000
+save_strategy: steps
+save_steps: 10
+save_total_limit: 30
+load_best_model_at_end: false
+eval_strategy: "no"
+logging_steps: 2
+beta: 0
+lmbda: 1
+temperature: 1.1
+top_p: 0.95
+top_k: 20
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.6
+vllm_tensor_parallel_size: 1
+output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/quarter_8b_subjslack
+wandb_project: OPSD_Curriculum
+
+fixed_teacher: true
+jsd_token_clip: 0.06
+reason_first: false
+student_thinking: false
+teacher_thinking: true
+curriculum_B_glob: 32
+attach_gold: true

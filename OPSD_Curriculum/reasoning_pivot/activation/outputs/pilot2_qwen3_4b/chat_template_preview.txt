@@ -1,0 +1,6 @@
+=== chat_template_preview (problem_id=f341c16eb5b952d7, level=1) ===
+<|im_start|>user
+The distinct prime factors of 4446 are 2, 3, and 13. What is the sum of all of the distinct prime factors of \(4446\)?<|im_end|>
+<|im_start|>assistant
+
+=== END ===

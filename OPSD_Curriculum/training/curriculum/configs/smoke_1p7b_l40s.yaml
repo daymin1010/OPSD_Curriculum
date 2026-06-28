@@ -1,0 +1,51 @@
+# ============================================================
+# SMOKE config — Qwen3-1.7B on L40S (×4, ws=4). reward_proxy option C:
+# loss + completion length only (attach_gold=false). Gate = stage_respected=1.0.
+# Mirrors opsd_src/scripts/run_opsd_1b.sh hyperparameters EXACTLY, plus:
+#   remove_unused_columns is FORCED False in train_opsd_curriculum.py (not here).
+# B_glob = pd4 * ga2 * ws4 = 32 (== OPSD effective batch).
+# arm / stages_json / curriculum_T are passed on the CLI (per-arm) by the sbatch.
+# ============================================================
+
+# ---- ModelConfig ----
+model_name_or_path: Qwen/Qwen3-1.7B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 64
+lora_alpha: 128
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+# ---- GOLDConfig (training_args) ----
+learning_rate: 5.0e-6
+max_grad_norm: 0.1
+per_device_train_batch_size: 2   # OOM fix (87059): halve kl_div [B,T,vocab] peak
+gradient_accumulation_steps: 4   # keep B_glob = pd2*ga4*ws4 = 32 (gate unchanged; loss identical)
+
+gradient_checkpointing: true
+num_train_epochs: 1            # overridden: max_steps=T forces exact T steps
+max_completion_length: 1024
+max_length: 20000
+save_steps: 100000            # smoke: effectively no checkpoint
+logging_steps: 1
+beta: 0
+lmbda: 1
+temperature: 1.1
+top_p: 0.95
+top_k: 20
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.5   # OOM fix (87059): free ~4.4 GiB vLLM reserve on L40S; 0.6 init already passed so 0.5 is safe
+
+vllm_tensor_parallel_size: 1
+output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/smoke_1p7b
+wandb_project: OPSD_Curriculum
+
+# ---- CurriculumScriptArguments / CustomScriptArguments ----
+fixed_teacher: true
+jsd_token_clip: 0.05
+reason_first: false
+student_thinking: false
+teacher_thinking: true
+curriculum_B_glob: 32
+attach_gold: false            # smoke: loss + completion length only (option C)

@@ -1,0 +1,37 @@
+# POOLED 3025 — SUBJECT/LEVEL centroid-cosine (THINKING, centered)
+N = 3025 (pilot1 1608 + pilot2 1417); subjects=8, levels=[1, 2, 3, 4, 5, 6, 7, 8]
+
+### SUBJECT grouping (groups=8)
+group sizes: Algebra:420, Counting & Probability:430, Geometry:406, Intermediate Algebra:387, Number Theory:443, Other:397, Prealgebra:197, Precalculus:345
+- within_mean cos = +0.2316 | between_mean cos = -0.1212 | gap = +0.3528
+- permutation p(gap >= obs) = 0.0050 (N_PERM=200)
+- centroid cosine matrix (centered, THINKING):
+```
+                        AlgebraCounting & ProbabilityGeometryIntermediate AlgebraNumber Theory   OtherPrealgebraPrecalculus
+                Algebra   1.000  -0.419  -0.062   0.291   0.049  -0.483   0.330   0.133
+ Counting & Probability  -0.419   1.000   0.044  -0.657   0.448  -0.231   0.074  -0.728
+               Geometry  -0.062   0.044   1.000  -0.196  -0.176  -0.331  -0.085   0.016
+   Intermediate Algebra   0.291  -0.657  -0.196   1.000  -0.292   0.104  -0.445   0.666
+          Number Theory   0.049   0.448  -0.176  -0.292   1.000  -0.514   0.126  -0.653
+                  Other  -0.483  -0.231  -0.331   0.104  -0.514   1.000  -0.387   0.277
+             Prealgebra   0.330   0.074  -0.085  -0.445   0.126  -0.387   1.000  -0.293
+            Precalculus   0.133  -0.728   0.016   0.666  -0.653   0.277  -0.293   1.000
+```
+
+### LEVEL grouping (groups=8)
+group sizes: 1:335, 2:480, 3:480, 4:437, 5:420, 6:420, 7:387, 8:66
+- within_mean cos = +0.3242 | between_mean cos = -0.1103 | gap = +0.4345
+- permutation p(gap >= obs) = 0.0050 (N_PERM=200)
+- ORDINALITY rho(cos,-|dlevel|): L1-L8 = +0.8411 | L1-L7 = +0.8959
+- centroid cosine matrix (centered, THINKING):
+```
+               1       2       3       4       5       6       7       8
+       1   1.000   0.918   0.594  -0.353  -0.880  -0.917  -0.802  -0.663
+       2   0.918   1.000   0.783  -0.140  -0.822  -0.970  -0.902  -0.797
+       3   0.594   0.783   1.000   0.417  -0.449  -0.783  -0.916  -0.898
+       4  -0.353  -0.140   0.417   1.000   0.474   0.113  -0.190  -0.321
+       5  -0.880  -0.822  -0.449   0.474   1.000   0.782   0.581   0.415
+       6  -0.917  -0.970  -0.783   0.113   0.782   1.000   0.910   0.794
+       7  -0.802  -0.902  -0.916  -0.190   0.581   0.910   1.000   0.933
+       8  -0.663  -0.797  -0.898  -0.321   0.415   0.794   0.933   1.000
+```

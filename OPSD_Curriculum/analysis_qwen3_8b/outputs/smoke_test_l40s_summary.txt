@@ -1,0 +1,83 @@
+======================================================================
+PASS RATE MEASUREMENT — VERIFICATION CHECKLIST
+======================================================================
+
+[1] BASIC COUNTS
+  Total samples         : 10  (expected: 2666)
+  N rollouts per sample : 0 (from max pass_count)
+
+[2] PASS RATE DISTRIBUTION (k/8 buckets)
+  pass=0/8  (rate=0.0000) :    10  (100.0%)
+  pass=1/8  (rate=0.1250) :     0  (0.0%)
+  pass=2/8  (rate=0.2500) :     0  (0.0%)
+  pass=3/8  (rate=0.3750) :     0  (0.0%)
+  pass=4/8  (rate=0.5000) :     0  (0.0%)
+  pass=5/8  (rate=0.6250) :     0  (0.0%)
+  pass=6/8  (rate=0.7500) :     0  (0.0%)
+  pass=7/8  (rate=0.8750) :     0  (0.0%)
+  pass=8/8  (rate=1.0000) :     0  (0.0%)
+
+[3] SUMMARY STATISTICS
+  Mean pass rate        : 0.0000
+  Median pass rate      : 0.0000
+  Std pass rate         : 0.0000
+  Min pass rate         : 0.0000
+  Max pass rate         : 0.0000
+
+[4] EXTREME BUCKETS
+  Pass=0   (all wrong)  :    10  (100.0%)
+  Pass=8/8 (all right)  :     0  (0.0%)
+  Partial  (1-7/8)      :     0  (0.0%)
+
+[5] TRUNCATION (max_tokens=4096 hit)
+  Total truncated rollouts      : 1
+  Mean truncated per sample     : 0.100
+  Samples with any truncation   : 1 (10.0%)
+  Samples all 8 truncated       : 0
+
+[6] RESPONSE LENGTH (tokens)
+  Overall mean length (all)     : 1051.0 tokens
+  Overall mean length (correct) : nan tokens
+  Overall mean length (wrong)   : 1051.0 tokens
+
+[7] GPT-LABEL LEVEL × PASS RATE (difficulty sanity check)
+  Level  2: n=   4  mean_pass=0.0000  pass=0:   4 (100%)  pass=8:   0 (0%)
+  Level  3: n=   3  mean_pass=0.0000  pass=0:   3 (100%)  pass=8:   0 (0%)
+  Level  4: n=   1  mean_pass=0.0000  pass=0:   1 (100%)  pass=8:   0 (0%)
+  Level  6: n=   2  mean_pass=0.0000  pass=0:   2 (100%)  pass=8:   0 (0%)
+
+[8] SUBJECT × PASS RATE
+  Geometry                                 n=   2  mean=0.0000
+  Intermediate Algebra                     n=   1  mean=0.0000
+  Number Theory                            n=   1  mean=0.0000
+  Prealgebra                               n=   5  mean=0.0000
+  Precalculus                              n=   1  mean=0.0000
+
+[9] PASS=0 HARD-TAIL ANALYSIS
+  Total pass=0 samples: 10
+
+  data_source distribution of pass=0 samples:
+                                                                :   10 (100.0%)
+
+  subject distribution of pass=0 samples:
+    Prealgebra                              :    5 (50.0%)
+    Geometry                                :    2 (20.0%)
+    Number Theory                           :    1 (10.0%)
+    Intermediate Algebra                    :    1 (10.0%)
+    Precalculus                             :    1 (10.0%)
+
+  level distribution of pass=0 samples:
+    Level  2:   4 pass=0 out of    4 total (100%)
+    Level  3:   3 pass=0 out of    3 total (100%)
+    Level  4:   1 pass=0 out of    1 total (100%)
+    Level  6:   2 pass=0 out of    2 total (100%)
+
+[10] GPT level × pass=0 rate (key diagnostic)
+  Level  2: pass=0 rate=100.0%  pass=8 rate=  0.0%
+  Level  3: pass=0 rate=100.0%  pass=8 rate=  0.0%
+  Level  4: pass=0 rate=100.0%  pass=8 rate=  0.0%
+  Level  6: pass=0 rate=100.0%  pass=8 rate=  0.0%
+
+======================================================================
+END OF SUMMARY
+======================================================================

@@ -1,0 +1,48 @@
+{
+  "arm": "diffonly",
+  "stages_json": "/scratch/lami2026/personal/jimin_2782/src/OPSD_Curriculum/training/stages/stages_diffonly_setA.json",
+  "T": 480,
+  "B_glob": 32,
+  "seed": 42,
+  "num_stages": 4,
+  "budget_per_stage": 120,
+  "schedule_len": 15360,
+  "stages": [
+    {
+      "stage_index": 0,
+      "difficulty": "D1",
+      "subject_cluster": "ALL",
+      "pool_size": 5549,
+      "slots": 3840,
+      "cycles": 1,
+      "opt_steps": 120
+    },
+    {
+      "stage_index": 1,
+      "difficulty": "D2",
+      "subject_cluster": "ALL",
+      "pool_size": 11881,
+      "slots": 3840,
+      "cycles": 1,
+      "opt_steps": 120
+    },
+    {
+      "stage_index": 2,
+      "difficulty": "D3",
+      "subject_cluster": "ALL",
+      "pool_size": 9578,
+      "slots": 3840,
+      "cycles": 1,
+      "opt_steps": 120
+    },
+    {
+      "stage_index": 3,
+      "difficulty": "D4",
+      "subject_cluster": "ALL",
+      "pool_size": 1763,
+      "slots": 3840,
+      "cycles": 3,
+      "opt_steps": 120
+    }
+  ]
+}

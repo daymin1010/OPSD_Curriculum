@@ -1,0 +1,6 @@
+=== chat_template_preview (problem_id=cd1e3536cfaeabe4, level=4) ===
+<|im_start|>user
+Let \( f(x) = \min(4x + 1, x + 2, -2x + 4) \). The maximum value of \( f(x) \) is ____ .<|im_end|>
+<|im_start|>assistant
+
+=== END ===

@@ -1,0 +1,46 @@
+{
+  "join_info": {
+    "n_opsd": 29434,
+    "n_labels": 29434,
+    "key_used": "sha1(problem)[:16] == labels.problem_id",
+    "match_rate": 1.0,
+    "candidates": {
+      "sha1_problem_id": {
+        "matched": 29434,
+        "rate": 1.0
+      }
+    }
+  },
+  "gate_pass": true,
+  "n_setA": 28771,
+  "n_total_opsd": 29434,
+  "n_unmatched": 0,
+  "n_other": 663,
+  "main_cells": {
+    "D1|C1": 252,
+    "D1|C2": 1201,
+    "D1|C3": 3703,
+    "D1|C4": 393,
+    "D2|C1": 1999,
+    "D2|C2": 3684,
+    "D2|C3": 4084,
+    "D2|C4": 2114,
+    "D3|C1": 1955,
+    "D3|C2": 3504,
+    "D3|C3": 1860,
+    "D3|C4": 2259,
+    "D4|C1": 278,
+    "D4|C2": 906,
+    "D4|C3": 79,
+    "D4|C4": 500
+  },
+  "diff_cells": {
+    "D1": 5549,
+    "D2": 11881,
+    "D3": 9578,
+    "D4": 1763
+  },
+  "diffonly_stages_json": "/scratch/lami2026/personal/jimin_2782/src/OPSD_Curriculum/training/stages/stages_diffonly_setA.json",
+  "main_stages_json": "/scratch/lami2026/personal/jimin_2782/src/OPSD_Curriculum/training/stages/stages_arm3_excludeOther.json",
+  "row_table": "/scratch/lami2026/personal/jimin_2782/src/OPSD_Curriculum/training/outputs/join_setA_rows.parquet"
+}

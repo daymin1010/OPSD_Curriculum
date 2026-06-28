@@ -1,0 +1,734 @@
+{
+  "N": 3025,
+  "n_pilot1": 1608,
+  "n_pilot2": 1417,
+  "subjects": [
+    "Algebra",
+    "Counting & Probability",
+    "Geometry",
+    "Intermediate Algebra",
+    "Number Theory",
+    "Other",
+    "Prealgebra",
+    "Precalculus"
+  ],
+  "S": [
+    [
+      1.0,
+      -0.4188285171985626,
+      -0.06248241662979126,
+      0.29108694195747375,
+      0.048867955803871155,
+      -0.4828627407550812,
+      0.32980042695999146,
+      0.13304416835308075
+    ],
+    [
+      -0.4188285171985626,
+      1.0,
+      0.04360303655266762,
+      -0.6569487452507019,
+      0.44820186495780945,
+      -0.23120029270648956,
+      0.07439728081226349,
+      -0.7283152341842651
+    ],
+    [
+      -0.06248241662979126,
+      0.04360303655266762,
+      1.0,
+      -0.1955615133047104,
+      -0.1760990470647812,
+      -0.3310963809490204,
+      -0.08491599559783936,
+      0.015733914449810982
+    ],
+    [
+      0.29108694195747375,
+      -0.6569487452507019,
+      -0.1955615133047104,
+      1.0,
+      -0.2917272448539734,
+      0.10391153395175934,
+      -0.4447857141494751,
+      0.6664623618125916
+    ],
+    [
+      0.048867955803871155,
+      0.44820186495780945,
+      -0.1760990470647812,
+      -0.2917272448539734,
+      1.0,
+      -0.5142252445220947,
+      0.12550194561481476,
+      -0.6529041528701782
+    ],
+    [
+      -0.4828627407550812,
+      -0.23120029270648956,
+      -0.3310963809490204,
+      0.10391153395175934,
+      -0.5142252445220947,
+      1.0,
+      -0.38729754090309143,
+      0.2771337330341339
+    ],
+    [
+      0.32980042695999146,
+      0.07439728081226349,
+      -0.08491599559783936,
+      -0.4447857141494751,
+      0.12550194561481476,
+      -0.38729754090309143,
+      1.0,
+      -0.29349422454833984
+    ],
+    [
+      0.13304416835308075,
+      -0.7283152341842651,
+      0.015733914449810982,
+      0.6664623618125916,
+      -0.6529041528701782,
+      0.2771337330341339,
+      -0.29349422454833984,
+      1.0
+    ]
+  ],
+  "D": [
+    [
+      0.0,
+      1.4188284873962402,
+      1.0624823570251465,
+      0.7089130878448486,
+      0.95113205909729,
+      1.4828627109527588,
+      0.6701995730400085,
+      0.8669558167457581
+    ],
+    [
+      1.4188284873962402,
+      0.0,
+      0.9563969373703003,
+      1.6569488048553467,
+      0.5517981052398682,
+      1.2312003374099731,
+      0.9256027340888977,
+      1.7283152341842651
+    ],
+    [
+      1.0624823570251465,
+      0.9563969373703003,
+      0.0,
+      1.1955615282058716,
+      1.1760990619659424,
+      1.3310964107513428,
+      1.0849159955978394,
+      0.9842661023139954
+    ],
+    [
+      0.7089130878448486,
+      1.6569488048553467,
+      1.1955615282058716,
+      0.0,
+      1.2917273044586182,
+      0.8960884809494019,
+      1.444785714149475,
+      0.33353763818740845
+    ],
+    [
+      0.95113205909729,
+      0.5517981052398682,
+      1.1760990619659424,
+      1.2917273044586182,
+      0.0,
+      1.5142252445220947,
+      0.8744980692863464,
+      1.6529041528701782
+    ],
+    [
+      1.4828627109527588,
+      1.2312003374099731,
+      1.3310964107513428,
+      0.8960884809494019,
+      1.5142252445220947,
+      0.0,
+      1.387297511100769,
+      0.7228662967681885
+    ],
+    [
+      0.6701995730400085,
+      0.9256027340888977,
+      1.0849159955978394,
+      1.444785714149475,
+      0.8744980692863464,
+      1.387297511100769,
+      0.0,
+      1.2934942245483398
+    ],
+    [
+      0.8669558167457581,
+      1.7283152341842651,
+      0.9842661023139954,
+      0.33353763818740845,
+      1.6529041528701782,
+      0.7228662967681885,
+      1.2934942245483398,
+      0.0
+    ]
+  ],
+  "S_recompute_max_abs_diff_vs_saved": 0.0,
+  "difficulty_axis": {
+    "D1": [
+      1,
+      2
+    ],
+    "D2": [
+      3,
+      4
+    ],
+    "D3": [
+      5,
+      6
+    ],
+    "D4": [
+      7,
+      8
+    ]
+  },
+  "clustering": {
+    "average": {
+      "cophenetic_corr": 0.7610570430623567,
+      "merge_heights": [
+        0.33353763818740845,
+        0.5517981052398682,
+        0.6701995730400085,
+        0.8094773888587952,
+        1.0425153374671936,
+        1.0699735879898071,
+        1.3180369456609091
+      ],
+      "merge_gaps": [
+        0.21826046705245972,
+        0.11840146780014038,
+        0.13927781581878662,
+        0.23303794860839844,
+        0.027458250522613525,
+        0.248063357671102
+      ],
+      "recommend_gap_K": 2,
+      "per_k": {
+        "2": {
+          "labels": [
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "silhouette": 0.3418034613132477
+        },
+        "3": {
+          "labels": [
+            2,
+            2,
+            3,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "silhouette": 0.23811432719230652
+        },
+        "4": {
+          "labels": [
+            3,
+            2,
+            4,
+            1,
+            2,
+            1,
+            3,
+            1
+          ],
+          "silhouette": 0.3376096487045288
+        },
+        "5": {
+          "labels": [
+            4,
+            3,
+            5,
+            1,
+            3,
+            2,
+            4,
+            1
+          ],
+          "silhouette": 0.2987145185470581
+        },
+        "6": {
+          "labels": [
+            4,
+            3,
+            6,
+            1,
+            3,
+            2,
+            5,
+            1
+          ],
+          "silhouette": 0.23012001812458038
+        }
+      }
+    },
+    "complete": {
+      "cophenetic_corr": 0.7422706302541708,
+      "merge_heights": [
+        0.33353763818740845,
+        0.5517981052398682,
+        0.6701995730400085,
+        0.8960884809494019,
+        1.0849159955978394,
+        1.4188284873962402,
+        1.7283152341842651
+      ],
+      "merge_gaps": [
+        0.21826046705245972,
+        0.11840146780014038,
+        0.2258889079093933,
+        0.1888275146484375,
+        0.3339124917984009,
+        0.3094867467880249
+      ],
+      "recommend_gap_K": 3,
+      "per_k": {
+        "2": {
+          "labels": [
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "silhouette": 0.3418034613132477
+        },
+        "3": {
+          "labels": [
+            3,
+            2,
+            3,
+            1,
+            2,
+            1,
+            3,
+            1
+          ],
+          "silhouette": 0.30888357758522034
+        },
+        "4": {
+          "labels": [
+            3,
+            2,
+            4,
+            1,
+            2,
+            1,
+            3,
+            1
+          ],
+          "silhouette": 0.3376096487045288
+        },
+        "5": {
+          "labels": [
+            4,
+            3,
+            5,
+            1,
+            3,
+            2,
+            4,
+            1
+          ],
+          "silhouette": 0.2987145185470581
+        },
+        "6": {
+          "labels": [
+            4,
+            3,
+            6,
+            1,
+            3,
+            2,
+            5,
+            1
+          ],
+          "silhouette": 0.23012001812458038
+        }
+      }
+    }
+  },
+  "recommended_K": 2,
+  "recommended_K_defer_to_human": false,
+  "recommended_K_silhouette_peak": 2,
+  "recommended_K_merge_gap": 2,
+  "cluster_members_recommended": {
+    "2": [
+      "Algebra",
+      "Counting & Probability",
+      "Geometry",
+      "Number Theory",
+      "Prealgebra"
+    ],
+    "1": [
+      "Intermediate Algebra",
+      "Other",
+      "Precalculus"
+    ]
+  },
+  "ward_euclid_nonprimary": {
+    "cophenetic_corr": 0.7576427752409043,
+    "per_k": {
+      "2": {
+        "2": [
+          "Algebra",
+          "Counting & Probability",
+          "Geometry",
+          "Number Theory",
+          "Prealgebra"
+        ],
+        "1": [
+          "Intermediate Algebra",
+          "Other",
+          "Precalculus"
+        ]
+      },
+      "3": {
+        "3": [
+          "Algebra",
+          "Geometry",
+          "Prealgebra"
+        ],
+        "2": [
+          "Counting & Probability",
+          "Number Theory"
+        ],
+        "1": [
+          "Intermediate Algebra",
+          "Other",
+          "Precalculus"
+        ]
+      },
+      "4": {
+        "3": [
+          "Algebra",
+          "Prealgebra"
+        ],
+        "2": [
+          "Counting & Probability",
+          "Number Theory"
+        ],
+        "4": [
+          "Geometry"
+        ],
+        "1": [
+          "Intermediate Algebra",
+          "Other",
+          "Precalculus"
+        ]
+      }
+    }
+  },
+  "dendro_leaf_order_average": [
+    "Other",
+    "Intermediate Algebra",
+    "Precalculus",
+    "Geometry",
+    "Counting & Probability",
+    "Number Theory",
+    "Algebra",
+    "Prealgebra"
+  ],
+  "subject_path_optimal": {
+    "cost": 4.818209707736969,
+    "path": [
+      "Geometry",
+      "Counting & Probability",
+      "Number Theory",
+      "Prealgebra",
+      "Algebra",
+      "Intermediate Algebra",
+      "Precalculus",
+      "Other"
+    ]
+  },
+  "subject_path_near_optimal": [
+    {
+      "cost": 5.028627634048462,
+      "path": [
+        "Number Theory",
+        "Counting & Probability",
+        "Geometry",
+        "Prealgebra",
+        "Algebra",
+        "Intermediate Algebra",
+        "Precalculus",
+        "Other"
+      ]
+    },
+    {
+      "cost": 5.089016497135162,
+      "path": [
+        "Geometry",
+        "Number Theory",
+        "Counting & Probability",
+        "Prealgebra",
+        "Algebra",
+        "Intermediate Algebra",
+        "Precalculus",
+        "Other"
+      ]
+    },
+    {
+      "cost": 5.149474620819092,
+      "path": [
+        "Geometry",
+        "Counting & Probability",
+        "Number Theory",
+        "Prealgebra",
+        "Algebra",
+        "Precalculus",
+        "Intermediate Algebra",
+        "Other"
+      ]
+    },
+    {
+      "cost": 5.1929091811180115,
+      "path": [
+        "Counting & Probability",
+        "Number Theory",
+        "Prealgebra",
+        "Algebra",
+        "Intermediate Algebra",
+        "Precalculus",
+        "Other",
+        "Geometry"
+      ]
+    }
+  ],
+  "contiguity_recommended_K": {
+    "contiguous": true,
+    "runs": [
+      [
+        2,
+        5
+      ],
+      [
+        1,
+        3
+      ]
+    ]
+  },
+  "sigma_cluster_order": [
+    1,
+    2
+  ],
+  "inter_cluster_S": [
+    [
+      1.0,
+      -0.9560676217079163
+    ],
+    [
+      -0.9560676217079163,
+      1.0
+    ]
+  ],
+  "inter_cluster_order": [
+    1,
+    2
+  ],
+  "stages": [
+    {
+      "stage_index": 0,
+      "difficulty_cluster": "D1",
+      "subject_cluster": 1,
+      "subject_members": [
+        "Intermediate Algebra",
+        "Other",
+        "Precalculus"
+      ],
+      "level_members": [
+        1,
+        2
+      ]
+    },
+    {
+      "stage_index": 1,
+      "difficulty_cluster": "D1",
+      "subject_cluster": 2,
+      "subject_members": [
+        "Algebra",
+        "Counting & Probability",
+        "Geometry",
+        "Number Theory",
+        "Prealgebra"
+      ],
+      "level_members": [
+        1,
+        2
+      ]
+    },
+    {
+      "stage_index": 2,
+      "difficulty_cluster": "D2",
+      "subject_cluster": 2,
+      "subject_members": [
+        "Algebra",
+        "Counting & Probability",
+        "Geometry",
+        "Number Theory",
+        "Prealgebra"
+      ],
+      "level_members": [
+        3,
+        4
+      ]
+    },
+    {
+      "stage_index": 3,
+      "difficulty_cluster": "D2",
+      "subject_cluster": 1,
+      "subject_members": [
+        "Intermediate Algebra",
+        "Other",
+        "Precalculus"
+      ],
+      "level_members": [
+        3,
+        4
+      ]
+    },
+    {
+      "stage_index": 4,
+      "difficulty_cluster": "D3",
+      "subject_cluster": 1,
+      "subject_members": [
+        "Intermediate Algebra",
+        "Other",
+        "Precalculus"
+      ],
+      "level_members": [
+        5,
+        6
+      ]
+    },
+    {
+      "stage_index": 5,
+      "difficulty_cluster": "D3",
+      "subject_cluster": 2,
+      "subject_members": [
+        "Algebra",
+        "Counting & Probability",
+        "Geometry",
+        "Number Theory",
+        "Prealgebra"
+      ],
+      "level_members": [
+        5,
+        6
+      ]
+    },
+    {
+      "stage_index": 6,
+      "difficulty_cluster": "D4",
+      "subject_cluster": 2,
+      "subject_members": [
+        "Algebra",
+        "Counting & Probability",
+        "Geometry",
+        "Number Theory",
+        "Prealgebra"
+      ],
+      "level_members": [
+        7,
+        8
+      ]
+    },
+    {
+      "stage_index": 7,
+      "difficulty_cluster": "D4",
+      "subject_cluster": 1,
+      "subject_members": [
+        "Intermediate Algebra",
+        "Other",
+        "Precalculus"
+      ],
+      "level_members": [
+        7,
+        8
+      ]
+    }
+  ],
+  "n_stages": 8,
+  "arm5_K_random_parts": 2,
+  "robustness_pilot1": {
+    "members": {
+      "2": [
+        "Algebra",
+        "Counting & Probability",
+        "Geometry",
+        "Number Theory",
+        "Prealgebra"
+      ],
+      "1": [
+        "Intermediate Algebra",
+        "Other",
+        "Precalculus"
+      ]
+    },
+    "S_corr_vs_pooled": 0.9724222473107998,
+    "same_as_pooled": true
+  },
+  "robustness_pilot2": {
+    "members": {
+      "1": [
+        "Algebra",
+        "Counting & Probability",
+        "Number Theory",
+        "Prealgebra"
+      ],
+      "2": [
+        "Geometry",
+        "Intermediate Algebra",
+        "Other",
+        "Precalculus"
+      ]
+    },
+    "S_corr_vs_pooled": 0.9731037736062824,
+    "same_as_pooled": false
+  },
+  "robustness_genlen_balanced": {
+    "N": 1200,
+    "members": {
+      "2": [
+        "Algebra",
+        "Geometry",
+        "Intermediate Algebra",
+        "Other",
+        "Precalculus"
+      ],
+      "1": [
+        "Counting & Probability",
+        "Number Theory",
+        "Prealgebra"
+      ]
+    },
+    "S_corr_vs_pooled": 0.9266541171373966,
+    "same_as_pooled": false
+  }
+}

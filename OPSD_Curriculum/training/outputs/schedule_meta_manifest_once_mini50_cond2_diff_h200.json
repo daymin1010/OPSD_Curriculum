@@ -1,0 +1,236 @@
+{
+  "schedule_mode": "manifest_once",
+  "spec": "stages_cond2_diff_q4_mini50",
+  "include_other": false,
+  "stages_json": "/scratch/lami2026/personal/jimin_2782/src/OPSD_Curriculum/training/stages_tiered_20260622/stages_cond2_diff_mini50.json",
+  "row_table": "/scratch/lami2026/personal/jimin_2782/src/OPSD_Curriculum/training/outputs/join_setA_rows.parquet",
+  "n_examples_per_pass": 1603,
+  "n_examples": 1603,
+  "B_glob": 32,
+  "T": 51,
+  "tail_policy": "partial",
+  "tail_size": 3,
+  "within_stage_order": "shuffle",
+  "seed": 42,
+  "curriculum_passes": 1,
+  "duplicates": 0,
+  "missing_problem_ids": 0,
+  "num_stages": 5,
+  "schedule_len": 1603,
+  "stages": [
+    {
+      "stage_index": 0,
+      "order_index": 0,
+      "pool_size": 312,
+      "slots_per_pass": 312,
+      "first_pos": 0,
+      "last_pos": 311,
+      "first_step": 0,
+      "last_step": 9,
+      "n_unique_problem_ids": 312
+    },
+    {
+      "stage_index": 1,
+      "order_index": 1,
+      "pool_size": 299,
+      "slots_per_pass": 299,
+      "first_pos": 312,
+      "last_pos": 610,
+      "first_step": 9,
+      "last_step": 19,
+      "n_unique_problem_ids": 299
+    },
+    {
+      "stage_index": 2,
+      "order_index": 2,
+      "pool_size": 344,
+      "slots_per_pass": 344,
+      "first_pos": 611,
+      "last_pos": 954,
+      "first_step": 19,
+      "last_step": 29,
+      "n_unique_problem_ids": 344
+    },
+    {
+      "stage_index": 3,
+      "order_index": 3,
+      "pool_size": 333,
+      "slots_per_pass": 333,
+      "first_pos": 955,
+      "last_pos": 1287,
+      "first_step": 29,
+      "last_step": 40,
+      "n_unique_problem_ids": 333
+    },
+    {
+      "stage_index": 4,
+      "order_index": 4,
+      "pool_size": 315,
+      "slots_per_pass": 315,
+      "first_pos": 1288,
+      "last_pos": 1602,
+      "first_step": 40,
+      "last_step": 50,
+      "n_unique_problem_ids": 315
+    }
+  ],
+  "expected_stage_counters": [
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 32
+    },
+    {
+      "0": 24,
+      "1": 8
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 32
+    },
+    {
+      "1": 3,
+      "2": 29
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 32
+    },
+    {
+      "2": 27,
+      "3": 5
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 32
+    },
+    {
+      "3": 8,
+      "4": 24
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 32
+    },
+    {
+      "4": 3
+    }
+  ]
+}

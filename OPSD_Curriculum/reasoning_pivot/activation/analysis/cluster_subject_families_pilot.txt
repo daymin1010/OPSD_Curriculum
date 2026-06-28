@@ -1,0 +1,13 @@
+# Subject hierarchical clustering — pilot
+
+## THINKING (centered subject)
+- dendrogram: dendrogram_subject_THINKING_pilot.png
+- flat 2-cluster cut (subject families):
+    family 1: Intermediate Algebra, Other, Precalculus
+    family 2: Algebra, Counting & Probability, Geometry, Number Theory, Prealgebra
+
+## FAITHFUL (centered subject)
+- dendrogram: dendrogram_subject_FAITHFUL_pilot.png
+- flat 2-cluster cut (subject families):
+    family 1: Counting & Probability, Geometry, Number Theory
+    family 2: Algebra, Intermediate Algebra, Other, Prealgebra, Precalculus

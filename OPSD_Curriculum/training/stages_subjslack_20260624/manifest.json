@@ -1,0 +1,87 @@
+{
+  "build": "build_stages_subjslack.py",
+  "date": "2026-06-24",
+  "method": "level_backbone_residual_subject_slack",
+  "alpha": 2.0,
+  "n_stages": 5,
+  "universe_N": 28771,
+  "clusters": {
+    "C_alg": [
+      "Algebra",
+      "Intermediate Algebra",
+      "Precalculus"
+    ],
+    "C_geo": [
+      "Geometry"
+    ],
+    "C_disc": [
+      "Counting & Probability",
+      "Number Theory",
+      "Prealgebra"
+    ]
+  },
+  "g_subject": {
+    "Algebra": -0.19680470638904674,
+    "Counting & Probability": 0.5,
+    "Geometry": -0.1234784336973026,
+    "Intermediate Algebra": -0.44454690987468176,
+    "Number Theory": 0.32682974455429914,
+    "Prealgebra": 0.20844187165942663,
+    "Precalculus": -0.5
+  },
+  "validation": {
+    "ours_stage_sizes": [
+      5323,
+      5365,
+      6171,
+      5775,
+      6137
+    ],
+    "ours_stage_mean_levels": [
+      1.8987413112906255,
+      3.0397017707362535,
+      3.8983957219251337,
+      4.894891774891775,
+      5.971484438650807
+    ],
+    "ours_mean_level_diffs": [
+      1.140960459445628,
+      0.8586939511888803,
+      0.9964960529666413,
+      1.0765926637590315
+    ],
+    "ours_monotone": true,
+    "ours_mean_per_stage_level_var": 0.48804377643805025,
+    "cond5_separation_dev": 28173.71736908441,
+    "cond5_separation_null_dev": 748.3098037069841,
+    "cond5_separation_perm_p": 0.004975124378109453,
+    "universe_identity_ours_eq_diff_md5": true,
+    "ours_md5": "3f54d1a51c71",
+    "diff_md5": "3f54d1a51c71",
+    "cond5": [
+      {
+        "seed": 0,
+        "md5": "3f54d1a51c71",
+        "n": 28771
+      },
+      {
+        "seed": 1,
+        "md5": "3f54d1a51c71",
+        "n": 28771
+      },
+      {
+        "seed": 2,
+        "md5": "3f54d1a51c71",
+        "n": 28771
+      }
+    ]
+  },
+  "fulljump_note": "full-representation consecutive jump (W_ALL): diff=0.237, CUR_ours(old)=0.394, this(a=2.0)=0.226 (lower=smoother); see measure_fulljump.py",
+  "outputs": [
+    "stages_cond3_ours_subjslack.json",
+    "stages_cond2_diff.json",
+    "stages_cond5_diffmatched_seed0.json",
+    "stages_cond5_diffmatched_seed1.json",
+    "stages_cond5_diffmatched_seed2.json"
+  ]
+}

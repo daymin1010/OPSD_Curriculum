@@ -1,0 +1,53 @@
+# ============================================================
+# FULL config — Qwen3-8B on L40S (×4, ws=4). FEASIBILITY-FIRST.
+# Mirrors opsd_src/scripts/run_opsd_8b.sh, EXCEPT batch geometry per handoff
+# 2026-06-18b + plan should #3:
+#   pd1 * ga8 * ws4 = 32  (NOT pd2*ga4 — colocate replicates 8B bf16 weights on
+#   each GPU; 46GB L40S would OOM at pd2). Start pd1; raise to pd2 only if memory
+#   ceiling/step-time confirm headroom. gpu_mem_util LOW for colocate co-residency.
+# jsd_token_clip 0.06 (8B). T is arm-common 480 (set on CLI by the sbatch).
+# attach_gold starts FALSE; flip to true AFTER the 1.7B smoke gate passes to wire
+# the monitor-only rollout_acc reward proxy.
+# ============================================================
+
+# ---- ModelConfig ----
+model_name_or_path: Qwen/Qwen3-8B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 64
+lora_alpha: 128
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+# ---- GOLDConfig (training_args) ----
+learning_rate: 5.0e-6
+max_grad_norm: 0.1
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+num_train_epochs: 1
+max_completion_length: 1024
+max_length: 20000
+save_steps: 120
+logging_steps: 2
+beta: 0
+lmbda: 1
+temperature: 1.1
+top_p: 0.95
+top_k: 20
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.45   # low: 8B colocate on 46GB L40S (OOM ceiling probe)
+vllm_tensor_parallel_size: 1
+output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/full_8b
+wandb_project: OPSD_Curriculum
+
+# ---- CurriculumScriptArguments / CustomScriptArguments ----
+fixed_teacher: true
+jsd_token_clip: 0.06
+reason_first: false
+student_thinking: false
+teacher_thinking: true
+curriculum_B_glob: 32
+attach_gold: true    # smoke gate PASSED -> monitor-only rollout_acc reward proxy ON
+

@@ -1,0 +1,8 @@
+# Isolated condarc for the opsd env build.
+# Exported via $CONDARC in setup_opsd_env.sh so conda IGNORES the shared
+# ~/.condarc (`channels: defaults` -> dead internal Nexus mirror iremb-nr-s:8081).
+channels:
+  - conda-forge
+channel_priority: strict
+# Do NOT fall back to anaconda 'defaults'/Nexus.
+default_channels: []

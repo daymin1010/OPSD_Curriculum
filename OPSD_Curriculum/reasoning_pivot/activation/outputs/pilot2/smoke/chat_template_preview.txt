@@ -1,0 +1,6 @@
+=== chat_template_preview (problem_id=00ed6db4e407e02e, level=1) ===
+<|im_start|>user
+Compute $55^2 - 45^2$ in your head.<|im_end|>
+<|im_start|>assistant
+
+=== END ===

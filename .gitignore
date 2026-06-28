@@ -1,0 +1,53 @@
+# =====================================================================
+# Whitelist: track ONLY OPSD-related top-level entries under src/.
+# (Everything else under src/ — 4.5_Task1, FastCuRL, verl-new, … — ignored.)
+# =====================================================================
+/*
+!/.gitignore
+!/README.md
+!/OPSD_Curriculum/
+!/OPSD_Cur
+
+# unmodified upstream clones of siyan-zhao/OPSD (recoverable via git clone) — exclude
+/OPSD_original/
+OPSD_Curriculum/reasoning_pivot/dataset_decision/OPSD_repo/
+
+# =====================================================================
+# Within tracked dirs: exclude large, regenerable model/data artifacts.
+# (Code + .json stage manifests stay tracked.)
+# =====================================================================
+# tensors / activations / model weights
+*.pt
+*.pth
+*.npy
+*.npz
+*.safetensors
+*.bin
+*.ckpt
+*.arrow
+*.parquet
+
+# large regenerable data outputs (label / activation metadata dumps)
+*.jsonl
+*.csv
+*.tsv
+
+# python / tooling caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.pytest_cache/
+*.egg-info/
+
+# experiment tracking / logs / run outputs
+wandb/
+runs/
+*.log
+slurm-*.out
+slurm-*.err
+
+# os junk
+.DS_Store
+Thumbs.db

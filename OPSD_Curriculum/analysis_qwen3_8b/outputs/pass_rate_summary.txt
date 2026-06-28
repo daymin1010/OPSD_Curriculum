@@ -1,0 +1,101 @@
+======================================================================
+PASS RATE MEASUREMENT — VERIFICATION CHECKLIST
+======================================================================
+
+[1] BASIC COUNTS
+  Total samples         : 2666  (expected: 2666)
+  N rollouts per sample : 8 (from max pass_count)
+
+[2] PASS RATE DISTRIBUTION (k/8 buckets)
+  pass=0/8  (rate=0.0000) :   606  (22.7%)
+  pass=1/8  (rate=0.1250) :   196  (7.4%)
+  pass=2/8  (rate=0.2500) :   162  (6.1%)
+  pass=3/8  (rate=0.3750) :   132  (5.0%)
+  pass=4/8  (rate=0.5000) :   158  (5.9%)
+  pass=5/8  (rate=0.6250) :   171  (6.4%)
+  pass=6/8  (rate=0.7500) :   178  (6.7%)
+  pass=7/8  (rate=0.8750) :   232  (8.7%)
+  pass=8/8  (rate=1.0000) :   831  (31.2%)
+
+[3] SUMMARY STATISTICS
+  Mean pass rate        : 0.5506
+  Median pass rate      : 0.6250
+  Std pass rate         : 0.4057
+  Min pass rate         : 0.0000
+  Max pass rate         : 1.0000
+
+[4] EXTREME BUCKETS
+  Pass=0   (all wrong)  :   606  (22.7%)
+  Pass=8/8 (all right)  :   831  (31.2%)
+  Partial  (1-7/8)      :  1229  (46.1%)
+
+[5] TRUNCATION (max_tokens=4096 hit)
+  Total truncated rollouts      : 1082
+  Mean truncated per sample     : 0.406
+  Samples with any truncation   : 464 (17.4%)
+  Samples all 8 truncated       : 7
+
+[6] RESPONSE LENGTH (tokens)
+  Overall mean length (all)     : 1415.8 tokens
+  Overall mean length (correct) : 1216.0 tokens
+  Overall mean length (wrong)   : 1870.5 tokens
+
+[7] GPT-LABEL LEVEL × PASS RATE (difficulty sanity check)
+  Level  1: n= 322  mean_pass=0.8451  pass=0:  34 (11%)  pass=8: 256 (80%)
+  Level  2: n= 375  mean_pass=0.7247  pass=0:  53 (14%)  pass=8: 210 (56%)
+  Level  3: n= 400  mean_pass=0.6928  pass=0:  54 (14%)  pass=8: 172 (43%)
+  Level  4: n= 383  mean_pass=0.5780  pass=0:  69 (18%)  pass=8:  93 (24%)
+  Level  5: n= 341  mean_pass=0.4857  pass=0:  70 (21%)  pass=8:  47 (14%)
+  Level  6: n= 347  mean_pass=0.3955  pass=0:  94 (27%)  pass=8:  31 (9%)
+  Level  7: n= 350  mean_pass=0.2700  pass=0: 146 (42%)  pass=8:  18 (5%)
+  Level  8: n= 148  mean_pass=0.1900  pass=0:  86 (58%)  pass=8:   4 (3%)
+
+[8] SUBJECT × PASS RATE
+  Other                                    n= 291  mean=0.4618
+  Counting & Probability                   n= 387  mean=0.4764
+  Geometry                                 n= 366  mean=0.5096
+  Number Theory                            n= 400  mean=0.5491
+  Intermediate Algebra                     n= 337  mean=0.5916
+  Precalculus                              n= 335  mean=0.6007
+  Algebra                                  n= 350  mean=0.6196
+  Prealgebra                               n= 200  mean=0.6275
+
+[9] PASS=0 HARD-TAIL ANALYSIS
+  Total pass=0 samples: 606
+
+  data_source distribution of pass=0 samples:
+                                                                :  606 (100.0%)
+
+  subject distribution of pass=0 samples:
+    Counting & Probability                  :  122 (20.1%)
+    Number Theory                           :   98 (16.2%)
+    Geometry                                :   95 (15.7%)
+    Other                                   :   87 (14.4%)
+    Intermediate Algebra                    :   65 (10.7%)
+    Algebra                                 :   60 (9.9%)
+    Precalculus                             :   45 (7.4%)
+    Prealgebra                              :   34 (5.6%)
+
+  level distribution of pass=0 samples:
+    Level  1:  34 pass=0 out of  322 total (11%)
+    Level  2:  53 pass=0 out of  375 total (14%)
+    Level  3:  54 pass=0 out of  400 total (14%)
+    Level  4:  69 pass=0 out of  383 total (18%)
+    Level  5:  70 pass=0 out of  341 total (21%)
+    Level  6:  94 pass=0 out of  347 total (27%)
+    Level  7: 146 pass=0 out of  350 total (42%)
+    Level  8:  86 pass=0 out of  148 total (58%)
+
+[10] GPT level × pass=0 rate (key diagnostic)
+  Level  1: pass=0 rate= 10.6%  pass=8 rate= 79.5%
+  Level  2: pass=0 rate= 14.1%  pass=8 rate= 56.0%
+  Level  3: pass=0 rate= 13.5%  pass=8 rate= 43.0%
+  Level  4: pass=0 rate= 18.0%  pass=8 rate= 24.3%
+  Level  5: pass=0 rate= 20.5%  pass=8 rate= 13.8%
+  Level  6: pass=0 rate= 27.1%  pass=8 rate=  8.9%
+  Level  7: pass=0 rate= 41.7%  pass=8 rate=  5.1%
+  Level  8: pass=0 rate= 58.1%  pass=8 rate=  2.7%
+
+======================================================================
+END OF SUMMARY
+======================================================================

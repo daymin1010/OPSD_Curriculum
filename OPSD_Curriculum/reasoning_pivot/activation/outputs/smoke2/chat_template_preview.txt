@@ -1,0 +1,6 @@
+=== chat_template_preview (problem_id=0415000736f8789a, level=1) ===
+<|im_start|>user
+Convert the binary number \(11111011111_2\) to its decimal representation.<|im_end|>
+<|im_start|>assistant
+
+=== END ===

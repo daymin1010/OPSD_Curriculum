@@ -1,0 +1,59 @@
+## Length-confound robustness — 3-method 일치 (POOLED N=3025)
+
+> 본 절은 위 SUBJECT/LEVEL centroid-cosine 유사도가 gen_len(Qwen3-8B thinking
+> trace 길이)으로 설명되는 가짜 신호인지, 내용(content) 신호인지를 서로 독립적인
+> 3각도로 검사한다. **subject·level 둘 다** 적용. (handoff §0의 'length 보류'
+> 입장을 약화하지 않는 보조 robustness — 활성화 난이도 축은 정당 신호로 사용.)
+
+**세 방법이 각각 통제하는 것 (중복 아님):**
+- **① Mantel** = 그룹 활성화 *거리행렬*(1−cos) vs gen_len *거리행렬*(평균차/Wasserstein) off-diag Pearson r + perm p. 낮고 비유의 → length 정렬 아님. [거리행렬 상관]
+- **② residual survival** = 각 feature 를 gen_len(±log/±quad, +level)에 GLOBAL 회귀한 *잔차* 에서 centroid-cosine 재계산 → 원본과 상관. 높게 생존 → content. [회귀잔차]
+- **③ gen_len-balanced** = gen_len 5분위로 그룹 매칭한 *부분표본* 에서 gap 재현. 유지되면 length artifact 아님. [분위 매칭]
+
+- pooled N=**3025** (pilot1=1608, pilot2=1417); μ_pooled(per-layer) centering; seed=42; CPU only.
+- ρ(level, gen_len) = **+0.709** (level gate 와 동일 변수 sanity).
+- 게이트(제안): Mantel 비유의(p≥0.05) & |r|<0.5; residual survival r≥0.85. 8×8/8그룹 행렬 한 개로 강결론 금지.
+
+### ===== SUBJECT =====
+groups(8) = ['Algebra', 'Counting & Probability', 'Geometry', 'Intermediate Algebra', 'Number Theory', 'Other', 'Prealgebra', 'Precalculus']
+
+**[layeravg]**
+- ① Mantel(D_act, gen_len mean-dist): r=+0.027, p=0.8186
+- ① Mantel(D_act, gen_len Wasserstein): r=+0.058, p=0.6241 → 비유의·약상관 ✅
+- ② residual survival r(M_resid, M_act): linear=+0.958, +log_len=+0.958, +quadratic=+0.962, gen_len+level=+0.964  → min=+0.958 (생존 ✅)
+- 뷰 판정: **PASS(content-driven)**
+
+**[mid_L11-15]**
+- ① Mantel(D_act, gen_len mean-dist): r=+0.009, p=0.9433
+- ① Mantel(D_act, gen_len Wasserstein): r=+0.036, p=0.7947 → 비유의·약상관 ✅
+- ② residual survival r(M_resid, M_act): linear=+0.978, +log_len=+0.978, +quadratic=+0.980, gen_len+level=+0.974  → min=+0.974 (생존 ✅)
+- 뷰 판정: **PASS(content-driven)**
+
+### ===== LEVEL =====
+groups(8) = [1, 2, 3, 4, 5, 6, 7, 8]
+
+**[layeravg]**
+- ① Mantel(D_act, gen_len mean-dist): r=+0.858, p=0.0001
+- ① Mantel(D_act, gen_len Wasserstein): r=+0.858, p=0.0001 → 주의 ⚠️
+- ② residual survival r(M_resid, M_act): linear=+0.624, +log_len=+0.797, +quadratic=+0.816  → min=+0.624 (붕괴 ⚠️)
+- 뷰 판정: **FAIL**
+
+**[mid_L11-15]**
+- ① Mantel(D_act, gen_len mean-dist): r=+0.850, p=0.0001
+- ① Mantel(D_act, gen_len Wasserstein): r=+0.850, p=0.0001 → 주의 ⚠️
+- ② residual survival r(M_resid, M_act): linear=+0.668, +log_len=+0.782, +quadratic=+0.789  → min=+0.668 (붕괴 ⚠️)
+- 뷰 판정: **FAIL**
+
+### ===== ③ gen_len-balanced subsample (layeravg) =====
+
+**SUBJECT** (balanced N=1200, groups=8)
+- full gap = +0.3528 → balanced gap = +0.2006 (유지율 57%); perm p(balanced) = 0.0050 (N_PERM=200)
+
+**LEVEL** (balanced N=142, groups=8)
+- full gap = +0.4345 → balanced gap = +0.3835 (유지율 88%); perm p(balanced) = 0.0050 (N_PERM=200)
+
+### ===== 종합 (3-method 일치) =====
+- **SUBJECT**: Mantel layeravg r≈+0.03(p=0.819); residual_min layeravg=+0.96, mid=+0.97; balanced 유지율=57%
+- **LEVEL**: Mantel layeravg r≈+0.86(p=0.000); residual_min layeravg=+0.62, mid=+0.67; balanced 유지율=88%
+
+**해석.** 세 각도(거리행렬 상관·회귀잔차·분위매칭)가 모두 content-driven 으로 수렴하면 'length 가 유사도 구조를 설명하지 못함'을 강하게 지지한다. Mantel 은 그룹 수가 적어(8그룹) permutation p 만 보고, residual survival 과 balanced gap 을 주증거로 본다.
