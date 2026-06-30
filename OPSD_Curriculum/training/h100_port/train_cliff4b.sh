@@ -1,0 +1,60 @@
+#!/bin/bash
+# ============================================================
+# 4B 커리큘럼 학습 — H100 4장, 직접 실행(SLURM 아님). 포터블.
+#   사용: REPO=/path/to/repo_root ./train_cliff4b.sh <ARM>
+#   ARM ∈ {shuffle, diff, cliff_P, subj_V1, subj_shuf}
+#   REPO = OPSD_Curriculum의 상위(= src 또는 repo root). 모델/데이터 세팅은 SETUP.md 참조.
+# ============================================================
+set -euo pipefail
+ARM="${1:?ARM required: shuffle|diff|cliff_P|subj_V1|subj_shuf}"
+: "${REPO:?REPO env 필요 (OPSD_Curriculum 상위 경로). 예: export REPO=\$HOME/opsd}"
+: "${ENV_PY:=python}"        # conda 환경 python (SETUP.md대로 만들고 activate 후 실행)
+NPROC="${NPROC:-4}"          # H100 4장
+
+OPSD_SRC=$REPO/OPSD_Curriculum/training/opsd_src
+CUR=$REPO/OPSD_Curriculum/training/curriculum
+STAGES=$REPO/OPSD_Curriculum/training/stages_cliff4b_20260630
+ROW=$REPO/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
+ARM_JSON=$STAGES/stages_${ARM}.json
+RUN_CONFIG=cliff4b_${ARM}
+WORK="${WORK:-$REPO/_run}"   # 체크포인트/캐시 출력 루트 (config output_dir도 여기 기준 권장)
+
+[ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }
+[ -f "$ROW" ]      || { echo "[ERR] row table 없음: $ROW (SETUP.md의 데이터 전송 확인)" >&2; exit 2; }
+
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1,2,3}"   # H100 0-3번 사용
+export HF_HOME="${HF_HOME:-$WORK/hf}"
+export WANDB_PROJECT=OPSD_Curriculum
+export WANDB_MODE="${WANDB_MODE:-offline}"   # 외부 wandb 미사용 기본
+export WANDB_DIR="$WORK/wandb"
+export PYTHONNOUSERSITE=1
+export TOKENIZERS_PARALLELISM=false
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export VLLM_USE_V1=1 VLLM_NO_USAGE_STATS=1 DO_NOT_TRACK=1
+export NODE_CACHE="$WORK/cache/node_${ARM}"
+export TORCHINDUCTOR_CACHE_DIR=$NODE_CACHE/inductor
+export TRITON_CACHE_DIR=$NODE_CACHE/triton
+export VLLM_CACHE_ROOT=$NODE_CACHE/vllm
+export TORCH_EXTENSIONS_DIR=$NODE_CACHE/torch_ext
+export TMPDIR="$WORK/cache/tmp_${ARM}"; export TEMP=$TMPDIR TMP=$TMPDIR
+export PYTHONPATH=$OPSD_SRC:$CUR:${PYTHONPATH:-}
+mkdir -p "$TORCHINDUCTOR_CACHE_DIR" "$TRITON_CACHE_DIR" "$VLLM_CACHE_ROOT" "$TORCH_EXTENSIONS_DIR" "$TMPDIR" "$WANDB_DIR"
+nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader || true
+cd "$CUR"
+
+echo "=== [H100] arm=$ARM nproc=$NPROC $(date) ==="
+"$ENV_PY" -m accelerate.commands.launch \
+    --config_file $OPSD_SRC/accelerate.yaml \
+    --num_processes "$NPROC" \
+    --gradient_accumulation_steps 8 \
+    --main_process_port 13100 \
+    train_opsd_curriculum_manifest_once.py \
+    --config configs/full_4b_cliff.yaml \
+    --output_dir "$WORK/checkpoints/full_4b_cliff" \
+    --arm "$ARM" \
+    --stages_json "$ARM_JSON" \
+    --within_stage_order shuffle \
+    --tail_policy partial \
+    --curriculum_passes 1 \
+    --run_config "$RUN_CONFIG"
+echo "=== [H100] DONE arm=$ARM $(date) ==="

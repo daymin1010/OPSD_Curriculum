@@ -51,3 +51,6 @@ slurm-*.err
 # os junk
 .DS_Store
 Thumbs.db
+
+# H100 포팅 필수: 스케줄 빌드용 row table (problem_id->opsd_index). 작아서 git 포함.
+!/OPSD_Curriculum/training/outputs/join_setA_rows.parquet

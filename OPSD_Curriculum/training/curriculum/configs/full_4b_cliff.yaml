@@ -1,0 +1,45 @@
+# FULL 4B config — Qwen3-4B, cliff/subject 커리큘럼 (2026-06-30).
+# 8B config 미러. 차이: 모델 4B, max_completion_length 4096(잘림 방지, 전 arm 공통=공정),
+# output_dir는 arm별로 sbatch에서 run_config로 분기.
+# stage별 context ramp는 v2(manifest의 context_per_stage 사용, wrapper 패치 필요).
+model_name_or_path: Qwen/Qwen3-4B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 64
+lora_alpha: 128
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+learning_rate: 5.0e-6
+max_grad_norm: 0.1
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+num_train_epochs: 1
+max_completion_length: 4096
+max_length: 24000
+save_strategy: steps
+save_steps: 50
+save_total_limit: 20
+load_best_model_at_end: false
+eval_strategy: "no"
+logging_steps: 2
+beta: 0
+lmbda: 1
+temperature: 1.1
+top_p: 0.95
+top_k: 20
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.6
+vllm_tensor_parallel_size: 1
+output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/full_4b_cliff
+wandb_project: OPSD_Curriculum
+
+fixed_teacher: true
+jsd_token_clip: 0.06
+reason_first: false
+student_thinking: false
+teacher_thinking: true
+curriculum_B_glob: 32
+attach_gold: true
