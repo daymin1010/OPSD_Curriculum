@@ -1,7 +1,9 @@
 # FULL 4B config — Qwen3-4B, cliff/subject 커리큘럼 (2026-06-30).
 # 8B config 미러. 차이: 모델 4B, max_completion_length 4096(잘림 방지, 전 arm 공통=공정),
 # output_dir는 arm별로 sbatch에서 run_config로 분기.
-# stage별 context ramp는 v2(manifest의 context_per_stage 사용, wrapper 패치 필요).
+# stage별 context ramp = v2 ON (context_scaling: true) — wrapper가 manifest의
+# context_per_stage로 생성 max_new_tokens를 stage마다 램프(생성길이만; teacher 무관).
+# max_completion_length(4096)=상한/기본, max_length(24000)=총 상한 유지.
 model_name_or_path: Qwen/Qwen3-4B
 torch_dtype: bfloat16
 attn_implementation: flash_attention_2
@@ -43,3 +45,4 @@ student_thinking: false
 teacher_thinking: true
 curriculum_B_glob: 32
 attach_gold: true
+context_scaling: true

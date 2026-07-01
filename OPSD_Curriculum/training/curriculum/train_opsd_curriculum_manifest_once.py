@@ -69,6 +69,7 @@ class CurriculumScriptArguments(CustomScriptArguments):
     within_stage_order: str = field(default="shuffle", metadata={"help": "shuffle or manifest."})
     tail_policy: str = field(default="partial", metadata={"help": "Only partial is supported."})
     curriculum_passes: int = field(default=1, metadata={"help": "Repeat full 0->last stage schedule this many times."})
+    context_scaling: bool = field(default=False, metadata={"help": "Ramp on-policy generation budget (max_new_tokens) per stage from manifest context_per_stage. Generation length only; teacher/loss untouched."})
 
 
 def main():
@@ -221,6 +222,19 @@ def main():
     # Enable the monitor-only reward proxy on the trainer (taps completions +
     # gathers gold). Off for smoke; OPSD loss/generation are never affected.
     trainer.attach_gold = bool(script_args.attach_gold)
+
+    # per-stage context scaling (opt-in): ramp generation budget by the manifest's
+    # context_per_stage. Generation length only — teacher/loss logic untouched.
+    if getattr(script_args, "context_scaling", False):
+        ctx_ps = meta.get("context_per_stage")
+        if ctx_ps:
+            trainer.context_per_stage = [int(x) for x in ctx_ps]
+            if is_main:
+                print(f"[curriculum] context_scaling ON: per-stage max_new_tokens="
+                      f"{trainer.context_per_stage}", flush=True)
+        elif is_main:
+            print("[curriculum] context_scaling requested but manifest has no "
+                  "context_per_stage; keeping global max_completion_length", flush=True)
 
     # manifest_once curriculum monitor (expected per-step stage Counter gate)
     trainer.add_callback(CurriculumManifestOnceMonitorCallback(

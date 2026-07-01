@@ -11,12 +11,16 @@
 #SBATCH --time=24:00:00
 # ============================================================
 # 4B 커리큘럼 학습 (cliff 실험) — arm을 인자로.
-#   사용: sbatch --job-name cliff4b_<ARM> train_cliff4b_h200.sh <ARM>
-#   ARM ∈ {shuffle, diff, cliff_P, subj_V1, subj_shuf}
-# Qwen3-4B, H200 x2, B_glob=32. clean universe 28,743. max_completion 4096(전 arm 공통).
+#   사용: sbatch --job-name cliff4b_<ARM> train_cliff4b_h200.sh <ARM> [SEED]
+#   ARM ∈ {shuffle, diff, cliff_P, cliff_subjgeo, cliff_subjrand_s0, cliff_subjrand_s1}
+#         (subj_V1/subj_shuf = 구 subject-primary, 중간선으로 대체)
+#   SEED(옵션): 학습/스케줄 seed. 생략 시 42. 지정 시 run_config에 _s<SEED> 접미사.
+# Qwen3-4B, H200 x2, B_glob=32. clean universe 28,743.
+# context_scaling ON(full_4b_cliff.yaml): stage별 생성 max_new_tokens 1024→4096 램프.
 # ============================================================
 set -euo pipefail
-ARM="${1:?ARM required: shuffle|diff|cliff_P|subj_V1|subj_shuf}"
+ARM="${1:?ARM required: shuffle|diff|cliff_P|cliff_subjgeo|cliff_subjrand_s0|cliff_subjrand_s1}"
+SEED="${2:-}"   # 옵션: 생략 시 기본 seed(42), run_config 접미사 없음
 
 REPO=/scratch/lami2026/personal/jimin_2782
 OPSD_SRC=$REPO/src/OPSD_Curriculum/training/opsd_src
@@ -24,7 +28,8 @@ CUR=$REPO/src/OPSD_Curriculum/training/curriculum
 STAGES=$REPO/src/OPSD_Curriculum/training/stages_cliff4b_20260630
 ROW=$REPO/src/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
-RUN_CONFIG=cliff4b_${ARM}
+if [ -n "$SEED" ]; then RUN_CONFIG=cliff4b_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
+else RUN_CONFIG=cliff4b_${ARM}; SEED_ARGS=""; fi
 [ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }
 
 echo "=== job=$SLURM_JOB_ID arm=$ARM node=$(hostname) $(date) ==="
@@ -67,6 +72,7 @@ PORT=$((13100 + SLURM_JOB_ID % 300))   # 같은 노드 동시 실행 시 포트 
     --within_stage_order shuffle \
     --tail_policy partial \
     --curriculum_passes 1 \
+    $SEED_ARGS \
     --run_config "$RUN_CONFIG"
 
 echo "=== DONE arm=$ARM $(date) ==="

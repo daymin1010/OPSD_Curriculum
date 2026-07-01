@@ -212,6 +212,7 @@ def build_schedule_from_stage_manifest(
         "missing_problem_ids": 0,
         "num_stages": len(stages),
         "schedule_len": len(schedule),
+        "context_per_stage": manifest.get("context_per_stage"),
         "stages": meta_stages,
         "expected_stage_counters": expected_stage_counters,
     }

@@ -1,12 +1,15 @@
 #!/bin/bash
 # ============================================================
 # 4B 커리큘럼 학습 — H100 4장, 직접 실행(SLURM 아님). 포터블.
-#   사용: REPO=/path/to/repo_root ./train_cliff4b.sh <ARM>
-#   ARM ∈ {shuffle, diff, cliff_P, subj_V1, subj_shuf}
+#   사용: REPO=/path/to/repo_root ./train_cliff4b.sh <ARM> [SEED]
+#   ARM ∈ {shuffle, diff, cliff_P, cliff_subjgeo, cliff_subjrand_s0, cliff_subjrand_s1}
+#   SEED(옵션): 학습/스케줄 seed. 생략 시 42. 지정 시 run_config에 _s<SEED> 접미사.
+#   context_scaling은 full_4b_cliff.yaml(context_scaling: true)에서 자동 ON.
 #   REPO = OPSD_Curriculum의 상위(= src 또는 repo root). 모델/데이터 세팅은 SETUP.md 참조.
 # ============================================================
 set -euo pipefail
-ARM="${1:?ARM required: shuffle|diff|cliff_P|subj_V1|subj_shuf}"
+ARM="${1:?ARM required: shuffle|diff|cliff_P|cliff_subjgeo|cliff_subjrand_s0|cliff_subjrand_s1}"
+SEED="${2:-}"                # 옵션: 생략 시 기본 seed(42), run_config 접미사 없음
 : "${REPO:?REPO env 필요 (OPSD_Curriculum 상위 경로). 예: export REPO=\$HOME/opsd}"
 : "${ENV_PY:=python}"        # conda 환경 python (SETUP.md대로 만들고 activate 후 실행)
 NPROC="${NPROC:-4}"          # H100 4장
@@ -16,7 +19,8 @@ CUR=$REPO/OPSD_Curriculum/training/curriculum
 STAGES=$REPO/OPSD_Curriculum/training/stages_cliff4b_20260630
 ROW=$REPO/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
-RUN_CONFIG=cliff4b_${ARM}
+if [ -n "$SEED" ]; then RUN_CONFIG=cliff4b_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
+else RUN_CONFIG=cliff4b_${ARM}; SEED_ARGS=""; fi
 WORK="${WORK:-$REPO/_run}"   # 체크포인트/캐시 출력 루트 (config output_dir도 여기 기준 권장)
 
 [ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }
@@ -56,5 +60,6 @@ echo "=== [H100] arm=$ARM nproc=$NPROC $(date) ==="
     --within_stage_order shuffle \
     --tail_policy partial \
     --curriculum_passes 1 \
+    $SEED_ARGS \
     --run_config "$RUN_CONFIG"
 echo "=== [H100] DONE arm=$ARM $(date) ==="

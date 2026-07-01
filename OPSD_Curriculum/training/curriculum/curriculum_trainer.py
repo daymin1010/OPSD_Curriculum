@@ -76,6 +76,13 @@ class CurriculumOPSDTrainer(OPSDTrainer):
         self._last_completions = None
         # reward proxy off by default; train_opsd_curriculum sets it from config.
         self.attach_gold = False
+        # per-stage context scaling (opt-in). When set to a list by
+        # train_opsd_curriculum_manifest_once, training_step ramps the generation
+        # budget (self.generation_config.max_new_tokens) to match the current
+        # micro-batch's stage. None => unchanged global max_completion_length.
+        # NOTE: teacher/loss logic is NOT touched — only the on-policy generation
+        # length the UNCHANGED OPSD body reads from self.generation_config.
+        self.context_per_stage = None
 
     # ---- order: schedule IS the order (no shuffle) ----
     def _get_train_sampler(self, *args, **kwargs):
@@ -117,6 +124,21 @@ class CurriculumOPSDTrainer(OPSDTrainer):
             except Exception:
                 gathered = stage_index
             self._stage_window.extend(int(x) for x in gathered.detach().cpu().tolist())
+
+        # ---- per-stage context scaling (generation budget only) ----
+        # Set the max_new_tokens the UNCHANGED OPSD generate() reads from
+        # self.generation_config. Use the MAX context over stages present in this
+        # micro-batch so harder examples are never truncated below their budget
+        # (stage-pure micro-batches — the norm — reduce to that stage's value).
+        if self.context_per_stage is not None and stage_index is not None:
+            try:
+                st_local = [int(x) for x in stage_index.detach().cpu().tolist()]
+                ctxs = [int(self.context_per_stage[s]) for s in st_local
+                        if 0 <= s < len(self.context_per_stage)]
+                if ctxs:
+                    self.generation_config.max_new_tokens = max(ctxs)
+            except Exception:
+                pass
 
         # OPSD loss/generation/teacher — UNCHANGED. The generate() taps above
         # populate self._last_completions during this call when attach_gold.
