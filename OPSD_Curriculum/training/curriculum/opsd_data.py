@@ -42,10 +42,13 @@ import pyarrow.ipc as ipc
 # Constants
 # ----------------------------------------------------------------------------
 REPO_ROOT = Path("/scratch/lami2026/personal/jimin_2782")
-DATASET_CACHE_GLOB = (
-    "cache/huggingface/datasets/siyanzhao___openthoughts_math_30k_opsd/"
+# shard glob relative to a HF *datasets* cache dir
+DATASET_SHARD_GLOB = (
+    "siyanzhao___openthoughts_math_30k_opsd/"
     "**/openthoughts_math_30k_opsd-train-*.arrow"
 )
+# back-compat: original main-server layout (REPO_ROOT/cache/huggingface/datasets)
+DATASET_CACHE_GLOB = "cache/huggingface/datasets/" + DATASET_SHARD_GLOB
 EXPECTED_TOTAL_ROWS = 29434          # Phase-0 reference (full Openthoughts 30k)
 EXPECTED_NUM_SHARDS = 2              # 00000-of-00002 + 00001-of-00002
 MIN_SAFE_ROWS = 29000               # below this we assume a missing shard
@@ -63,18 +66,50 @@ def _read_arrow_table(path: str) -> pa.Table:
             return ipc.open_stream(src).read_all()
 
 
-def find_shards(repo_root: Path | str = REPO_ROOT) -> list[str]:
-    """Return the OPSD train Arrow shards in deterministic (name) order."""
-    repo_root = Path(repo_root)
-    pattern = str(repo_root / DATASET_CACHE_GLOB)
-    shards = sorted(glob.glob(pattern, recursive=True))
-    return shards
+def _candidate_dataset_dirs() -> list[Path]:
+    """HF *datasets* cache dirs to search, in priority order. Portable across
+    servers (main SLURM box, H100, etc.) — no hardcoded personal path required."""
+    dirs: list[Path] = []
+    env = os.environ.get
+    if env("OPSD_DATA_ROOT"):            # explicit override: a datasets-cache dir
+        dirs.append(Path(env("OPSD_DATA_ROOT")))
+    if env("HF_DATASETS_CACHE"):
+        dirs.append(Path(env("HF_DATASETS_CACHE")))
+    if env("HF_HOME"):
+        dirs.append(Path(env("HF_HOME")) / "datasets")
+    dirs.append(Path.home() / ".cache" / "huggingface" / "datasets")
+    dirs.append(REPO_ROOT / "cache" / "huggingface" / "datasets")  # main-server back-compat
+    # de-dup preserving order
+    seen, out = set(), []
+    for d in dirs:
+        s = str(d)
+        if s not in seen:
+            seen.add(s); out.append(d)
+    return out
+
+
+def find_shards(repo_root: Path | str | None = None) -> list[str]:
+    """Return the OPSD train Arrow shards in deterministic (name) order.
+
+    Searches (in order): explicit repo_root/OPSD_DATA_ROOT, HF_DATASETS_CACHE,
+    HF_HOME/datasets, ~/.cache/huggingface/datasets, and the original main-server
+    path. First location with matching shards wins.
+    """
+    roots: list[Path] = []
+    if repo_root is not None:            # explicit override (old-style: <root>/cache/huggingface/datasets)
+        roots.append(Path(repo_root) / "cache" / "huggingface" / "datasets")
+    roots += _candidate_dataset_dirs()
+    for root in roots:
+        shards = sorted(glob.glob(str(Path(root) / DATASET_SHARD_GLOB), recursive=True))
+        if shards:
+            return shards
+    return []
 
 
 # ----------------------------------------------------------------------------
 # Public API
 # ----------------------------------------------------------------------------
-def load_opsd_train(repo_root: Path | str = REPO_ROOT, strict: bool = True):
+def load_opsd_train(repo_root: Path | str | None = None, strict: bool = True):
     """Load the OPSD train split as a real `datasets.Dataset`, bypassing the
     incompatible cached `dataset_info.json`.
 
@@ -92,8 +127,14 @@ def load_opsd_train(repo_root: Path | str = REPO_ROOT, strict: bool = True):
 
     shards = find_shards(repo_root)
     if not shards:
+        searched = [str(Path(r) / DATASET_SHARD_GLOB) for r in _candidate_dataset_dirs()]
         raise FileNotFoundError(
-            f"[opsd_data] no Arrow shards under {Path(repo_root)/DATASET_CACHE_GLOB}"
+            "[opsd_data] no Arrow shards found. Populate the HF cache first, e.g.:\n"
+            "    python -c \"from datasets import load_dataset; "
+            "load_dataset('siyanzhao/Openthoughts_math_30k_opsd')\"\n"
+            "  (the final 'List' feature error is EXPECTED — the shards get written "
+            "to the cache before it.)\n"
+            "Searched:\n  " + "\n  ".join(searched)
         )
 
     tables = [_read_arrow_table(p) for p in shards]
