@@ -1,0 +1,31 @@
+# H100 전용 accelerate 설정 (opsd_src/accelerate.yaml 미러, offload만 끔).
+# 왜: opsd_src/accelerate.yaml은 offload_optimizer_device=cpu → DeepSpeedCPUAdam이
+# cpu_adam CUDA 확장을 JIT 컴파일해야 함. H100 시스템 CUDA(13.0)와 torch cu128(12.8)
+# 불일치로 빌드 거부됨. 4B+LoRA를 80GB H100 4장에 돌릴 땐 CPU offload가 불필요하므로
+# offload를 none으로 바꿔 컴파일 자체를 없앰(torch AdamW 사용). zero_stage 2 유지 →
+# 그래디언트/옵티마이저 파티셔닝은 메인서버와 동일, 옵티마이저만 GPU 상주(수치 동일).
+main_process_port: 13378
+
+compute_environment: LOCAL_MACHINE
+debug: false
+deepspeed_config:
+  deepspeed_multinode_launcher: standard
+  offload_optimizer_device: none
+  zero_stage: 2
+  overlap_comm: true
+  contiguous_gradients: true
+  gradient_clip: 1
+  gradient_accumulation_steps: 'auto'
+distributed_type: DEEPSPEED
+downcast_bf16: 'auto'
+machine_rank: 0
+main_training_function: main
+mixed_precision: 'bf16'
+num_machines: 1
+num_processes: 4
+rdzv_backend: static
+same_network: true
+tpu_env: []
+tpu_use_cluster: false
+tpu_use_sudo: false
+use_cpu: false

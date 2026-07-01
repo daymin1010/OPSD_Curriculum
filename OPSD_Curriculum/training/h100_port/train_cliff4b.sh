@@ -46,9 +46,11 @@ mkdir -p "$TORCHINDUCTOR_CACHE_DIR" "$TRITON_CACHE_DIR" "$VLLM_CACHE_ROOT" "$TOR
 nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader || true
 cd "$CUR"
 
-echo "=== [H100] arm=$ARM nproc=$NPROC $(date) ==="
+# H100 accelerate 설정: opsd_src의 cpu-offload 대신 offload 끈 버전(cpu_adam 컴파일 회피).
+ACCEL_CONFIG="${ACCEL_CONFIG:-$REPO/OPSD_Curriculum/training/h100_port/accelerate_h100.yaml}"
+echo "=== [H100] arm=$ARM nproc=$NPROC accel=$ACCEL_CONFIG $(date) ==="
 "$ENV_PY" -m accelerate.commands.launch \
-    --config_file $OPSD_SRC/accelerate.yaml \
+    --config_file "$ACCEL_CONFIG" \
     --num_processes "$NPROC" \
     --gradient_accumulation_steps 8 \
     --main_process_port 13100 \
