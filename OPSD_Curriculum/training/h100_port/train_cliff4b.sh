@@ -12,7 +12,10 @@ ARM="${1:?ARM required: shuffle|diff|cliff_P|cliff_subjgeo|cliff_subjrand_s0|cli
 SEED="${2:-}"                # 옵션: 생략 시 기본 seed(42), run_config 접미사 없음
 : "${REPO:?REPO env 필요 (OPSD_Curriculum 상위 경로). 예: export REPO=\$HOME/opsd}"
 : "${ENV_PY:=python}"        # conda 환경 python (SETUP.md대로 만들고 activate 후 실행)
-NPROC="${NPROC:-4}"          # H100 4장
+# ⚠️ 반드시 2장/arm: B_glob=32 = per_device 2 × grad_accum 8 × world 2 (메인서버와 동일).
+# 4장으로 돌리면 world=4 → B_glob=64 → 커리큘럼 모니터가 abort함.
+# 2장씩 2 arm 병렬: 각각 CUDA_VISIBLE_DEVICES=0,1 / 2,3 + PORT 다르게.
+NPROC="${NPROC:-2}"          # 2장/arm 고정
 
 OPSD_SRC=$REPO/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/OPSD_Curriculum/training/curriculum
@@ -53,7 +56,7 @@ echo "=== [H100] arm=$ARM nproc=$NPROC accel=$ACCEL_CONFIG $(date) ==="
     --config_file "$ACCEL_CONFIG" \
     --num_processes "$NPROC" \
     --gradient_accumulation_steps 8 \
-    --main_process_port 13100 \
+    --main_process_port "${PORT:-13100}" \
     train_opsd_curriculum_manifest_once.py \
     --config configs/full_4b_cliff.yaml \
     --output_dir "$WORK/checkpoints/full_4b_cliff" \
