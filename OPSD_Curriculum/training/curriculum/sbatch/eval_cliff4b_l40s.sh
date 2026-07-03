@@ -14,7 +14,7 @@
 #   사용: sbatch --job-name eval_cliff4b_<ARM> eval_cliff4b_l40s.sh <ARM> ["100 400 650 900"]
 # AIME24/25 + HMMT25 (val_n=12) + MATH500/Minerva (val_n=1), non-thinking, TP=2. RESUME(있는 json skip).
 set -euo pipefail
-ARM="${1:?ARM required}"; STEPS="${2:-100 400 650}"
+ARM="${1:?ARM required}"; STEPS="${2:-}"   # 기본: 최종 체크포인트만(아래 자동감지). 중간 커브 원하면 "100 400 650" 처럼 인자로.
 REPO=/scratch/lami2026/personal/jimin_2782
 OPSD_SRC=$REPO/src/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/src/OPSD_Curriculum/training/curriculum

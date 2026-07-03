@@ -1,9 +1,9 @@
 #!/bin/bash
 # 4B 커리큘럼 eval — H100, 직접 실행. 포터블.
 #   사용: REPO=/path ./eval_cliff4b.sh <ARM> ["100 400 650"]
-#   최종 체크포인트(예: 899)는 자동 감지해 STEPS에 추가됨(900 하드코딩 금지).
+#   기본: 최종 체크포인트(예: 899)만 자동 감지해 eval. 중간 커브 원하면 인자로 전달.
 set -euo pipefail
-ARM="${1:?ARM required}"; STEPS="${2:-100 400 650}"
+ARM="${1:?ARM required}"; STEPS="${2:-}"
 : "${REPO:?REPO env 필요}"; : "${ENV_PY:=python}"
 OPSD_SRC=$REPO/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/OPSD_Curriculum/training/curriculum
