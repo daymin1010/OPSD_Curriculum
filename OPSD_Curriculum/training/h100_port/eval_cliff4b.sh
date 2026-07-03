@@ -24,7 +24,7 @@ cd "$OPSD_SRC/eval"
 for STEP in $STEPS; do
   CKPT="$CKPT_BASE/checkpoint-${STEP}"
   [ -d "$CKPT" ] || { echo "[SKIP] $CKPT"; continue; }
-  for dv in "aime24 12" "aime25 12" "hmmt25 12" "math500 1"; do
+  for dv in "aime24 12" "aime25 12" "hmmt25 12" "math500 1" "minerva 1"; do
     ds=$(echo $dv|cut -d' ' -f1); vn=$(echo $dv|cut -d' ' -f2)
     OUT="$OUTDIR/${ds}_cliff4b_${ARM}_step${STEP}_nonthink_valn${vn}.json"
     [ -f "$OUT" ] && { echo "[SKIP] $(basename $OUT)"; continue; }

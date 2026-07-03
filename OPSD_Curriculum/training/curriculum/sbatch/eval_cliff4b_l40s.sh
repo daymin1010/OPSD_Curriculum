@@ -12,7 +12,7 @@
 #SBATCH --time=20:00:00
 # 4B 커리큘럼 eval — arm 인자. step 커브 (기본 100·400·650·900).
 #   사용: sbatch --job-name eval_cliff4b_<ARM> eval_cliff4b_l40s.sh <ARM> ["100 400 650 900"]
-# AIME24/25 + HMMT25 (val_n=12) + MATH500 (val_n=1), non-thinking, TP=2. RESUME(있는 json skip).
+# AIME24/25 + HMMT25 (val_n=12) + MATH500/Minerva (val_n=1), non-thinking, TP=2. RESUME(있는 json skip).
 set -euo pipefail
 ARM="${1:?ARM required}"; STEPS="${2:-100 400 650 900}"
 REPO=/scratch/lami2026/personal/jimin_2782
@@ -39,7 +39,7 @@ cd "$OPSD_SRC/eval"
 for STEP in $STEPS; do
   CKPT="$CKPT_BASE/checkpoint-${STEP}"
   [ -d "$CKPT" ] || { echo "[SKIP] $CKPT 없음"; continue; }
-  for ds_valn in "aime24 12" "aime25 12" "hmmt25 12" "math500 1"; do
+  for ds_valn in "aime24 12" "aime25 12" "hmmt25 12" "math500 1" "minerva 1"; do
     ds=$(echo $ds_valn|cut -d' ' -f1); valn=$(echo $ds_valn|cut -d' ' -f2)
     OUT="$OUTDIR/${ds}_cliff4b_${ARM}_step${STEP}_nonthink_valn${valn}.json"
     [ -f "$OUT" ] && { echo "[RESUME-SKIP] $(basename $OUT)"; continue; }

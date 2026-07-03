@@ -8,7 +8,7 @@
 #SBATCH -w iREMB-C-03
 #SBATCH --output=/scratch/lami2026/personal/jimin_2782/runs/slurm-%x.%j.%N.out
 #SBATCH --error=/scratch/lami2026/personal/jimin_2782/runs/slurm-%x.%j.%N.err
-#SBATCH --time=24:00:00
+#SBATCH --time=7-00:00:00
 # ============================================================
 # 4B 커리큘럼 학습 (cliff 실험) — arm을 인자로.
 #   사용: sbatch --job-name cliff4b_<ARM> train_cliff4b_h200.sh <ARM> [SEED]
