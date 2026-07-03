@@ -14,13 +14,16 @@
 #   사용: sbatch --job-name eval_cliff4b_<ARM> eval_cliff4b_l40s.sh <ARM> ["100 400 650 900"]
 # AIME24/25 + HMMT25 (val_n=12) + MATH500/Minerva (val_n=1), non-thinking, TP=2. RESUME(있는 json skip).
 set -euo pipefail
-ARM="${1:?ARM required}"; STEPS="${2:-100 400 650 900}"
+ARM="${1:?ARM required}"; STEPS="${2:-100 400 650}"
 REPO=/scratch/lami2026/personal/jimin_2782
 OPSD_SRC=$REPO/src/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/src/OPSD_Curriculum/training/curriculum
 EVAL=$OPSD_SRC/eval/evaluate_math.py
 BASE_MODEL=Qwen/Qwen3-4B
 CKPT_BASE=$REPO/checkpoints/opsd_curriculum/full_4b_cliff/cliff4b_${ARM}
+# 최종 체크포인트 자동 감지(899 등) → STEPS에 없으면 추가 (900 하드코딩 금지)
+FINAL=$(ls -d "$CKPT_BASE"/checkpoint-* 2>/dev/null | sed 's#.*checkpoint-##' | sort -n | tail -1)
+[ -n "$FINAL" ] && case " $STEPS " in *" $FINAL "*) ;; *) STEPS="$STEPS $FINAL";; esac
 OUTDIR=$REPO/outputs/eval_opsd_curriculum/cliff4b_${ARM}_nonthink
 
 source $REPO/miniforge3/etc/profile.d/conda.sh

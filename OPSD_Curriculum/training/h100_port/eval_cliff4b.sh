@@ -1,8 +1,9 @@
 #!/bin/bash
 # 4B 커리큘럼 eval — H100, 직접 실행. 포터블.
-#   사용: REPO=/path ./eval_cliff4b.sh <ARM> ["100 400 650 900"]
+#   사용: REPO=/path ./eval_cliff4b.sh <ARM> ["100 400 650"]
+#   최종 체크포인트(예: 899)는 자동 감지해 STEPS에 추가됨(900 하드코딩 금지).
 set -euo pipefail
-ARM="${1:?ARM required}"; STEPS="${2:-100 400 650 900}"
+ARM="${1:?ARM required}"; STEPS="${2:-100 400 650}"
 : "${REPO:?REPO env 필요}"; : "${ENV_PY:=python}"
 OPSD_SRC=$REPO/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/OPSD_Curriculum/training/curriculum
@@ -10,6 +11,9 @@ EVAL=$OPSD_SRC/eval/evaluate_math.py
 BASE_MODEL=Qwen/Qwen3-4B
 WORK="${WORK:-$REPO/_run}"
 CKPT_BASE="${CKPT_BASE:-$WORK/checkpoints/full_4b_cliff/cliff4b_${ARM}}"
+# 최종 체크포인트 자동 감지(899 등) → STEPS에 없으면 추가
+FINAL=$(ls -d "$CKPT_BASE"/checkpoint-* 2>/dev/null | sed 's#.*checkpoint-##' | sort -n | tail -1)
+[ -n "$FINAL" ] && case " $STEPS " in *" $FINAL "*) ;; *) STEPS="$STEPS $FINAL";; esac
 OUTDIR="${OUTDIR:-$WORK/outputs/eval/cliff4b_${ARM}_nonthink}"
 TP="${TP:-2}"
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1,2,3}"
