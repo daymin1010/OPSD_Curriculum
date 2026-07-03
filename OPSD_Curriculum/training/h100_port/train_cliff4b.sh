@@ -59,6 +59,7 @@ echo "=== [H100] arm=$ARM nproc=$NPROC accel=$ACCEL_CONFIG $(date) ==="
     --main_process_port "${PORT:-13100}" \
     train_opsd_curriculum_manifest_once.py \
     --config configs/full_4b_cliff.yaml \
+    --vllm_gpu_memory_utilization "${VLLM_UTIL:-0.3}" \
     --output_dir "$WORK/checkpoints/full_4b_cliff" \
     --arm "$ARM" \
     --stages_json "$ARM_JSON" \
