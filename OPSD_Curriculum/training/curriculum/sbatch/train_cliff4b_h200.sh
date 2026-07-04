@@ -19,8 +19,9 @@
 # context_scaling ON(full_4b_cliff.yaml): stage별 생성 max_new_tokens 1024→4096 램프.
 # ============================================================
 set -euo pipefail
-ARM="${1:?ARM required: shuffle|diff|cliff_P|cliff_subjgeo|cliff_subjrand_s0|cliff_subjrand_s1}"
+ARM="${1:?ARM required: shuffle|diff|cliff_P|cliff_subjgeo|cliff_subjrand_s0|cliff_subjrand_s1|diff5}"
 SEED="${2:-}"   # 옵션: 생략 시 기본 seed(42), run_config 접미사 없음
+CONFIG="${CONFIG:-configs/full_4b_cliff.yaml}"   # env로 override (teacher-update: configs/full_4b_diff5_ema.yaml)
 
 REPO=/scratch/lami2026/personal/jimin_2782
 OPSD_SRC=$REPO/src/OPSD_Curriculum/training/opsd_src
@@ -66,7 +67,7 @@ PORT=$((13100 + SLURM_JOB_ID % 300))   # 같은 노드 동시 실행 시 포트 
     --gradient_accumulation_steps 8 \
     --main_process_port $PORT \
     train_opsd_curriculum_manifest_once.py \
-    --config configs/full_4b_cliff.yaml \
+    --config "$CONFIG" \
     --arm "$ARM" \
     --stages_json "$ARM_JSON" \
     --within_stage_order shuffle \

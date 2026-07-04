@@ -1,0 +1,51 @@
+# FULL 4B config — Qwen3-4B, diff5 (5-stage level-sorted) + TEACHER-UPDATE (EMA teacher).
+# full_4b_cliff.yaml과 동일하되 teacher 전략만 변경:
+#   fixed_teacher: false + use_ema_teacher: true  → teacher = student LoRA의 EMA(지연 평균).
+#   나머지(모델/LoRA/LR/배치/context_scaling)는 fixed 버전과 완전 동일 → teacher 전략만의 효과 격리.
+# 검증용: diff5(가장 단순 커리큘럼)로 teacher-update 코드/동작을 H200에서 확정.
+model_name_or_path: Qwen/Qwen3-4B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 64
+lora_alpha: 128
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+learning_rate: 5.0e-6
+max_grad_norm: 0.1
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+num_train_epochs: 1
+max_completion_length: 4096
+max_length: 24000
+save_strategy: steps
+save_steps: 50
+save_total_limit: 20
+load_best_model_at_end: false
+eval_strategy: "no"
+logging_steps: 2
+beta: 0
+lmbda: 1
+temperature: 1.1
+top_p: 0.95
+top_k: 20
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.6
+vllm_tensor_parallel_size: 1
+output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/full_4b_cliff
+wandb_project: OPSD_Curriculum
+
+# --- teacher 전략: EMA teacher-update ---
+fixed_teacher: false
+use_ema_teacher: true
+ema_decay: 0.99          # 시상수 ~100 step (899-step run서 teacher가 의미있게 학생을 따라감). 불안정하면 0.995/0.999로.
+# ------------------------------------------
+jsd_token_clip: 0.06
+reason_first: false
+student_thinking: false
+teacher_thinking: true
+curriculum_B_glob: 32
+attach_gold: true
+context_scaling: true
