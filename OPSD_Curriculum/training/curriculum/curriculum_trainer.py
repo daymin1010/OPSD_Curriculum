@@ -83,6 +83,36 @@ class CurriculumOPSDTrainer(OPSDTrainer):
         # NOTE: teacher/loss logic is NOT touched — only the on-policy generation
         # length the UNCHANGED OPSD body reads from self.generation_config.
         self.context_per_stage = None
+        # per-stage-boundary teacher update (opt-in). When True, the teacher is
+        # refreshed to a HARD snapshot of the current student (φ ← θ) ONLY at
+        # curriculum stage boundaries and stays FIXED within a stage. Reuses the
+        # OPSDTrainer teacher-swap machinery (_ema_params + _ema_teacher_context),
+        # so it REQUIRES use_ema_teacher=True (swap active) with the per-step EMA
+        # callback removed by the launch script. False => not used.
+        self.stage_teacher_update = False
+        self._st_last_stage = -1
+
+    def _snapshot_teacher_from_student(self):
+        """φ ← θ : hard-copy current trainable (LoRA) params into _ema_params,
+        which OPSDTrainer._ema_teacher_context swaps into the teacher forward.
+        ZeRO-3 gathers shards first; ZeRO-2 (our setup) clones directly.
+        """
+        unwrapped = self.accelerator.unwrap_model(self.model)
+        dsp = getattr(self.accelerator.state, "deepspeed_plugin", None)
+        zero3 = dsp is not None and getattr(dsp, "zero_stage", None) == 3
+        snap = {}
+        if zero3:
+            import deepspeed
+            params = [p for _, p in unwrapped.named_parameters() if p.requires_grad]
+            with deepspeed.zero.GatheredParameters(params, modifier_rank=None):
+                for name, p in unwrapped.named_parameters():
+                    if p.requires_grad:
+                        snap[name] = p.data.detach().clone()
+        else:
+            for name, p in unwrapped.named_parameters():
+                if p.requires_grad:
+                    snap[name] = p.data.detach().clone()
+        self._ema_params = snap
 
     # ---- order: schedule IS the order (no shuffle) ----
     def _get_train_sampler(self, *args, **kwargs):
@@ -139,6 +169,20 @@ class CurriculumOPSDTrainer(OPSDTrainer):
                     self.generation_config.max_new_tokens = max(ctxs)
             except Exception:
                 pass
+
+        # ---- per-stage-boundary teacher update (φ ← θ at each boundary) ----
+        # Refresh the (swapped-in) teacher to a hard snapshot of the student only
+        # when the curriculum crosses into a new stage; fixed within a stage. The
+        # first snapshot (step 0, LoRA≈0) makes stage 0's teacher ≈ the base model.
+        if self.stage_teacher_update and stage_index is not None:
+            try:
+                cur = max(int(x) for x in stage_index.detach().cpu().tolist())
+            except Exception:
+                cur = self._st_last_stage
+            if self._ema_params is None:
+                self._snapshot_teacher_from_student(); self._st_last_stage = cur
+            elif cur > self._st_last_stage:
+                self._snapshot_teacher_from_student(); self._st_last_stage = cur
 
         # OPSD loss/generation/teacher — UNCHANGED. The generate() taps above
         # populate self._last_completions during this call when attach_gold.

@@ -70,6 +70,7 @@ class CurriculumScriptArguments(CustomScriptArguments):
     tail_policy: str = field(default="partial", metadata={"help": "Only partial is supported."})
     curriculum_passes: int = field(default=1, metadata={"help": "Repeat full 0->last stage schedule this many times."})
     context_scaling: bool = field(default=False, metadata={"help": "Ramp on-policy generation budget (max_new_tokens) per stage from manifest context_per_stage. Generation length only; teacher/loss untouched."})
+    stage_teacher_update: bool = field(default=False, metadata={"help": "Teacher-update at CURRICULUM STAGE BOUNDARIES only (φ←θ per stage, fixed within stage). Requires config use_ema_teacher=true (swap machinery); per-step EMA callback is removed. Mutually exclusive with plain EMA."})
 
 
 def main():
@@ -235,6 +236,24 @@ def main():
         elif is_main:
             print("[curriculum] context_scaling requested but manifest has no "
                   "context_per_stage; keeping global max_completion_length", flush=True)
+
+    # stage-boundary teacher-update (opt-in): reuse OPSD teacher-swap machinery
+    # (needs config use_ema_teacher=true) but refresh teacher only at stage
+    # boundaries. Remove the per-step EMA callback so ONLY the boundary snapshot
+    # updates the teacher.
+    if getattr(script_args, "stage_teacher_update", False):
+        if not getattr(trainer, "use_ema_teacher", False):
+            raise ValueError("stage_teacher_update=true requires config use_ema_teacher=true (teacher-swap machinery).")
+        trainer.stage_teacher_update = True
+        try:
+            from opsd_trainer import EMAUpdateCallback
+            trainer.remove_callback(EMAUpdateCallback)
+        except Exception as e:
+            if is_main:
+                print(f"[curriculum] EMA callback 제거 실패(무시): {e}", flush=True)
+        if is_main:
+            print("[curriculum] STAGE-BOUNDARY teacher-update ON "
+                  "(φ←θ at stage boundaries; per-step EMA disabled)", flush=True)
 
     # manifest_once curriculum monitor (expected per-step stage Counter gate)
     trainer.add_callback(CurriculumManifestOnceMonitorCallback(

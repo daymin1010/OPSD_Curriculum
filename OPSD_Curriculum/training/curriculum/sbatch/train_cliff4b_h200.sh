@@ -22,6 +22,7 @@ set -euo pipefail
 ARM="${1:?ARM required: shuffle|diff|cliff_P|cliff_subjgeo|cliff_subjrand_s0|cliff_subjrand_s1|diff5}"
 SEED="${2:-}"   # 옵션: 생략 시 기본 seed(42), run_config 접미사 없음
 CONFIG="${CONFIG:-configs/full_4b_cliff.yaml}"   # env로 override (teacher-update: configs/full_4b_diff5_ema.yaml)
+RUN_TAG="${RUN_TAG:-}"       # run_config/체크포인트 접미사 (예: _fixed → EMA와 구분)
 
 REPO=/scratch/lami2026/personal/jimin_2782
 OPSD_SRC=$REPO/src/OPSD_Curriculum/training/opsd_src
@@ -29,8 +30,8 @@ CUR=$REPO/src/OPSD_Curriculum/training/curriculum
 STAGES=$REPO/src/OPSD_Curriculum/training/stages_cliff4b_20260630
 ROW=$REPO/src/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
-if [ -n "$SEED" ]; then RUN_CONFIG=cliff4b_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
-else RUN_CONFIG=cliff4b_${ARM}; SEED_ARGS=""; fi
+if [ -n "$SEED" ]; then RUN_CONFIG=cliff4b_${ARM}${RUN_TAG}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
+else RUN_CONFIG=cliff4b_${ARM}${RUN_TAG}; SEED_ARGS=""; fi
 [ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }
 
 echo "=== job=$SLURM_JOB_ID arm=$ARM node=$(hostname) $(date) ==="

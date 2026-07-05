@@ -1,0 +1,52 @@
+# FULL 4B config — Qwen3-4B + STAGE-BOUNDARY teacher-update (메인 teacher-update 전략).
+# EMA와 차이: teacher를 매 step이 아니라 커리큘럼 STAGE 경계에서만 φ←θ 스냅샷, stage 안에선 고정.
+# 구현: OPSD teacher-swap 기계 재사용 → use_ema_teacher=true (스왑 활성화)로 두되,
+#   per-step EMA 콜백은 런처가 제거하고 stage_teacher_update=true로 경계 갱신만 함.
+# 나머지(모델/LoRA/LR/배치/context_scaling)는 fixed·EMA 버전과 동일 → teacher 전략만의 효과 격리.
+model_name_or_path: Qwen/Qwen3-4B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 64
+lora_alpha: 128
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+learning_rate: 5.0e-6
+max_grad_norm: 0.1
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+num_train_epochs: 1
+max_completion_length: 4096
+max_length: 24000
+save_strategy: steps
+save_steps: 50
+save_total_limit: 20
+load_best_model_at_end: false
+eval_strategy: "no"
+logging_steps: 2
+beta: 0
+lmbda: 1
+temperature: 1.1
+top_p: 0.95
+top_k: 20
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.6
+vllm_tensor_parallel_size: 1
+output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/full_4b_cliff
+wandb_project: OPSD_Curriculum
+
+# --- teacher 전략: stage-boundary teacher-update ---
+fixed_teacher: false
+use_ema_teacher: true       # teacher-swap 기계 활성화용 (per-step EMA는 런처가 콜백 제거로 끔)
+ema_decay: 0.99             # 미사용 (경계 스냅샷만 함) — 값은 형식상 유지
+stage_teacher_update: true  # ★ curriculum stage 경계에서만 φ←θ
+# ---------------------------------------------------
+jsd_token_clip: 0.06
+reason_first: false
+student_thinking: false
+teacher_thinking: true
+curriculum_B_glob: 32
+attach_gold: true
+context_scaling: true
