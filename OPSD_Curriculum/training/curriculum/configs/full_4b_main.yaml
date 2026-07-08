@@ -1,0 +1,49 @@
+# FULL 4B "main" config — Qwen3-4B (2026-07-08).
+# = full_4b_cliff.yaml 와 동일하되 ★ context_scaling: FALSE + max_completion_length 1024 고정 ★.
+#   → 모든 스테이지가 고정 1024 토큰으로 생성. stage별 context ramp 없음. (subjslack 세팅 재현)
+# 목적: context scaling(난이도↔context 결합)이 wide-band subject 커리큘럼을 페널티하는지 격리.
+#   8B subjslack(=context scaling 안 함, 1024 고정)에서 subject가 이득 본 세팅을 4B에서 재현.
+# 어려운 문제 rollout이 1024에서 잘려도 무방(의도된 세팅, method 한계 아님).
+# fixed_teacher(표준 OPD) 유지. main(=subject) vs main_diff(=난이도only) 공정 비교용.
+model_name_or_path: Qwen/Qwen3-4B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 64
+lora_alpha: 128
+lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+learning_rate: 5.0e-6
+max_grad_norm: 0.1
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+num_train_epochs: 1
+max_completion_length: 1024
+max_length: 24000
+save_strategy: steps
+save_steps: 50
+save_total_limit: 20
+load_best_model_at_end: false
+eval_strategy: "no"
+logging_steps: 2
+beta: 0
+lmbda: 1
+temperature: 1.1
+top_p: 0.95
+top_k: 20
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.6
+vllm_tensor_parallel_size: 1
+output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/full_4b_cliff
+wandb_project: OPSD_Curriculum
+
+fixed_teacher: true
+jsd_token_clip: 0.06
+reason_first: false
+student_thinking: false
+teacher_thinking: true
+curriculum_B_glob: 32
+attach_gold: true
+context_scaling: false
