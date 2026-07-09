@@ -16,6 +16,25 @@
 - 우리 discrete-late 마지막 스테이지 = NT 50%(벤치 3.6배 과다)·Geo 17%(절반)·C&P 28%(일치) → **벤치 정렬 아님**. 원인: 데이터 하드레벨이 NT-heavy(L8=43%) + z축 이산 끝=NT + Geo는 z중앙이라 안 몰림.
 - **함의**: ① circularity 방어 완벽(커리큘럼-벤치 프로필 불일치가 정량 증거 — "테스트에 맞추지 않았다") ② 서사 = "표현축 방향(discrete-late)" (벤치 언급 금지, §3+데이터 상관으로 정당화) ③ 실험 유효(방향 효과 테스트 그대로) ④ 진짜 벤치-매칭 arm은 만들지 않음(그게 진짜 circular).
 
+## 벤치 과목 프로필 실측치 (2026-07-09, bench_subject_profile.json)
+| 과목 | AIME24 | AIME25 | AIME합(60) | HMMT25(공식) | **하드벤치 종합(90)** | MATH500(공식) |
+|---|---|---|---|---|---|---|
+| Geometry | 28% | 30% | 29% | 34% | **31%** | 8% |
+| Counting & Prob. | 32% | 27% | 29% | 31% | **30%** | 8% |
+| Number Theory | 12% | 17% | 14% | 12% | **14%** | 12% |
+| Interm. Algebra | 12% | 15% | 13% | 0% | 9% | 19% |
+| Precalculus | 10% | 8% | 9% | 0% | 6% | 11% |
+| Algebra | 3% | 3% | 3% | 22% | 10% | 25% |
+| Prealgebra | 2% | 0% | 1% | 0% | 1% | 16% |
+- AIME = 독립 분류기 2개 blind 분류(일치 95%, 불일치 0.5표씩). HMMT = problem_type 공식 라벨(멀티라벨 펼침). MATH500 = 데이터셋 공식 subject.
+- **핵심: 하드벤치 = 기하+조합 61% 지배, NT 14%.** MATH500은 반대로 대수계열(Alg+IAlg+PreA+PreC = 71%) 중심 → MATH500과 AIME/HMMT는 과목 프로필이 상보적.
+
+## 스테이지별 분포 vs 벤치 분석 (2026-07-09 밤)
+- **분포 매칭은 구조적으로 불가**: C&P가 풀에 13%뿐(벤치 30%), Geo(벤치 1위)는 z중앙이라 안 몰림. 모든 스테이지 TV거리 ≥22, 오히려 중간 스테이지(2-3)가 벤치와 최유사.
+- **벤치-가중 노출(마지막 stage)**: benchsubj k1/k2/k3 = **21.0~23.0**(달성상한 ≈22.6 근접) vs contsubj_k2 16.4 ≈ old main 15.9 ≈ 무작위(16.7). discrete-late는 마지막을 C&P+NT+Geo로 끝내고(벤치 커버), continuous-late는 벤치가 안 내는 IAlg/PreC로 끝냄.
+- **사전 예측(pre-registration)**: recency-subject 효과가 실재하면 benchsubj_k2 > contsubj_k2 & 이득이 조합·정수론 문제에 집중 / 없으면 동률 → subject 방향 = free parameter, 서사는 난이도 재배분.
+- **과목별 eval 분해 가능**: AIME 라벨(우리 blind 분류) + HMMT 공식 라벨로 문제 단위 "어느 과목에서 올랐나" 분석 → 결과와 무관하게 subject 서사 확보.
+
 ## (구) subject 방향 = benchmark-aligned (discrete-late), 2026-07-09 결정
 - Eq 7 부호를 **κ=ℓ−λz**로: 이산 subject(정수론·조합=AIME/HMMT 핵심)를 늦은/하드 스테이지로.
 - 효과: 마지막 스테이지 NT+조합 = 21%→63%(k=1)→**76%(k=2)**. 조합(C&P) 5%→25/27%.
