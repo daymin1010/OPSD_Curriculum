@@ -11,21 +11,32 @@
 - 순서/스테이지: Eq 7-8 (κ=ℓ+λz+ε, λ=1, 등질량 5분할). **불변.**
 - **NEW — 난이도-질량 재가중 Eq 9**: hard 꼬리 H={ℓ≥6}를 k배 복제, 나머지는 s=(M−k·n(H))/(M−n(H)) 비율로 균등 subsample → 총량 M 고정(컴퓨트 불변). k=1이면 지금(각 문제 1회).
 
-## ★ subject 방향 = benchmark-aligned (discrete-late), 2026-07-09 결정
+## ⚠️ 명칭 정정 (2026-07-09 밤, 벤치 과목 프로필 실측 후): "benchmark-aligned" → **"discrete-late (representation-axis orientation)"**
+- 실측(AIME24/25 독립분류 60문제 + HMMT25 공식라벨, bench_subject_profile.json): 하드벤치 = **Geo 31% + C&P 30%**(합 61%) 지배, **NT는 14%뿐**.
+- 우리 discrete-late 마지막 스테이지 = NT 50%(벤치 3.6배 과다)·Geo 17%(절반)·C&P 28%(일치) → **벤치 정렬 아님**. 원인: 데이터 하드레벨이 NT-heavy(L8=43%) + z축 이산 끝=NT + Geo는 z중앙이라 안 몰림.
+- **함의**: ① circularity 방어 완벽(커리큘럼-벤치 프로필 불일치가 정량 증거 — "테스트에 맞추지 않았다") ② 서사 = "표현축 방향(discrete-late)" (벤치 언급 금지, §3+데이터 상관으로 정당화) ③ 실험 유효(방향 효과 테스트 그대로) ④ 진짜 벤치-매칭 arm은 만들지 않음(그게 진짜 circular).
+
+## (구) subject 방향 = benchmark-aligned (discrete-late), 2026-07-09 결정
 - Eq 7 부호를 **κ=ℓ−λz**로: 이산 subject(정수론·조합=AIME/HMMT 핵심)를 늦은/하드 스테이지로.
 - 효과: 마지막 스테이지 NT+조합 = 21%→63%(k=1)→**76%(k=2)**. 조합(C&P) 5%→25/27%.
 - 서사: 기초(Prealg/Alg)→이산 경쟁수학(NT/조합)으로 accumulation, 난이도와 co-move, 벤치에서 끝남.
 - ⚠️ domain-informed(AIME=이산 앎) → 논문에 disclose. 뒤집기 자체는 노이즈일 수 있으나 재배분과 결합 시 recency 레버 가능성.
 
-## 실험 (전부 4B, context OFF/1024, fixed teacher; subject=benchmark-aligned)
-| slot | arm | k | hard share | 상태 |
-|---|---|---|---|---|
-| H100 0,1 | benchsubj_k1 | 1 | 18% | 새 main baseline, 빌드 예정 |
-| H100 2,3 | benchsubj_k2 | 2 | 37% | 빌드 예정 |
-| H200 | benchsubj_k3 | 3 | 55% | 빌드 예정 |
-| (기존) | old main (continuous-late, k=1) | 1 | 18% | ✅ 84.8/41.9/48.9/40.8/28.3 = 뒤집기 비교용 |
+## 실험 매트릭스 (전부 4B, context OFF/1024, fixed teacher) — 2026-07-09 20:xx 전부 RUNNING
+2×2(subject 방향 × 재배분 k) + 용량반응:
 
-→ 격리: (a) 뒤집기 효과 = old main vs benchsubj_k1 (b) 레벨 용량반응 = benchsubj_k1/k2/k3.
+| subject↓ / k→ | k=1 (18% hard) | k=2 (37%) | k=3 (55%) |
+|---|---|---|---|
+| **continuous-late** (old main, κ=ℓ+z) | ✅ old main 84.8/41.9/48.9/40.8/28.3 | **contsubj_k2** (H200 106059→eval 106060) | — |
+| **discrete-late** (benchmark, κ=ℓ−z) | **benchsubj_k1** (H200 106056→eval 106057) | **benchsubj_k2** (H100 0,1) | **benchsubj_k3** (H100 2,3) |
+
+**격리되는 것:**
+- **뒤집기 효과** = old main vs benchsubj_k1 (k=1) / contsubj_k2 vs benchsubj_k2 (k=2) — 독립 2회 검정.
+- **재배분 효과** = old main vs contsubj_k2 (cont) / benchsubj_k1→k2→k3 용량반응 (disc).
+- **★circularity 해소**: benchsubj_k2 ≈ contsubj_k2면 "뒤집기는 성능 레버 아님"→ 벤치정렬 공격 무력화. benchsubj_k2 > contsubj_k2면 뒤집기 실효→§3 표현근거 필요.
+
+H100 log: `$WORK/log_benchsubj_k{2,3}.log`, eval `$WORK/outputs/eval/cliff4b_benchsubj_k{2,3}_nonthink/`.
+H200 결과: `outputs/eval_opsd_curriculum/cliff4b_{benchsubj_k1,contsubj_k2}_nonthink/` (여기 /scratch에서 직접 수거).
 
 ## 결정 사항 (확정)
 - subject 방향 = benchmark-aligned(κ=ℓ−λz). 세 arm 전부 동일 방향(레벨만 변수).
