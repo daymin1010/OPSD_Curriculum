@@ -46,7 +46,8 @@ def subject_z(uni):
     return dict(zip(present, z))
 
 
-def build(k: int):
+def build(k: int, sign: float = SUBJ_SIGN):
+    tag = "benchsubj" if sign < 0 else "contsubj"   # sign<0 = discrete-late(벤치정렬), >0 = continuous-late(old main)
     rows = pd.read_parquet(PARQUET)
     rows['problem_id'] = rows['problem_id'].astype(str)
     uni = rows[rows['in_setA'] == True].copy()
@@ -61,10 +62,10 @@ def build(k: int):
     nonhard = uni[~uni['level'].isin(HARD)].sample(frac=s, random_state=SEED)
     pool = pd.concat([nonhard] + [hard] * k, ignore_index=True)   # 복제 = 중복 problem_id
 
-    # Eq 7: κ = ℓ + SIGN*λ*z + ε   (SIGN=-1 → benchmark-aligned)
+    # Eq 7: κ = ℓ + sign*λ*z + ε   (sign=-1 → benchmark-aligned/discrete-late)
     rng = np.random.default_rng(SEED)
     kappa = (pool['level'].values
-             + SUBJ_SIGN * LAMBDA * pool['subject'].astype(str).map(Z).values
+             + sign * LAMBDA * pool['subject'].astype(str).map(Z).values
              + rng.uniform(-DELTA, DELTA, len(pool)))
     order = np.argsort(kappa, kind='stable')      # Eq 8: rank(κ)
     Np = len(pool)
@@ -79,25 +80,33 @@ def build(k: int):
         stages.append({"stage_index": si, "n": len(ids), "problem_ids": ids})
 
     man = {
-        "arm": f"benchsubj_k{k}",
-        "construction": (f"benchmark_aligned_subject(kappa=l{'+' if SUBJ_SIGN>0 else '-'}"
-                         f"{LAMBDA}z+eps) + difficulty_emphasis(H={sorted(HARD)},k={k},s={s:.4f})"),
+        "arm": f"{tag}_k{k}",
+        "construction": (f"{'discrete_late(benchmark_aligned)' if sign<0 else 'continuous_late(old_main)'}"
+                         f"(kappa=l{'+' if sign>0 else '-'}{LAMBDA}z+eps) "
+                         f"+ difficulty_emphasis(H={sorted(HARD)},k={k},s={s:.4f})"),
         "universe_N": M, "pool_N": Np, "n_stages": N_STAGES,
-        "hard_multiplicity_k": k, "nonhard_subsample_s": round(s, 4),
+        "subj_sign": sign, "hard_multiplicity_k": k, "nonhard_subsample_s": round(s, 4),
         "stages": stages,
     }
-    out = f"{HERE}/stages_benchsubj_k{k}.json"
+    out = f"{HERE}/stages_{tag}_k{k}.json"
     json.dump(man, open(out, 'w'))
 
     # 요약
     tot = sum(len(st["problem_ids"]) for st in stages)
     dup = tot - len(set(x for st in stages for x in st["problem_ids"]))
-    print(f"[k={k}] s={s:.4f} pool_N={Np} (총슬롯 {tot}, 중복 {dup}) "
+    print(f"[{tag}_k{k}] s={s:.4f} pool_N={Np} (총슬롯 {tot}, 중복 {dup}) "
           f"stage크기 {[len(st['problem_ids']) for st in stages]} → {out}")
     return man
 
 
 if __name__ == "__main__":
-    ks = [int(x) for x in sys.argv[1:]] or [1, 2, 3]
-    for k in ks:
-        build(k)
+    # usage: build_redistribute.py [cont|bench] <k...>   (기본 bench, 기본 k=1 2 3)
+    #   ex) build_redistribute.py cont 2   → stages_contsubj_k2.json (continuous-late)
+    sign = SUBJ_SIGN
+    ks = []
+    for a in sys.argv[1:]:
+        if a in ("cont", "contsubj"): sign = +1.0
+        elif a in ("bench", "benchsubj"): sign = -1.0
+        else: ks.append(int(a))
+    for k in (ks or [1, 2, 3]):
+        build(k, sign)
