@@ -69,6 +69,7 @@ class CurriculumScriptArguments(CustomScriptArguments):
     within_stage_order: str = field(default="shuffle", metadata={"help": "shuffle or manifest."})
     tail_policy: str = field(default="partial", metadata={"help": "Only partial is supported."})
     curriculum_passes: int = field(default=1, metadata={"help": "Repeat full 0->last stage schedule this many times."})
+    allow_duplicate_pids: bool = field(default=False, metadata={"help": "Allow a problem_id to appear multiple times across the manifest (difficulty-emphasis oversampling). Each occurrence trains as a separate on-policy example. Default off preserves the each-problem-once guard for all existing arms."})
     context_scaling: bool = field(default=False, metadata={"help": "Ramp on-policy generation budget (max_new_tokens) per stage from manifest context_per_stage. Generation length only; teacher/loss untouched."})
     stage_teacher_update: bool = field(default=False, metadata={"help": "Teacher-update at CURRICULUM STAGE BOUNDARIES only (φ←θ per stage, fixed within stage). Requires config use_ema_teacher=true (swap machinery); per-step EMA callback is removed. Mutually exclusive with plain EMA."})
 
@@ -91,6 +92,7 @@ def main():
         within_stage_order=script_args.within_stage_order,
         tail_policy=script_args.tail_policy,
         curriculum_passes=script_args.curriculum_passes,
+        allow_duplicate_pids=script_args.allow_duplicate_pids,
     )
     T = int(meta["T"])
     if int(script_args.curriculum_T) > 0 and int(script_args.curriculum_T) != T:

@@ -99,11 +99,17 @@ def build_schedule_from_stage_manifest(
     within_stage_order: str = "shuffle",
     tail_policy: str = "partial",
     curriculum_passes: int = 1,
+    allow_duplicate_pids: bool = False,
 ):
     """Build a fair OPSD schedule from stages[*].problem_ids.
 
     Returns:
       (schedule_indices, stage_per_pos, expected_stage_counters, meta)
+
+    allow_duplicate_pids: when True, a problem_id may appear multiple times
+      across the manifest (difficulty-emphasis oversampling); each occurrence
+      maps to its dataset row and is trained as a separate example. Default
+      False keeps the each-problem-once guard for all standard arms.
     """
     B_glob = int(B_glob)
     seed = int(seed)
@@ -177,9 +183,12 @@ def build_schedule_from_stage_manifest(
         })
 
     dup_count = len(all_ids) - len(set(all_ids))
-    if dup_count:
+    if dup_count and not allow_duplicate_pids:
         dups = [pid for pid, c in Counter(all_ids).items() if c > 1][:5]
         raise ValueError(f"[manifest] duplicate problem_ids within arm: {dup_count}; examples={dups}")
+    if dup_count and allow_duplicate_pids:
+        print(f"[manifest] allow_duplicate_pids=True: {dup_count} duplicate occurrences "
+              f"will each train as a separate example (difficulty-emphasis oversampling).", flush=True)
 
     schedule: list[int] = []
     stage_per_pos: list[int] = []
