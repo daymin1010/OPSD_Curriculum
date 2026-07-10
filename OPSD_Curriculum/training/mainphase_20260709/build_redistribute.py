@@ -46,10 +46,11 @@ def subject_z(uni):
     return dict(zip(present, z))
 
 
-def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0):
+def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0, shuffle: bool = False):
     """subset>0: 유니버스를 level×subject 층화로 subset개로 축소 후 동일 파이프라인.
-    (데이터 스케일링 스윕용: T=subset/32로 스텝도 비례 축소됨을 유의.)"""
-    tag = "benchsubj" if sign < 0 else "contsubj"   # sign<0 = discrete-late(벤치정렬), >0 = continuous-late(old main)
+    (데이터 스케일링 스윕용: T=subset/32로 스텝도 비례 축소됨을 유의.)
+    shuffle=True: 완전 랜덤 대조(κ=uniform, level·subject 무시). 4B main_shuffle과 동일 구성. k=1 권장."""
+    tag = "shuffle" if shuffle else ("benchsubj" if sign < 0 else "contsubj")   # sign<0 = discrete-late(벤치정렬), >0 = continuous-late(old main); shuffle = 완전 랜덤
     rows = pd.read_parquet(PARQUET)
     rows['problem_id'] = rows['problem_id'].astype(str)
     uni = rows[rows['in_setA'] == True].copy()
@@ -71,9 +72,14 @@ def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0):
 
     # Eq 7: κ = ℓ + sign*λ*z + ε   (sign=-1 → benchmark-aligned/discrete-late)
     rng = np.random.default_rng(SEED)
-    kappa = (pool['level'].values
-             + sign * LAMBDA * pool['subject'].astype(str).map(Z).values
-             + rng.uniform(-DELTA, DELTA, len(pool)))
+    if shuffle:
+        # 완전 랜덤 대조군: level·subject 모두 무시 → 각 스테이지가 전체 분포의 균일 표본
+        # (4B main_shuffle과 동일 구성: easy→hard 진행 없음, 스테이지별 lvl_mean≈전체평균). k=1 권장.
+        kappa = rng.uniform(0.0, 1.0, len(pool))
+    else:
+        kappa = (pool['level'].values
+                 + sign * LAMBDA * pool['subject'].astype(str).map(Z).values
+                 + rng.uniform(-DELTA, DELTA, len(pool)))
     order = np.argsort(kappa, kind='stable')      # Eq 8: rank(κ)
     Np = len(pool)
     sz = Np // N_STAGES
@@ -86,22 +92,27 @@ def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0):
         ids = [str(pid[j]) for j in idx]          # 중복 pid 그대로 유지
         stages.append({"stage_index": si, "n": len(ids), "problem_ids": ids})
 
+    arm_name = "shuffle" if shuffle else f"{tag}_k{k}"
+    construction = ("random_shuffle(kappa=uniform; level·subject 모두 무시, 완전 랜덤 대조 = 4B main_shuffle 재현)"
+                    if shuffle else
+                    (f"{'discrete_late(benchmark_aligned)' if sign<0 else 'continuous_late(old_main)'}"
+                     f"(kappa=l{'+' if sign>0 else '-'}{LAMBDA}z+eps) "
+                     f"+ difficulty_emphasis(H={sorted(HARD)},k={k},s={s:.4f})"))
     man = {
-        "arm": f"{tag}_k{k}",
-        "construction": (f"{'discrete_late(benchmark_aligned)' if sign<0 else 'continuous_late(old_main)'}"
-                         f"(kappa=l{'+' if sign>0 else '-'}{LAMBDA}z+eps) "
-                         f"+ difficulty_emphasis(H={sorted(HARD)},k={k},s={s:.4f})"),
+        "arm": arm_name,
+        "construction": construction,
         "universe_N": M, "pool_N": Np, "n_stages": N_STAGES,
         "subj_sign": sign, "hard_multiplicity_k": k, "nonhard_subsample_s": round(s, 4),
+        "shuffle": shuffle,
         "stages": stages,
     }
-    out = f"{HERE}/stages_{tag}_k{k}.json"
+    out = f"{HERE}/stages_{arm_name}.json"
     json.dump(man, open(out, 'w'))
 
     # 요약
     tot = sum(len(st["problem_ids"]) for st in stages)
     dup = tot - len(set(x for st in stages for x in st["problem_ids"]))
-    print(f"[{tag}_k{k}] s={s:.4f} pool_N={Np} (총슬롯 {tot}, 중복 {dup}) "
+    print(f"[{arm_name}] s={s:.4f} pool_N={Np} (총슬롯 {tot}, 중복 {dup}) "
           f"stage크기 {[len(st['problem_ids']) for st in stages]} → {out}")
     return man
 
@@ -110,13 +121,19 @@ if __name__ == "__main__":
     # usage: build_redistribute.py [cont|bench] [subset=N] <k...>   (기본 bench, 기본 k=1 2 3)
     #   ex) build_redistribute.py cont 2               → stages_contsubj_k2.json
     #   ex) build_redistribute.py subset=15000 2       → stages_benchsubj_n15k_k2.json
+    #   ex) build_redistribute.py shuffle             → stages_shuffle.json (완전 랜덤 대조, k=1)
     sign = SUBJ_SIGN
     subset = 0
+    shuffle = False
     ks = []
     for a in sys.argv[1:]:
         if a in ("cont", "contsubj"): sign = +1.0
         elif a in ("bench", "benchsubj"): sign = -1.0
+        elif a in ("shuffle", "shuf"): shuffle = True
         elif a.startswith("subset="): subset = int(a.split("=")[1])
         else: ks.append(int(a))
-    for k in (ks or [1, 2, 3]):
-        build(k, sign, subset)
+    if shuffle:
+        build(1, sign, subset, shuffle=True)          # 완전 랜덤 대조 (k=1)
+    else:
+        for k in (ks or [1, 2, 3]):
+            build(k, sign, subset)
