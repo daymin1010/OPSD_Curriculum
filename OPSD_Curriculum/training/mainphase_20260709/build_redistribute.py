@@ -46,11 +46,18 @@ def subject_z(uni):
     return dict(zip(present, z))
 
 
-def build(k: int, sign: float = SUBJ_SIGN):
+def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0):
+    """subset>0: 유니버스를 level×subject 층화로 subset개로 축소 후 동일 파이프라인.
+    (데이터 스케일링 스윕용: T=subset/32로 스텝도 비례 축소됨을 유의.)"""
     tag = "benchsubj" if sign < 0 else "contsubj"   # sign<0 = discrete-late(벤치정렬), >0 = continuous-late(old main)
     rows = pd.read_parquet(PARQUET)
     rows['problem_id'] = rows['problem_id'].astype(str)
     uni = rows[rows['in_setA'] == True].copy()
+    if subset and subset < len(uni):
+        frac = subset / len(uni)
+        uni = (uni.groupby(['level', 'subject'], group_keys=False)
+                  .apply(lambda g: g.sample(frac=frac, random_state=SEED)))
+        tag = f"{tag}_n{subset//1000}k"
     M = len(uni)
     Z = subject_z(uni)
 
@@ -100,13 +107,16 @@ def build(k: int, sign: float = SUBJ_SIGN):
 
 
 if __name__ == "__main__":
-    # usage: build_redistribute.py [cont|bench] <k...>   (기본 bench, 기본 k=1 2 3)
-    #   ex) build_redistribute.py cont 2   → stages_contsubj_k2.json (continuous-late)
+    # usage: build_redistribute.py [cont|bench] [subset=N] <k...>   (기본 bench, 기본 k=1 2 3)
+    #   ex) build_redistribute.py cont 2               → stages_contsubj_k2.json
+    #   ex) build_redistribute.py subset=15000 2       → stages_benchsubj_n15k_k2.json
     sign = SUBJ_SIGN
+    subset = 0
     ks = []
     for a in sys.argv[1:]:
         if a in ("cont", "contsubj"): sign = +1.0
         elif a in ("bench", "benchsubj"): sign = -1.0
+        elif a.startswith("subset="): subset = int(a.split("=")[1])
         else: ks.append(int(a))
     for k in (ks or [1, 2, 3]):
-        build(k, sign)
+        build(k, sign, subset)

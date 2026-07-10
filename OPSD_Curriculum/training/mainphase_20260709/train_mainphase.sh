@@ -10,7 +10,8 @@
 #   ⚠️ 2장/arm 고정(B_glob=32). 2 arm 병렬 시 CUDA_VISIBLE_DEVICES=0,1 / 2,3 + PORT 다르게.
 # ============================================================
 set -euo pipefail
-ARM="${1:?ARM required: benchsubj_k1|benchsubj_k2|benchsubj_k3}"
+ARM="${1:?ARM required: benchsubj_k1|benchsubj_k2|benchsubj_k3|... (stages_<ARM>.json)}"
+SEED="${2:-}"                                     # 옵션: seed 재현용. 지정 시 run_config에 _s<SEED>
 CONFIG="${CONFIG:-configs/full_4b_main.yaml}"     # context OFF/1024/fixed teacher
 : "${REPO:?REPO env 필요 (OPSD_Curriculum 상위 경로)}"
 : "${ENV_PY:=python}"
@@ -21,7 +22,8 @@ CUR=$REPO/OPSD_Curriculum/training/curriculum
 STAGES=$REPO/OPSD_Curriculum/training/mainphase_20260709
 ROW=$REPO/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
-RUN_CONFIG=cliff4b_${ARM}                         # eval 호환: checkpoints/full_4b_cliff/cliff4b_${ARM}
+if [ -n "$SEED" ]; then RUN_CONFIG=cliff4b_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
+else RUN_CONFIG=cliff4b_${ARM}; SEED_ARGS=""; fi   # eval 호환: eval_cliff4b.sh <ARM[_s<SEED>]>
 WORK="${WORK:-$REPO/_run}"
 
 [ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }
@@ -64,5 +66,6 @@ echo "=== [MAINPHASE] arm=$ARM config=$CONFIG allow_dup=True $(date) ==="
     --tail_policy partial \
     --curriculum_passes 1 \
     --allow_duplicate_pids True \
+    $SEED_ARGS \
     --run_config "$RUN_CONFIG"
 echo "=== [MAINPHASE] DONE arm=$ARM $(date) ==="
