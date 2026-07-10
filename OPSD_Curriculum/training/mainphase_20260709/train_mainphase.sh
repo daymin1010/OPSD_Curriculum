@@ -38,12 +38,12 @@ export PYTHONNOUSERSITE=1
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export VLLM_USE_V1=1 VLLM_NO_USAGE_STATS=1 DO_NOT_TRACK=1
-export NODE_CACHE="$WORK/cache/node_${ARM}"
+export NODE_CACHE="$WORK/cache/node_${RUN_CONFIG}"   # seed 병렬 run 캐시 충돌 방지 (ARM 동일해도 분리)
 export TORCHINDUCTOR_CACHE_DIR=$NODE_CACHE/inductor
 export TRITON_CACHE_DIR=$NODE_CACHE/triton
 export VLLM_CACHE_ROOT=$NODE_CACHE/vllm
 export TORCH_EXTENSIONS_DIR=$NODE_CACHE/torch_ext
-export TMPDIR="$WORK/cache/tmp_${ARM}"; export TEMP=$TMPDIR TMP=$TMPDIR
+export TMPDIR="$WORK/cache/tmp_${RUN_CONFIG}"; export TEMP=$TMPDIR TMP=$TMPDIR
 export PYTHONPATH=$OPSD_SRC:$CUR:${PYTHONPATH:-}
 mkdir -p "$TORCHINDUCTOR_CACHE_DIR" "$TRITON_CACHE_DIR" "$VLLM_CACHE_ROOT" "$TORCH_EXTENSIONS_DIR" "$TMPDIR" "$WANDB_DIR"
 nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader || true
