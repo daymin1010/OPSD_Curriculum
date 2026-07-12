@@ -24,6 +24,7 @@ ROW=$REPO/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
 if [ -n "$SEED" ]; then RUN_CONFIG=cliff4b_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
 else RUN_CONFIG=cliff4b_${ARM}; SEED_ARGS=""; fi   # eval 호환: eval_cliff4b.sh <ARM[_s<SEED>]>
+[ -n "${RUN_TAG:-}" ] && RUN_CONFIG=${RUN_CONFIG}_${RUN_TAG}   # 변형 run 구분(예: teach8b) — 같은 ARM/매니페스트, 다른 run_config/체크포인트
 WORK="${WORK:-$REPO/_run}"
 
 [ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }

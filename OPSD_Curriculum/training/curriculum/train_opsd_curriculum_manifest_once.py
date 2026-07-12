@@ -221,6 +221,7 @@ def main():
         ema_decay=script_args.ema_decay,
         student_thinking=script_args.student_thinking,
         teacher_thinking=script_args.teacher_thinking,
+        teacher_model_name_or_path=script_args.teacher_model_name_or_path,
     )
     # Enable the monitor-only reward proxy on the trainer (taps completions +
     # gathers gold). Off for smoke; OPSD loss/generation are never affected.
