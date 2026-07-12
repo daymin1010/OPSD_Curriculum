@@ -106,15 +106,6 @@ class CustomScriptArguments(ScriptArguments):
             "Default True. Set to False for the matched non-thinking ablation (both nonthink)."
         },
     )
-    teacher_model_name_or_path: str = field(
-        default=None,
-        metadata={
-            "help": "Path/name of a SEPARATE (typically larger) frozen teacher model for cross-model "
-            "distillation, e.g. Qwen/Qwen3-8B for a Qwen3-4B student. If set, the teacher forward uses "
-            "this model instead of the LoRA-disabled student. MUST share the student's tokenizer/vocab. "
-            "Mutually exclusive with fixed_teacher / use_ema_teacher (those reuse the student weights)."
-        },
-    )
 
 
 if __name__ == "__main__":

@@ -144,7 +144,6 @@ class OPSDTrainer(SFTTrainer):
         ema_decay: float = 0.999,
         student_thinking: bool = False,
         teacher_thinking: bool = True,
-        teacher_model_name_or_path: str | None = None,
     ):
         self.model_name_or_path = model if isinstance(model, str) else model.config._name_or_path
         self.model_revision = getattr(args, "student_model_revision", None)
@@ -225,42 +224,6 @@ class OPSDTrainer(SFTTrainer):
             print(f"\n{'='*80}")
             print("REASON FIRST MODE ENABLED")
             print("Teacher will first reason about the privileged solution, then evaluate student's response")
-            print(f"{'='*80}\n")
-
-        # === EXTERNAL (separate, typically larger) TEACHER MODEL ===
-        # If set, a frozen standalone model provides the teacher distribution instead of the
-        # LoRA-disabled / EMA student. Requires a shared tokenizer/vocab with the student so the
-        # per-token KL/JSD is defined over the same support (e.g. Qwen3-8B teacher for Qwen3-4B student).
-        self.external_teacher = None
-        if teacher_model_name_or_path is not None:
-            if self.fixed_teacher or self.use_ema_teacher:
-                raise ValueError(
-                    "teacher_model_name_or_path is mutually exclusive with fixed_teacher / use_ema_teacher "
-                    "(those reuse the student weights). Set both to false for an external teacher."
-                )
-            from transformers import AutoModelForCausalLM
-
-            print(f"\n{'='*80}")
-            print(f"EXTERNAL TEACHER MODE: loading frozen teacher '{teacher_model_name_or_path}'")
-            teacher = AutoModelForCausalLM.from_pretrained(
-                teacher_model_name_or_path,
-                torch_dtype=torch.bfloat16,
-                attn_implementation=getattr(args, "attn_implementation", None) or "flash_attention_2",
-            )
-            # vocab must match for a valid token-level KL/JSD
-            student_vocab = self.accelerator.unwrap_model(self.model).config.vocab_size
-            if teacher.config.vocab_size != student_vocab:
-                raise ValueError(
-                    f"External teacher vocab_size={teacher.config.vocab_size} != student vocab_size={student_vocab}. "
-                    "Teacher and student must share the tokenizer/vocabulary."
-                )
-            teacher.eval()
-            teacher.requires_grad_(False)
-            teacher.config.use_cache = False
-            # Frozen forward only → keep OUT of DeepSpeed; place a full replica on this rank's device.
-            self.external_teacher = teacher.to(self.accelerator.device)
-            print(f"Teacher on {self.accelerator.device}, vocab={teacher.config.vocab_size}, "
-                  f"hidden={teacher.config.hidden_size} (student hidden={self.accelerator.unwrap_model(self.model).config.hidden_size})")
             print(f"{'='*80}\n")
 
         # Track per-step loss statistics for on/off-policy batches (used in logging)
@@ -706,26 +669,19 @@ class OPSDTrainer(SFTTrainer):
         empty_cache()
 
         # === TEACHER FORWARD - Extract log-probs immediately ===
-        # Choose teacher module + context based on mode:
-        #   external_teacher → separate frozen model (e.g. larger); use its own weights
-        #   use_ema_teacher  → student, swap in EMA weights temporarily
-        #   fixed_teacher    → student, disable LoRA adapters (base model = initial policy)
-        #   default (dynamic)→ student, no-op (current weights)
-        if self.external_teacher is not None:
-            teacher_module = self.external_teacher
-            adapter_context = nullcontext()
-        elif self.use_ema_teacher:
-            teacher_module = model
+        # Choose teacher context based on mode:
+        #   use_ema_teacher  → swap in EMA weights temporarily
+        #   fixed_teacher    → disable LoRA adapters (base model = initial policy)
+        #   default (dynamic)→ no-op, use current student weights
+        if self.use_ema_teacher:
             adapter_context = self._ema_teacher_context(model)
         elif self.fixed_teacher and is_peft_model(model):
-            teacher_module = model
             adapter_context = self.accelerator.unwrap_model(model).disable_adapter()
         else:
-            teacher_module = model
             adapter_context = nullcontext()
 
         with torch.no_grad(), adapter_context:
-            outputs_teacher = teacher_module(
+            outputs_teacher = model(
                 input_ids=inputs["teacher_input_ids"],
                 attention_mask=inputs["teacher_attention_mask"],
             )
