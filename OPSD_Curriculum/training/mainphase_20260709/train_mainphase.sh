@@ -57,7 +57,7 @@ echo "=== [MAINPHASE] arm=$ARM config=$CONFIG allow_dup=True $(date) ==="
     --num_processes "$NPROC" \
     --gradient_accumulation_steps 8 \
     --main_process_port "${PORT:-13100}" \
-    train_opsd_curriculum_manifest_once.py \
+    "${TRAIN_SCRIPT:-train_opsd_curriculum_manifest_once.py}" \
     --config "$CONFIG" \
     --vllm_gpu_memory_utilization "${VLLM_UTIL:-0.3}" \
     --output_dir "$WORK/checkpoints/full_4b_cliff" \

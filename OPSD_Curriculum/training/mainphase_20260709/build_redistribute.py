@@ -46,14 +46,19 @@ def subject_z(uni):
     return dict(zip(present, z))
 
 
-def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0, shuffle: bool = False):
+def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0, shuffle: bool = False, maxlevel: int = 0):
     """subset>0: 유니버스를 level×subject 층화로 subset개로 축소 후 동일 파이프라인.
     (데이터 스케일링 스윕용: T=subset/32로 스텝도 비례 축소됨을 유의.)
-    shuffle=True: 완전 랜덤 대조(κ=uniform, level·subject 무시). 4B main_shuffle과 동일 구성. k=1 권장."""
+    shuffle=True: 완전 랜덤 대조(κ=uniform, level·subject 무시). 4B main_shuffle과 동일 구성. k=1 권장.
+    maxlevel>0: 레벨 ≤ maxlevel 문제만 사용(easy-only 커리큘럼; 교수님 피드백 — 4B rationalization
+    한계 가설. maxlevel=5면 H={6,7,8}가 공집합 → k 무의미, k=1 권장)."""
     tag = "shuffle" if shuffle else ("benchsubj" if sign < 0 else "contsubj")   # sign<0 = discrete-late(벤치정렬), >0 = continuous-late(old main); shuffle = 완전 랜덤
     rows = pd.read_parquet(PARQUET)
     rows['problem_id'] = rows['problem_id'].astype(str)
     uni = rows[rows['in_setA'] == True].copy()
+    if maxlevel:
+        uni = uni[uni['level'] <= maxlevel].copy()
+        tag = f"{tag}_L{maxlevel}"
     if subset and subset < len(uni):
         frac = subset / len(uni)
         uni = (uni.groupby(['level', 'subject'], group_keys=False)
@@ -122,18 +127,21 @@ if __name__ == "__main__":
     #   ex) build_redistribute.py cont 2               → stages_contsubj_k2.json
     #   ex) build_redistribute.py subset=15000 2       → stages_benchsubj_n15k_k2.json
     #   ex) build_redistribute.py shuffle             → stages_shuffle.json (완전 랜덤 대조, k=1)
+    #   ex) build_redistribute.py maxlevel=5 1        → stages_benchsubj_L5_k1.json (easy-only)
     sign = SUBJ_SIGN
     subset = 0
     shuffle = False
+    maxlevel = 0
     ks = []
     for a in sys.argv[1:]:
         if a in ("cont", "contsubj"): sign = +1.0
         elif a in ("bench", "benchsubj"): sign = -1.0
         elif a in ("shuffle", "shuf"): shuffle = True
         elif a.startswith("subset="): subset = int(a.split("=")[1])
+        elif a.startswith("maxlevel="): maxlevel = int(a.split("=")[1])
         else: ks.append(int(a))
     if shuffle:
-        build(1, sign, subset, shuffle=True)          # 완전 랜덤 대조 (k=1)
+        build(1, sign, subset, shuffle=True, maxlevel=maxlevel)   # 완전 랜덤 대조 (k=1)
     else:
         for k in (ks or [1, 2, 3]):
-            build(k, sign, subset)
+            build(k, sign, subset, maxlevel=maxlevel)

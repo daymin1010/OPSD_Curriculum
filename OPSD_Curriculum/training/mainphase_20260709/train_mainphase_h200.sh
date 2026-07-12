@@ -66,7 +66,7 @@ PORT=$((13100 + SLURM_JOB_ID % 300))
     --num_processes 2 \
     --gradient_accumulation_steps 8 \
     --main_process_port $PORT \
-    train_opsd_curriculum_manifest_once.py \
+    "${TRAIN_SCRIPT:-train_opsd_curriculum_manifest_once.py}" \
     --config "$CONFIG" \
     --arm "$ARM" \
     --stages_json "$ARM_JSON" \

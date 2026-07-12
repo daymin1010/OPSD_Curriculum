@@ -1,10 +1,10 @@
-# FULL 4B config — Qwen3-4B STUDENT with a SEPARATE Qwen3-8B TEACHER (2026-07-12).
+# FULL 4B config — Qwen3-4B STUDENT + separate Qwen3-14B TEACHER (2026-07-12). 진입점: train_opsd_curriculum_extteacher.py
 # = full_4b_main.yaml (context OFF/1024) 이되, 티처를 "같은 4B(LoRA끈 것)+gold"에서
-#   "별도 frozen 8B 모델 + gold"로 교체 (교수님 피드백 #4: 티처 모델 바꾸기).
+#   "별도 frozen 14B 모델 + gold"로 교체 (교수님 피드백 #4: 티처 모델 바꾸기).
 #   - fixed_teacher: false  ← teacher_model_name_or_path와 상호배타(둘 다 학생 재사용 아님)
-#   - teacher_model_name_or_path: Qwen/Qwen3-8B  ← 4B와 vocab 동일(151936) → 토큰단위 KL/JSD 성립
-#   - 8B 티처는 여전히 gold+thinking(attach_gold/teacher_thinking) 특권 입력을 받음.
-#   - vLLM util 0.35로 낮춤(8B 티처 ~16GB 추가분 확보; H100 script는 VLLM_UTIL로 추가 override 가능).
+#   - teacher_model_name_or_path: Qwen/Qwen3-14B  ← 4B와 vocab 동일(151936) → 토큰단위 KL/JSD 성립
+#   - 14B 티처는 여전히 gold+thinking(attach_gold/teacher_thinking) 특권 입력을 받음.
+#   - vLLM util 0.35로 낮춤(14B 티처 ~16GB 추가분 확보; H100 script는 VLLM_UTIL로 추가 override 가능).
 # 기존 4B benchsubj_k2(티처=4B) s42/s43/s45 대비 → "티처만 8B로" 순효과 격리.
 model_name_or_path: Qwen/Qwen3-4B
 torch_dtype: bfloat16
@@ -35,13 +35,13 @@ top_p: 0.95
 top_k: 20
 use_vllm: true
 vllm_mode: colocate
-vllm_gpu_memory_utilization: 0.35
+vllm_gpu_memory_utilization: 0.3
 vllm_tensor_parallel_size: 1
 output_dir: /scratch/lami2026/personal/jimin_2782/checkpoints/opsd_curriculum/full_4b_cliff
 wandb_project: OPSD_Curriculum
 
 fixed_teacher: false
-teacher_model_name_or_path: Qwen/Qwen3-8B
+teacher_model_name_or_path: Qwen/Qwen3-14B
 jsd_token_clip: 0.06
 reason_first: false
 student_thinking: false
