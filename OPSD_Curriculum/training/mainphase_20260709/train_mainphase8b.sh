@@ -5,7 +5,7 @@
 #   ARM ∈ {contsubj_k1, benchsubj_k1, contsubj_k2, benchsubj_k2, benchsubj_k3}
 #   - 매니페스트: mainphase_20260709/stages_${ARM}.json
 #   - config: full_8b_h200.yaml (Qwen3-8B, ctx OFF/1024, fixed teacher — H200과 동일 프로토콜)
-#   - output_dir는 H100 로컬($WORK)로 override. run_config=cliff8b_${ARM} → eval_cliff8b.sh 재사용.
+#   - output_dir는 H100 로컬($WORK)로 override. run_config=${RUN_PREFIX:-cliff8b}_${ARM} → eval_cliff8b.sh 재사용.
 #   - ★ VLLM_UTIL 기본 0.35 (H100 80GB: vLLM 28GB에 8B 가중치 16GB+KV. OOM 시 0.3~0.4 조정)
 #   ⚠️ 2장/arm 고정(B_glob=32). 2 arm 병렬 시 CUDA_VISIBLE_DEVICES=0,1 / 2,3 + PORT 다르게.
 # ============================================================
@@ -19,11 +19,11 @@ NPROC="${NPROC:-2}"
 
 OPSD_SRC=$REPO/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/OPSD_Curriculum/training/curriculum
-STAGES=$REPO/OPSD_Curriculum/training/mainphase_20260709
+STAGES="${STAGES:-$REPO/OPSD_Curriculum/training/mainphase_20260709}"
 ROW=$REPO/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
-if [ -n "$SEED" ]; then RUN_CONFIG=cliff8b_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
-else RUN_CONFIG=cliff8b_${ARM}; SEED_ARGS=""; fi   # eval 호환: eval_cliff8b.sh <ARM[_s<SEED>]>
+if [ -n "$SEED" ]; then RUN_CONFIG=${RUN_PREFIX:-cliff8b}_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
+else RUN_CONFIG=${RUN_PREFIX:-cliff8b}_${ARM}; SEED_ARGS=""; fi   # eval 호환: eval_cliff8b.sh <ARM[_s<SEED>]>
 WORK="${WORK:-$REPO/_run}"
 
 [ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }

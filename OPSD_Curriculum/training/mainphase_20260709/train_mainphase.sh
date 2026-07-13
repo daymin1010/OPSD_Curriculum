@@ -6,7 +6,7 @@
 #   - 매니페스트: mainphase_20260709/stages_${ARM}.json (벤치정렬 + 난이도재배분)
 #   - config: full_4b_main.yaml (context OFF/1024, fixed teacher)
 #   - ★ --allow_duplicate_pids True: 하드 문제 k배 복제가 학습에 반영되게(k=1엔 무영향)
-#   - run_config = cliff4b_${ARM} → 기존 eval_cliff4b.sh <ARM> 그대로 재사용.
+#   - run_config = ${RUN_PREFIX:-cliff4b}_${ARM} → 기존 eval_cliff4b.sh <ARM> 그대로 재사용.
 #   ⚠️ 2장/arm 고정(B_glob=32). 2 arm 병렬 시 CUDA_VISIBLE_DEVICES=0,1 / 2,3 + PORT 다르게.
 # ============================================================
 set -euo pipefail
@@ -19,11 +19,11 @@ NPROC="${NPROC:-2}"
 
 OPSD_SRC=$REPO/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/OPSD_Curriculum/training/curriculum
-STAGES=$REPO/OPSD_Curriculum/training/mainphase_20260709
+STAGES="${STAGES:-$REPO/OPSD_Curriculum/training/mainphase_20260709}"
 ROW=$REPO/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
-if [ -n "$SEED" ]; then RUN_CONFIG=cliff4b_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
-else RUN_CONFIG=cliff4b_${ARM}; SEED_ARGS=""; fi   # eval 호환: eval_cliff4b.sh <ARM[_s<SEED>]>
+if [ -n "$SEED" ]; then RUN_CONFIG=${RUN_PREFIX:-cliff4b}_${ARM}_s${SEED}; SEED_ARGS="--seed $SEED --curriculum_seed $SEED";
+else RUN_CONFIG=${RUN_PREFIX:-cliff4b}_${ARM}; SEED_ARGS=""; fi   # eval 호환: eval_cliff4b.sh <ARM[_s<SEED>]>
 [ -n "${RUN_TAG:-}" ] && RUN_CONFIG=${RUN_CONFIG}_${RUN_TAG}   # 변형 run 구분(예: teach8b) — 같은 ARM/매니페스트, 다른 run_config/체크포인트
 WORK="${WORK:-$REPO/_run}"
 

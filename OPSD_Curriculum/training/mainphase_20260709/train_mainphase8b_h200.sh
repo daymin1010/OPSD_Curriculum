@@ -16,7 +16,7 @@
 #   - 매니페스트: mainphase_20260709/stages_${ARM}.json (벤치정렬 + 난이도재배분)
 #   - config: full_4b_main.yaml (context OFF/1024, fixed teacher) — output_dir 내장
 #   - ★ --allow_duplicate_pids True: 하드 k배 복제 반영(k=1엔 무영향)
-#   - run_config = cliff4b_${ARM} → eval_cliff4b_h200.sh <ARM> 그대로 재사용.
+#   - run_config = ${RUN_PREFIX:-cliff4b}_${ARM} → eval_cliff4b_h200.sh <ARM> 그대로 재사용.
 # ============================================================
 set -euo pipefail
 ARM="${1:?ARM required: benchsubj_k1|benchsubj_k2|benchsubj_k3}"
@@ -25,10 +25,10 @@ CONFIG="${CONFIG:-configs/full_8b_h200.yaml}"
 REPO=/scratch/lami2026/personal/jimin_2782
 OPSD_SRC=$REPO/src/OPSD_Curriculum/training/opsd_src
 CUR=$REPO/src/OPSD_Curriculum/training/curriculum
-STAGES=$REPO/src/OPSD_Curriculum/training/mainphase_20260709
+STAGES="${STAGES:-$REPO/src/OPSD_Curriculum/training/mainphase_20260709}"
 ROW=$REPO/src/OPSD_Curriculum/training/outputs/join_setA_rows.parquet
 ARM_JSON=$STAGES/stages_${ARM}.json
-RUN_CONFIG=cliff8b_${ARM}
+RUN_CONFIG=${RUN_PREFIX:-cliff8b}_${ARM}
 [ -f "$ARM_JSON" ] || { echo "[ERR] manifest 없음: $ARM_JSON" >&2; exit 2; }
 
 echo "=== job=$SLURM_JOB_ID arm=$ARM node=$(hostname) allow_dup=True $(date) ==="

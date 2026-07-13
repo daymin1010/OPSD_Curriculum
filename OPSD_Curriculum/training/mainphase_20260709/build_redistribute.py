@@ -46,13 +46,13 @@ def subject_z(uni):
     return dict(zip(present, z))
 
 
-def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0, shuffle: bool = False, maxlevel: int = 0):
+def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0, shuffle: bool = False, maxlevel: int = 0, lam: float = LAMBDA):
     """subset>0: 유니버스를 level×subject 층화로 subset개로 축소 후 동일 파이프라인.
     (데이터 스케일링 스윕용: T=subset/32로 스텝도 비례 축소됨을 유의.)
     shuffle=True: 완전 랜덤 대조(κ=uniform, level·subject 무시). 4B main_shuffle과 동일 구성. k=1 권장.
     maxlevel>0: 레벨 ≤ maxlevel 문제만 사용(easy-only 커리큘럼; 교수님 피드백 — 4B rationalization
     한계 가설. maxlevel=5면 H={6,7,8}가 공집합 → k 무의미, k=1 권장)."""
-    tag = "shuffle" if shuffle else ("benchsubj" if sign < 0 else "contsubj")   # sign<0 = discrete-late(벤치정렬), >0 = continuous-late(old main); shuffle = 완전 랜덤
+    tag = "shuffle" if shuffle else ("diffonly" if lam == 0 else ("benchsubj" if sign < 0 else "contsubj"))   # sign<0 = discrete-late(벤치정렬), >0 = continuous-late(old main); shuffle = 완전 랜덤; lam=0 = 난이도-only(cliff형)
     rows = pd.read_parquet(PARQUET)
     rows['problem_id'] = rows['problem_id'].astype(str)
     uni = rows[rows['in_setA'] == True].copy()
@@ -83,7 +83,7 @@ def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0, shuffle: bool = Fals
         kappa = rng.uniform(0.0, 1.0, len(pool))
     else:
         kappa = (pool['level'].values
-                 + sign * LAMBDA * pool['subject'].astype(str).map(Z).values
+                 + sign * lam * pool['subject'].astype(str).map(Z).values
                  + rng.uniform(-DELTA, DELTA, len(pool)))
     order = np.argsort(kappa, kind='stable')      # Eq 8: rank(κ)
     Np = len(pool)
@@ -97,7 +97,7 @@ def build(k: int, sign: float = SUBJ_SIGN, subset: int = 0, shuffle: bool = Fals
         ids = [str(pid[j]) for j in idx]          # 중복 pid 그대로 유지
         stages.append({"stage_index": si, "n": len(ids), "problem_ids": ids})
 
-    arm_name = "shuffle" if shuffle else f"{tag}_k{k}"
+    arm_name = tag if shuffle else f"{tag}_k{k}"   # shuffle도 maxlevel/subset 접미사(tag) 유지
     construction = ("random_shuffle(kappa=uniform; level·subject 모두 무시, 완전 랜덤 대조 = 4B main_shuffle 재현)"
                     if shuffle else
                     (f"{'discrete_late(benchmark_aligned)' if sign<0 else 'continuous_late(old_main)'}"
@@ -128,10 +128,12 @@ if __name__ == "__main__":
     #   ex) build_redistribute.py subset=15000 2       → stages_benchsubj_n15k_k2.json
     #   ex) build_redistribute.py shuffle             → stages_shuffle.json (완전 랜덤 대조, k=1)
     #   ex) build_redistribute.py maxlevel=5 1        → stages_benchsubj_L5_k1.json (easy-only)
+    #   ex) build_redistribute.py maxlevel=5 lambda=0 1  → stages_diffonly_L5_k1.json (난이도-only, cliff형)
     sign = SUBJ_SIGN
     subset = 0
     shuffle = False
     maxlevel = 0
+    lam = LAMBDA
     ks = []
     for a in sys.argv[1:]:
         if a in ("cont", "contsubj"): sign = +1.0
@@ -139,9 +141,10 @@ if __name__ == "__main__":
         elif a in ("shuffle", "shuf"): shuffle = True
         elif a.startswith("subset="): subset = int(a.split("=")[1])
         elif a.startswith("maxlevel="): maxlevel = int(a.split("=")[1])
+        elif a.startswith("lambda="): lam = float(a.split("=")[1])
         else: ks.append(int(a))
     if shuffle:
         build(1, sign, subset, shuffle=True, maxlevel=maxlevel)   # 완전 랜덤 대조 (k=1)
     else:
         for k in (ks or [1, 2, 3]):
-            build(k, sign, subset, maxlevel=maxlevel)
+            build(k, sign, subset, maxlevel=maxlevel, lam=lam)

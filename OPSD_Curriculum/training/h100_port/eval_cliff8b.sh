@@ -10,11 +10,11 @@ CUR=$REPO/OPSD_Curriculum/training/curriculum
 EVAL=$OPSD_SRC/eval/evaluate_math.py
 BASE_MODEL=Qwen/Qwen3-8B
 WORK="${WORK:-$REPO/_run}"
-CKPT_BASE="${CKPT_BASE:-$WORK/checkpoints/full_8b/cliff8b_${ARM}}"
+CKPT_BASE="${CKPT_BASE:-$WORK/checkpoints/full_8b/${RUN_PREFIX:-cliff8b}_${ARM}}"
 # 최종 체크포인트 자동 감지 → STEPS에 없으면 추가
 FINAL=$(ls -d "$CKPT_BASE"/checkpoint-* 2>/dev/null | sed 's#.*checkpoint-##' | sort -n | tail -1)
 [ -n "$FINAL" ] && case " $STEPS " in *" $FINAL "*) ;; *) STEPS="$STEPS $FINAL";; esac
-OUTDIR="${OUTDIR:-$WORK/outputs/eval/cliff8b_${ARM}_nonthink}"
+OUTDIR="${OUTDIR:-$WORK/outputs/eval/${RUN_PREFIX:-cliff8b}_${ARM}_nonthink}"
 TP="${TP:-2}"
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1,2,3}"
 export HF_HOME="${HF_HOME:-$WORK/hf}"; export PYTHONNOUSERSITE=1 TOKENIZERS_PARALLELISM=false
@@ -30,7 +30,7 @@ for STEP in $STEPS; do
   [ -d "$CKPT" ] || { echo "[SKIP] $CKPT"; continue; }
   for dv in "aime24 12" "aime25 12" "hmmt25 12" "math500 1" "minerva 1"; do
     ds=$(echo $dv|cut -d' ' -f1); vn=$(echo $dv|cut -d' ' -f2)
-    OUT="$OUTDIR/${ds}_cliff8b_${ARM}_step${STEP}_nonthink_valn${vn}.json"
+    OUT="$OUTDIR/${ds}_${RUN_PREFIX:-cliff8b}_${ARM}_step${STEP}_nonthink_valn${vn}.json"
     [ -f "$OUT" ] && { echo "[SKIP] $(basename $OUT)"; continue; }
     "$ENV_PY" "$EVAL" --base_model "$BASE_MODEL" --checkpoint_dir "$CKPT" \
       --dataset "$ds" --val_n "$vn" --temperature 1.0 \
