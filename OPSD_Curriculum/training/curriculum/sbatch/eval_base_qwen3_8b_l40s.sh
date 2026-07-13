@@ -69,10 +69,11 @@ run_eval() {
 }
 
 echo "########## BASE MODEL EVAL START ##########"
-run_eval aime24 3
-run_eval aime25 3
-run_eval hmmt25 3
+run_eval aime24 12
+run_eval aime25 12
+run_eval hmmt25 12
 run_eval math500 1
+run_eval minerva 1
 echo "########## BASE MODEL EVAL DONE ##########"
 
 echo "ALL EVAL DONE"
