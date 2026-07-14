@@ -11,8 +11,8 @@
 #SBATCH --error=/scratch/lami2026/personal/jimin_2782/runs/slurm-%x.%j.%N.err
 #SBATCH --time=48:00:00
 # 8B 커리큘럼 eval (mainphase 스케일 재현) — arm 인자. step 커브 (기본 100·400·650·900).
-#   사용: sbatch --job-name eval_think4b_<ARM> eval_cliff4b_l40s.sh <ARM> ["100 400 650 900"]
-# AIME24/25 + HMMT25 (val_n=12) + MATH500/Minerva (val_n=1), non-thinking, TP=2. RESUME(있는 json skip).
+#   사용: sbatch --job-name think8b_<ARM> eval_think8b_h200.sh <ARM> ["900"]
+# AIME24/25 + HMMT25 (val_n=12), THINKING mode (--no_thinking 없음, 원저 run_eval.sh 정합), TP=2. RESUME(있는 json skip).
 set -euo pipefail
 ARM="${1:?ARM required}"; STEPS="${2:-}"   # 기본: 최종 체크포인트만(아래 자동감지). 중간 커브 원하면 "100 400 650" 처럼 인자로.
 REPO=/scratch/lami2026/personal/jimin_2782
